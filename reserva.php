@@ -12,8 +12,7 @@ include 'get/info-viaje.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="stripe/index.js" defer></script>
+
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
     <style>
@@ -97,6 +96,12 @@ include 'get/info-viaje.php';
             color: #828282 !important;
             padding: 20px 10px !important;
         }
+        .section_reserva_pay .ticket_personas .list_tickets_total{
+            margin: 10px 0px;
+        }
+        .section_reserva_pay .ticket_personas .btn_next_step{
+            display: none;
+        }
         .ticket_reserva p{
             font-size: 13px;
             color: #4E4E4E;
@@ -109,6 +114,11 @@ include 'get/info-viaje.php';
     </style>
     <?php include 'app/footer.php' ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
- 
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="stripe/index.js" defer></script>
+    <!-- <script>
+        const totalBoletos = 
+        console.log("Total Boletos:", totalBoletos); // Debug: Verifica que el valor se captura correctamente
+    </script> -->
     </body>
 </html>

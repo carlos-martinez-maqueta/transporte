@@ -25,10 +25,10 @@ $destinoList = Destination::getDestinationAll();
             <img src="assets/img/banner_home.png" alt="" class="w-100">
             <div class="buscador_home container">
                 <div class="row justify-content-md-center" style="height: 0px;">
-                    <div class="col-10 row_buscador">
+                    <div class="col-lg-10 col-12 row_buscador">
                         <form action="destinos" method="GET">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-lg col-12 mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <select class="form-select" id="" name="origen" aria-label="Floating label select example" required>
                                             <option value="0" selected>Seleccionar</option>
@@ -41,7 +41,7 @@ $destinoList = Destination::getDestinationAll();
                                         <label for="">Origen</label>
                                     </div>                                   
                                 </div>
-                                <div class="col">
+                                <div class="col-lg col-12 mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <select class="form-select" id="" name="destino" aria-label="Floating label select example" required>
                                             <option value="0" selected>Seleccionar</option>
@@ -54,21 +54,21 @@ $destinoList = Destination::getDestinationAll();
                                         <label for="">Destino</label>
                                     </div>                                   
                                 </div>
-                                <div class="col">
-                                <div class="col">
+                                <div class="col-lg col-12 mb-lg-0 mb-3">
+                                 
                                     <div class="form-floating">
                                         <input type="date" class="form-control" value="<?php echo $today; ?>" id="" name="fecha" placeholder="" required>
                                         <label for="">Fecha</label>
                                     </div>                                     
-                                </div>                                    
+                                                                     
                                 </div>
-                                <div class="col">
+                                <div class="col-lg col-12 mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <input type="number" class="form-control" id="" name="pasajeros" placeholder="" required>
                                         <label for="">Pasajeros</label>
                                     </div>                                     
                                 </div>
-                                <div class="col text-center">
+                                <div class="col-lg col-12 mb-lg-0 mb-3 text-center">
                                     <button type="submit"  class="btn btn-dark"><img class="mx-2" src="assets/img/buscar.svg" alt="">Buscar</button>
                                 </div>
                             </div>

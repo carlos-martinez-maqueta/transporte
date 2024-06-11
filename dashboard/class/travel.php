@@ -48,6 +48,35 @@ class Travel
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
         return $result;
     }
+    public static function getTravelAlls($id)
+    {
+        // Es una variable que esta en otro archivos
+        global $conn;
+        $statement = $conn->prepare("
+        SELECT 
+            tv.*,
+            tor.nombre AS nombreOrigen,
+            tde.nombre AS nombreDestino,
+            tmo.matricula AS matriculaMovilidad,
+            tmo.capacidad_asientos AS capacidadMovilidad
+        FROM 
+            tbl_viajes tv
+        JOIN
+            tbl_origen tor ON tor.id = tv.origen_id
+        LEFT JOIN
+            tbl_destino tde ON tde.id = tv.destino_id
+        LEFT JOIN
+            tbl_movilidad tmo ON tmo.id = tv.movilidad_id
+        WHERE
+            tv.id = :id
+        ORDER BY 
+            tv.fecha_creacion DESC
+            ");
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_OBJ);
+            return $result;
+    }        
     public static function addTravel($origin_id, $destino_id, $movilidad_id, $fecha_inicio, $fecha_fin, $staffId, $precio)
     {
         global $conn;
