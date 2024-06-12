@@ -4,6 +4,9 @@ body{
 header{
     background-color: #ffffff;
 }
+.row_lg_home{
+    height: 0px;
+}
 .banner_div .row_buscador{
     padding: 33px 40px;
     background-color: #ffffff;
@@ -161,6 +164,8 @@ header .ul_header li a{
 }
 .section_steps .border_blanco{
     padding: 0px 0px 10px;
+    display: flex;
+    align-items: center;
 }
 .section_steps .border_azul{
     color: #004AAD;
@@ -169,6 +174,9 @@ header .ul_header li a{
     border-bottom: 3px solid #004AAD;
     padding: 0px 0px 10px;
     width: fit-content;
+    margin: auto;
+    display: flex;
+    align-items: center;
 }
 .section_datos_personales{
     margin: 90px 0px 90px 0px;
@@ -249,15 +257,26 @@ header .ul_header li a{
 .section_datos_personales .ticket_personas .list_tickets_total{
     margin: 30px 0px;
 } 
+.section_datos_personales .ticket_personas .list_tickets_total .span_diferen{
+    font-size: 14px;
+    padding: 0px 11px;
+    font-weight: bold;
+    color: #004aad;
+}
 .section_datos_personales .ticket_personas .list_tickets_total .item_conteo{
     display: flex;
-    justify-content: space-around;
-    padding: 20px 30px;
+    justify-content: space-between;
+    padding: 20px 10px;
     color: #878787;
     font-size: 14px;
     font-weight: bold;
 }     
-
+.section_datos_personales .ticket_personas .list_tickets_total .item_conteo_monto_total {
+    display: flex;
+    justify-content: space-between !important;
+    color: #828282 !important;
+    padding: 20px 10px 0px !important; 
+}
 .footer_sections{
     position: relative;
 }

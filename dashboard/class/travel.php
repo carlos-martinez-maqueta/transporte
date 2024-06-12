@@ -51,7 +51,7 @@ class Travel
         LEFT JOIN
             tbl_movilidad tmo ON tmo.id = tv.movilidad_id
         ORDER BY 
-            tv.fecha_creacion DESC
+            tv.fecha_inicio DESC
             ");
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_OBJ);

@@ -4,7 +4,7 @@
             <div class="row py-5">
                 <div class="col-lg-3">
                     <div class="">
-                        <img src="assets/img/logo_footer.svg" alt="" class="mb-5">
+                        <img src="assets/img/logo_footer.svg" alt="" class="img_footer_logo mb-5">
                             <p>Lorem ipsum es el texto que se usa
                             habitualmente en diseño gráfico en
                             demostraciones de tipografías o de
@@ -12,7 +12,7 @@
                             diseño visual antes de insertar el texto fina.</p>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6">
                     <div class="px-3">
                         <h3>Servicios</h3>
                         <ul>
@@ -27,7 +27,7 @@
                         </ul>                            
                     </div>                        
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6">
                     <div class="px-3">
                         <h3>Nosotros</h3>
                         <ul>
@@ -42,7 +42,7 @@
                         </ul>                             
                     </div>                                               
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-12">
                     <h3>Redes Sociales</h3>
                     <ul>
                         <li><a href=""><img src="assets/img/fb.svg" alt=""></a></li>
@@ -58,10 +58,10 @@
     <section class="section_mini_footer">
         <div class="container">
             <div class="row py-3">
-                <div class="col-10">
+                <div class="col-lg-10 col-12 center_mobile">
                     <p class="m-0">@ Transporte Safe | Todos los derechos reservados | Desarrollado por  <a href="" class="web_dev">DIINTEC Solutions</a></p>
                 </div>
-                <div class="col-2 text-end">
+                <div class="col-lg-2 col-12 text-end center_mobile">
                     <p class="m-0"><a href="">Facebook</a></p>
                 </div>
             </div>            

@@ -1,10 +1,10 @@
 <header>
     <div class="container-fluid">
         <div class="row align-items-center">
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-12 center_logo">
                 <div><a href="index"><img src="assets/img/logo_header.svg" alt="" class="img-fluid"></a></div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-8">
                 <ul class="ul_header">
                     <li class="active"><a href="index">Inicio</a></li>
                     <li><a href="destinos">Destinos</a></li>
@@ -12,7 +12,7 @@
                     <li><a href="contacto">Contacto</a></li>
                 </ul>
             </div>
-            <div class="col-lg-3 text-end ">
+            <div class="col-lg-3 col-4 text-end ">
                 <?php if ($user): ?>
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

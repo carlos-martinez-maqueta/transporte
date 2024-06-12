@@ -15,45 +15,14 @@ if (isset($_SESSION['user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/login-usuario.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
 </head>
-
-<style>
-    .section_cuadrados{
-        height: 100vh;
-    }
-    .section_cuadrados .sec_black{
-        background-color: #010409;
-    }
-    .section_cuadrados .sec_black div{
-        height: 100%;
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    margin: auto;
-    }
-    .section_cuadrados .sec_white .clas_form{
-        height: 100%;
-        width: fit-content;
-        margin: auto;
-        display: flex;
-        align-items: center;
-    }
-    .section_cuadrados .sec_white .clas_form h3{
-        font-size: 45px;
-        font-weight: bold;
-        margin: 90px 0px 0px;
-    }
-    .section_cuadrados .sec_white .clas_form .a_home a{
-        color: #000000 !important;
-        font-weight: bold;
-        text-decoration: none;
-    }
-</style>
   <body>    
     <section class="section_cuadrados section_register">
         <div class="container-fluid h-100">
             <div class="row h-100">
-                <div class="col-lg-6 sec_black">
+                <div class="col-lg-6 sec_black d-lg-block d-none">
                     <div><img src="assets/img/register.png" alt=""></div>
                 </div>
                 <div class="col-lg-6 sec_white">
@@ -67,13 +36,13 @@ if (isset($_SESSION['user'])) {
                             
                             <form action="" class="form_register mt-5">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 col-md-6 col-6">
                                         <div class="form-floating mb-3 ">
                                             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
                                             <label for="floatingInput">Nombre</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 col-md-6 col-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
                                             <label for="floatingInput">Apellidos</label>
@@ -81,13 +50,13 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 col-md-6 col-6">
                                         <div class="form-floating mb-3 ">
                                             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
                                             <label for="floatingInput">Correo Electronico</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 col-md-6 col-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
                                             <label for="floatingInput">Celular</label>
@@ -95,13 +64,13 @@ if (isset($_SESSION['user'])) {
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 col-md-6 col-6">
                                         <div class="form-floating mb-3 ">
                                             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
                                             <label for="floatingInput">Nombre de Usuario (NICK)</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 col-md-6 col-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
                                             <label for="floatingInput">Contraseña</label>
@@ -111,7 +80,7 @@ if (isset($_SESSION['user'])) {
                                 <button type="button" class="btn btn-dark w-100">Registrarse</button>
                             </form>
                             <div  class="mt-4">
-                                <p class=" text-center">Ya tienes una cuenta? <a href="login">Ingresa Aquí</a></p>
+                                <p class=" text-center">Ya tienes una cuenta? <a href="login-usuario">Ingresa Aquí</a></p>
                                 <p class="m-0">Empieza cada día con la determinación de hacer posible lo imposible. ¡Bienvenido!</p>
                             </div>
                         </div>

@@ -22,13 +22,14 @@ $destinoList = Destination::getDestinationAll();
 
     <section class="banner_div">
         <div class="">
-            <img src="assets/img/banner_home.png" alt="" class="w-100">
+            <img src="assets/img/banner_home.png" alt="" class="d-lg-block d-none w-100">
+            <img src="assets/img/banner_home_mobile.png" alt="" class="d-lg-none d-block w-100">
             <div class="buscador_home container">
-                <div class="row justify-content-md-center" style="height: 0px;">
+                <div class="row justify-content-md-center row_lg_home">
                     <div class="col-lg-10 col-12 row_buscador">
                         <form action="destinos" method="GET">
                             <div class="row">
-                                <div class="col-lg col-12 mb-lg-0 mb-3">
+                                <div class="col-lg col-md col-6 mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <select class="form-select" id="" name="origen" aria-label="Floating label select example" required>
                                             <option value="0" selected>Seleccionar</option>
@@ -41,7 +42,7 @@ $destinoList = Destination::getDestinationAll();
                                         <label for="">Origen</label>
                                     </div>                                   
                                 </div>
-                                <div class="col-lg col-12 mb-lg-0 mb-3">
+                                <div class="col-lg col-md col-6 mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <select class="form-select" id="" name="destino" aria-label="Floating label select example" required>
                                             <option value="0" selected>Seleccionar</option>
@@ -54,7 +55,7 @@ $destinoList = Destination::getDestinationAll();
                                         <label for="">Destino</label>
                                     </div>                                   
                                 </div>
-                                <div class="col-lg col-12 mb-lg-0 mb-3">
+                                <div class="col-lg col-md col-6 mb-lg-0 mb-3">
                                  
                                     <div class="form-floating">
                                         <input type="date" class="form-control" value="<?php echo $today; ?>" id="" name="fecha" placeholder="" required>
@@ -62,13 +63,13 @@ $destinoList = Destination::getDestinationAll();
                                     </div>                                     
                                                                      
                                 </div>
-                                <div class="col-lg col-12 mb-lg-0 mb-3">
+                                <div class="col-lg col-md col-6 mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <input type="number" class="form-control" id="" name="pasajeros" placeholder="" required>
                                         <label for="">Pasajeros</label>
                                     </div>                                     
                                 </div>
-                                <div class="col-lg col-12 mb-lg-0 mb-3 text-center">
+                                <div class="col-lg col-md col-12 mb-lg-0 mb-3 text-center">
                                     <button type="submit"  class="btn btn-dark"><img class="mx-2" src="assets/img/buscar.svg" alt="">Buscar</button>
                                 </div>
                             </div>
@@ -82,7 +83,7 @@ $destinoList = Destination::getDestinationAll();
     <section class="publicidad_div py-5">
         <div class="container">
             <div class="row justify-content-md-center">
-                <div class="col-8">
+                <div class="col-lg-8 col-12">
                     <div class="publicidad_img">
                         <img src="assets/img/publicidad.png" alt="" class="img-fluid">
                     </div>

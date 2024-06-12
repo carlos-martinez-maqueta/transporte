@@ -6,6 +6,7 @@ if (isset($_SESSION['id'])){
     $nombre =  $_SESSION['nombre'];
     $apellidos =  $_SESSION['apellidos'];
     $correo =  $_SESSION['correo'];
+    $telefono =  $_SESSION['telefono'];
 }else{
  $user = '';
 }
@@ -22,8 +23,24 @@ $pasajeros = isset($_GET['pasajeros']) ? $_GET['pasajeros'] : 1;
 
 $travelList = Travel::getTravelAlls($viajeid); 
 
-// echo $travelList->id;
-// var_dump($travelList);
+$idmovil = $travelList->movilidad_id;
+$movilidad = Mobility::getMobilityId($idmovil); 
+
+$plantilla_id = $movilidad->plantilla_id;
+$plantilla = Plantilla::getPlantillaId($plantilla_id);
+ 
+ $asientos = Asientos::getAsientosByViajeId($viajeid);
+ 
+
+var_dump($travelList); 
+echo '<br>';
+var_dump($movilidad); 
+echo '<br>';
+var_dump($plantilla);
+echo '<br>';
+echo "<pre>";
+print_r($asientos);
+echo "</pre>";
 
 $totalboletos = $pasajeros *  $travelList->precio;
 
