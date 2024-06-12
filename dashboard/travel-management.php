@@ -194,6 +194,7 @@ $mobilityObj = Mobility::getMobilityAllActive();
                                 <th class="text-center" scope="col">DESTION</th>
                                 <th class="text-center" scope="col">MOVILIDAD</th>
                                 <th class="text-center" scope="col">ASIENTOS</th>
+                                <th class="text-center" scope="col">ASIENTOS DISPONIBLES</th>
                                 <th class="text-center" scope="col">FECHA INICIO</th>
                                 <th class="text-center" scope="col">FECHA FIN</th>
                                 <th class="text-center" scope="col">FECHA CREACION</th>

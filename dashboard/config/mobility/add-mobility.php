@@ -1,6 +1,7 @@
 <?php
 include '../conexion.php';
 include '../../class/mobility.php';
+include '../../class/travel.php';
 include '../../core/Security.php';
 
 session_start();
@@ -13,21 +14,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $marca =  !empty($_POST['marca']) ? $_POST['marca'] : null;
     $modelo =  !empty($_POST['modelo']) ? $_POST['modelo'] : null;
     $color =  !empty($_POST['color']) ? $_POST['color'] : null;
-    $cantidad_asientos =  !empty($_POST['cantidad_asientos']) ? $_POST['cantidad_asientos'] : null;
     $tipo_vehiculo =  !empty($_POST['tipo_vehiculo']) ? $_POST['tipo_vehiculo'] : null;
+    $plantilla_id =  !empty($_POST['plantilla_id']) ? $_POST['plantilla_id'] : null;
+
+
+
+
+    $templateObj = Travel::getTemplateId($plantilla_id);
+
+    $cantidad_asientos = $templateObj->numero_asientos;
+
 
 
 
     // Editar el resto de los campos
-    $result = Mobility::addMobility($matricula, $marca, $modelo, $color, $cantidad_asientos, $tipo_vehiculo);
+    $result = Mobility::addMobility($matricula, $marca, $modelo, $color, $cantidad_asientos, $tipo_vehiculo, $plantilla_id);
 
 
     if ($result->execute()) {
 
         $lastInsertedId = $conn->lastInsertId();
 
-         // Verificar si se envió una nueva imagen
-         if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] === UPLOAD_ERR_OK) {
+        // Verificar si se envió una nueva imagen
+        if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] === UPLOAD_ERR_OK) {
             // Generar un nombre único para el archivo
             $nombreArchivoUnico = uniqid('image_', true) . '.' . pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
             $rutaDestino = "../../files/mobility/" . $nombreArchivoUnico;

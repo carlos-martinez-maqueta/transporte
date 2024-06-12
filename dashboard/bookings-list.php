@@ -176,73 +176,10 @@ $usersObj = User::getUserAllActive();
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800 d-flex align-items-center gap-2 font_two"><i class="bx bx-library me-1"></i> Listado Reservas</h1>
             <div class="d-flex gap-1">
-                <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-user-plus me-1'></i> Agregar</a>
+                <a href="add-booking" class="btn btn-primary d-flex align-items-center"><i class='bx bx-user-plus me-1'></i> Agregar</a>
             </div>
         </div>
-        <!-- Modal Agregar -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <form id="addTravel" method="POST" enctype="multipart/form-data">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Viajes</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select selectProduct" id="floatingSelect" name="origin_id">
-                                        <option value="" selected>Seleccionar una opción</option>
-                                        <?php foreach ($origenObj as $result) : ?>
-                                            <option value="<?= htmlspecialchars($result->id) ?>"><?= htmlspecialchars($result->nombre) ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <label for="floatingSelect">Origen</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <select class="form-select selectProduct" id="floatingSelect" name="destino_id">
-                                        <option value="" selected>Seleccionar una opción</option>
-                                        <?php foreach ($destinationObj as $result) : ?>
-                                            <option value="<?= htmlspecialchars($result->id) ?>"><?= htmlspecialchars($result->nombre) ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <label for="floatingSelect">Destino</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <select class="form-select selectProduct" id="floatingSelect" name="movilidad_id">
-                                        <option value="" selected>Seleccionar una opción</option>
-                                        <?php foreach ($mobilityObj as $result) : ?>
-                                            <option value="<?= htmlspecialchars($result->id) ?>">
-                                                <?= htmlspecialchars($result->matricula) ?> -
-                                                <?= htmlspecialchars($result->capacidad_asientos) ?> asientos -
-                                                <?= htmlspecialchars($result->tipo_vehiculo) ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <label for="floatingSelect">Movilidad</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" type="datetime-local" id="fecha-hora" name="fecha_inicio">
-                                    <label for="fecha-hora">Fecha Inicio:</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" type="datetime-local" id="fecha-hora" name="fecha_fin">
-                                    <label for="fecha-hora">Fecha Fin:</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="precio" placeholder="name@example.com" name="precio" required>
-                                    <label for="floatingInput">Precio</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary"><i class='bx bx-save me-1'></i>Guardar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+ 
         <!-- Modal Detalles de Reserva -->
         <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">

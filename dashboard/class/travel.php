@@ -13,6 +13,15 @@ class Travel
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result;
     }
+    public static function getMarvelAll()
+    {
+        global $conn;
+        $statement = $conn->prepare("SELECT * FROM tbl_viajes WHERE count > 0 AND estado = 'disponible'");
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_OBJ);
+        return $results;
+    }
+
     public static function getMarvelId($id)
     {
         global $conn;
@@ -72,11 +81,29 @@ class Travel
         ORDER BY 
             tv.fecha_creacion DESC
             ");
-            $statement->bindValue(":id", $id);
-            $statement->execute();
-            $result = $statement->fetch(PDO::FETCH_OBJ);
-            return $result;
-    }        
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
+    public static function getMarvelPlantillaId($id)
+    {
+        global $conn;
+
+        // Obtener el ID de la movilidad asociada al viaje
+        $statement = $conn->prepare("SELECT movilidad_id FROM tbl_viajes WHERE id=:id");
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+        $movilidad_id = $statement->fetchColumn();
+
+        // Obtener el plantilla_id asociado a la movilidad
+        $statement = $conn->prepare("SELECT plantilla_id FROM tbl_movilidad WHERE id=:movilidad_id");
+        $statement->bindValue(":movilidad_id", $movilidad_id);
+        $statement->execute();
+        $plantilla_id = $statement->fetchColumn();
+        return $plantilla_id;
+    }
+
     public static function addTravel($origin_id, $destino_id, $movilidad_id, $fecha_inicio, $fecha_fin, $staffId, $precio)
     {
         global $conn;
@@ -97,10 +124,19 @@ class Travel
             $nuevo_correlativo = 'TSB-001';
         }
 
-        $sql = "INSERT INTO tbl_viajes (correlativo, origen_id, destino_id, movilidad_id, fecha_inicio, fecha_fin, fecha_creacion, estado, staff_id, precio) 
-                VALUES (:correlativo, :origen_id, :destino_id, :movilidad_id, :fecha_inicio, :fecha_fin, NOW(), 'disponible', :staff_id, :precio)";
+        // Obtener la capacidad de asientos de la tabla tbl_movilidad
+        $sql_capacidad = "SELECT capacidad_asientos FROM tbl_movilidad WHERE id = :movilidad_id";
+        $stmt_capacidad = $conn->prepare($sql_capacidad);
+        $stmt_capacidad->bindParam(':movilidad_id', $movilidad_id);
+        $stmt_capacidad->execute();
+        $capacidad_asientos = $stmt_capacidad->fetchColumn();
+
+        // Insertar el nuevo viaje en la tabla tbl_viajes
+        $sql = "INSERT INTO tbl_viajes (correlativo, count, origen_id, destino_id, movilidad_id, fecha_inicio, fecha_fin, fecha_creacion, estado, staff_id, precio) 
+                VALUES (:correlativo, :count, :origen_id, :destino_id, :movilidad_id, :fecha_inicio, :fecha_fin, NOW(), 'disponible', :staff_id, :precio)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':correlativo', $nuevo_correlativo);
+        $stmt->bindParam(':count', $capacidad_asientos);
         $stmt->bindParam(':origen_id', $origin_id);
         $stmt->bindParam(':destino_id', $destino_id);
         $stmt->bindParam(':movilidad_id', $movilidad_id);
@@ -110,6 +146,7 @@ class Travel
         $stmt->bindParam(':precio', $precio);
         return $stmt;
     }
+
 
 
     public static function editTravelId($id, $origin_id, $destino_id, $movilidad_id, $fecha_inicio, $fecha_fin, $estado)
@@ -139,5 +176,22 @@ class Travel
         $stmt->bindParam(':celular', $celular);
         $stmt->bindParam(':pass', $pass);
         return $stmt;
+    }
+    public static function getTemplateAll()
+    {
+        global $conn;
+        $statement = $conn->prepare("SELECT * FROM tbl_plantillas");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+        return $result;
+    }
+    public static function getTemplateId($id)
+    {
+        global $conn;
+        $statement = $conn->prepare("SELECT * FROM tbl_plantillas WHERE id=:id");
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result;
     }
 }

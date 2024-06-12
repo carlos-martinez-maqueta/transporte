@@ -1,6 +1,7 @@
 <?php include 'app/components/header.php';
 
 $movilidadObj = Mobility::getMobilityAll();
+$templateArray = Travel::getTemplateAll();
 ?>
 
 <?php include 'app/components/sidebar.php'; ?>
@@ -62,16 +63,21 @@ $movilidadObj = Mobility::getMobilityAll();
                                     <label for="floatingInput">Color</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="cantidad_asientos" required>
-                                    <label for="floatingInput">Capacidad de Asientos</label>
-                                </div>
-                                <div class="form-floating mb-3">
                                     <select class="form-select" aria-label="Default select example" name="tipo_vehiculo" required>
                                         <option value="MINIVAN">MINIVAN</option>
                                         <option value="AUTOBUS">AUTOBUS</option>
                                         <option value="CAMION">CAMION</option>
                                     </select>
                                     <label for="floatingInput">Tipo de Vehiculo</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select class="form-select selectProduct" id="floatingSelect" name="plantilla_id">
+                                        <option value="" selected>Seleccionar una opción</option>
+                                        <?php foreach ($templateArray as $result) : ?>
+                                            <option value="<?= htmlspecialchars($result->id) ?>"><?= htmlspecialchars($result->nombre) ?> - N° Asientos: <?= htmlspecialchars($result->numero_asientos) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <label for="floatingSelect">Plantillas</label>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +122,7 @@ $movilidadObj = Mobility::getMobilityAll();
                                     <label for="floatingInput">Color</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="cantidad_asientos" placeholder="name@example.com" name="cantidad_asientos" required>
+                                    <input type="text" class="form-control" id="cantidad_asientos" placeholder="name@example.com" disabled>
                                     <label for="floatingInput">Capacidad de Asientos</label>
                                 </div>
                                 <div class="form-floating mb-3">

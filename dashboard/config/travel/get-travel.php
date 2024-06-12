@@ -16,3 +16,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'get_all_travel_id') {
     $result = Travel::getMarvelId($id);
     echo json_encode($result);
 }
+if (isset($_POST['action']) && $_POST['action'] == 'get_plantilla') {
+    $id = $_POST['travelId'];
+    $result = Travel::getMarvelPlantillaId($id);
+    echo json_encode($result);
+}

@@ -29,11 +29,11 @@ class Mobility
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result;
     }
-    public static function addMobility($matricula, $marca, $modelo, $color, $cantidad_asientos, $tipo_vehiculo)
+    public static function addMobility($matricula, $marca, $modelo, $color, $cantidad_asientos, $tipo_vehiculo, $plantilla_id)
     {
         global $conn;
-        $sql = "INSERT INTO tbl_movilidad (matricula, marca, modelo, color, capacidad_asientos, tipo_vehiculo, fecha_creacion, estado) 
-        VALUES (:matricula, :marca, :modelo, :color, :cantidad_asientos, :tipo_vehiculo, NOW(), 'disponible')";
+        $sql = "INSERT INTO tbl_movilidad (matricula, marca, modelo, color, capacidad_asientos, tipo_vehiculo, fecha_creacion, estado, plantilla_id) 
+        VALUES (:matricula, :marca, :modelo, :color, :cantidad_asientos, :tipo_vehiculo, NOW(), 'disponible', :plantilla_id)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':matricula', $matricula);
         $stmt->bindParam(':marca', $marca);
@@ -41,6 +41,7 @@ class Mobility
         $stmt->bindParam(':color', $color);
         $stmt->bindParam(':cantidad_asientos', $cantidad_asientos);
         $stmt->bindParam(':tipo_vehiculo', $tipo_vehiculo);
+        $stmt->bindParam(':plantilla_id', $plantilla_id);
         return $stmt;
     }
     public static function editImageMobility($id, $banner)

@@ -101,6 +101,7 @@ function getTable(dataTable) {
           '<td class="align-middle text-center">' + result.nombreDestino + '</td>' +
           '<td class="align-middle text-center">' + result.matriculaMovilidad + '</td>' +
           '<td class="align-middle text-center">' + result.capacidadMovilidad + '</td>' +
+          '<td class="align-middle text-center">' + result.count + '</td>' +
           '<td class="align-middle text-center">' + fechaIni + '</td>' +
           '<td class="align-middle text-center">' + fechaFin + '</td>' +
           '<td class="align-middle text-center">' + fechaCreacion + '</td>' +
