@@ -331,3 +331,12 @@ header .ul_header li a{
 .section_datos_personales .item_conteo .precio_conteo b{
     
 }
+.btn_detalle_main a{
+    color: #ffffff;
+    text-decoration: underline;
+    font-size: 13px;
+}
+.collapse_detalles p{
+    margin: 0px;
+    font-size: 12px;
+}

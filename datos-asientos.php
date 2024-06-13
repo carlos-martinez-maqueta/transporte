@@ -145,6 +145,9 @@ $descuentoboleto = $totalboletos / 2;
                                     width: 100%;
                                     height: auto;
                                 }
+                                .asiento.disponible{
+                                    cursor: pointer;
+                                }
                                 .driver-seat {
                                     display: flex;
                                     align-items: center;
@@ -187,12 +190,12 @@ $descuentoboleto = $totalboletos / 2;
                                                                         $imgSrc = "assets/img/svg/asiento_seleccionado.svg"; // Asiento reservado
                                                                     }
                                                                     ?>
-                                                                    <div class="asiento <?= $estado ?>" id="seat-<?= htmlspecialchars($asiento->asiento); ?>" data-id="<?= htmlspecialchars($asiento->asiento); ?>">
-                                                                        <img src="<?= $imgSrc ?>" alt="">
-                                                                        <div style="position: absolute; top: 16px;left: 12px;">
-                                                                            <span style="font-size: 9px;"><?= htmlspecialchars($asiento->asiento); ?></span>
-                                                                        </div>
-                                                                    </div>
+<div class="asiento <?= $estado ?>" id="<?= htmlspecialchars($asiento->asiento); ?>" data-id="<?= htmlspecialchars($asiento->id); ?>">
+    <img src="<?= $imgSrc ?>" alt="">
+    <div style="position: absolute; top: 16px;left: 12px;">
+        <span style="font-size: 9px;"><?= htmlspecialchars($asiento->asiento); ?></span>
+    </div>
+</div>
                                                                     <?php 
                                                                     $index++; 
                                                                 }
@@ -250,69 +253,62 @@ $descuentoboleto = $totalboletos / 2;
             window.location.href = `reserva?idviaje=${viajeid}&pasajeros=${pasajeros}`;
         });
 
-
-        // JavaScript para manejar la selección de asientos
         document.addEventListener('DOMContentLoaded', function() {
-            // Limpiar el localStorage cuando se carga la página
-            localStorage.removeItem('reservedSeats');
+    // Limpiar el localStorage cuando se carga la página
+    localStorage.removeItem('reservedSeats');
 
-            const seats = document.querySelectorAll('.asiento');
-            const urlParams = new URLSearchParams(window.location.search);
-            const maxSeats = parseInt(urlParams.get('pasajeros')) || 1;
-            let selectedSeatsCount = 0;
+    const seats = document.querySelectorAll('.asiento');
+    const urlParams = new URLSearchParams(window.location.search);
+    const maxSeats = parseInt(urlParams.get('pasajeros')) || 1;
+    let selectedSeats = [];
 
-            seats.forEach(function(seat) {
-                seat.addEventListener('click', function() {
-                    if (seat.classList.contains('disponible')) {
-                        if (selectedSeatsCount < maxSeats) {
-                            seat.classList.remove('disponible');
-                            seat.classList.add('reservado');
-                            seat.querySelector('img').src = 'assets/img/svg/asiento_seleccionado.svg';
-                            saveSeatToLocalStorage(seat.dataset.id);
-                            selectedSeatsCount++;
-                        } else {
-                            alert('Has alcanzado el número máximo de asientos que puedes seleccionar.');
-                        }
-                    } else if (seat.classList.contains('reservado')) {
-                        seat.classList.remove('reservado');
-                        seat.classList.add('disponible');
-                        seat.querySelector('img').src = 'assets/img/svg/asiento_vacio.svg';
-                        removeSeatFromLocalStorage(seat.dataset.id);
-                        selectedSeatsCount--;
-                    }
-                });
-            });
+    seats.forEach(function(seat) {
+        seat.addEventListener('click', function() {
+            const seatId = seat.getAttribute('id'); // Obtener el nombre del asiento
+            const seatName = seat.getAttribute('data-id'); // Obtener el ID del asiento
 
-            function saveSeatToLocalStorage(seatId) {
-                let reservedSeats = JSON.parse(localStorage.getItem('reservedSeats')) || [];
-                if (!reservedSeats.includes(seatId)) {
-                    reservedSeats.push(seatId);
+            if (seat.classList.contains('disponible')) {
+                if (selectedSeats.length < maxSeats) {
+                    seat.classList.remove('disponible');
+                    seat.classList.add('reservado');
+                    seat.querySelector('img').src = 'assets/img/svg/asiento_seleccionado.svg';
+
+                    // Guardar el objeto asiento en localStorage
+                    selectedSeats.push({ id: seatId, asiento: seatName });
+                    localStorage.setItem('reservedSeats', JSON.stringify(selectedSeats));
+                } else {
+                    alert('Has alcanzado el número máximo de asientos que puedes seleccionar.');
                 }
-                localStorage.setItem('reservedSeats', JSON.stringify(reservedSeats));
-            }
+            } else if (seat.classList.contains('reservado')) {
+                seat.classList.remove('reservado');
+                seat.classList.add('disponible');
+                seat.querySelector('img').src = 'assets/img/svg/asiento_vacio.svg';
 
-            function removeSeatFromLocalStorage(seatId) {
-                let reservedSeats = JSON.parse(localStorage.getItem('reservedSeats')) || [];
-                reservedSeats = reservedSeats.filter(id => id !== seatId);
-                localStorage.setItem('reservedSeats', JSON.stringify(reservedSeats));
+                // Eliminar el asiento del arreglo seleccionado
+                selectedSeats = selectedSeats.filter(seat => seat.id !== seatId);
+                localStorage.setItem('reservedSeats', JSON.stringify(selectedSeats));
             }
-
-            // Restaurar asientos reservados desde localStorage
-            function restoreReservedSeats() {
-                let reservedSeats = JSON.parse(localStorage.getItem('reservedSeats')) || [];
-                reservedSeats.forEach(function(seatId) {
-                    const seat = document.getElementById(`seat-${seatId}`);
-                    if (seat) {
-                        seat.classList.remove('disponible');
-                        seat.classList.add('reservado');
-                        seat.querySelector('img').src = 'assets/img/svg/asiento_seleccionado.svg';
-                        selectedSeatsCount++;
-                    }
-                });
-            }
-
-            restoreReservedSeats();
         });
+    });
+
+    // Restaurar asientos reservados desde localStorage
+    function restoreReservedSeats() {
+        let reservedSeats = JSON.parse(localStorage.getItem('reservedSeats')) || [];
+        reservedSeats.forEach(function(seat) {
+            const seatElement = document.getElementById(seat.id);
+            if (seatElement) {
+                seatElement.classList.remove('disponible');
+                seatElement.classList.add('reservado');
+                seatElement.querySelector('img').src = 'assets/img/svg/asiento_seleccionado.svg';
+            }
+        });
+    }
+
+    restoreReservedSeats();
+});
+
+
+
     </script>
     </body>
 </html>

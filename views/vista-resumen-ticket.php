@@ -11,7 +11,19 @@
             <div><b><?=$travelList->nombreDestino;?></b></div>
             <div><p class="d-block"><img src="assets/img/svg/hora.svg" alt=""><?= $hora_inicio ?> - <?= $hora_fin ?></p></div>
             <div><?= $total_horas ?> hr aprox. | Directo</div>
-        </div>                                        
+        </div>                                       
+    </div>
+    <p class="d-inline-flex gap-1 btn_detalle_main mb-1 mt-4">
+        <a class="btn btn-warning" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <img src="assets/img/detail.svg" class="img-fluid" alt="">  Ver Detalles
+        </a>
+    </p> 
+    <div class="collapse collapse_detalles" id="collapseExample">
+        <div class="card card-body">
+           <p>Mátricula de Movilidad: <?=$travelList->matriculaMovilidad;?></p>
+           <p>Tipo de Vehiculo: <?=$movilidad->tipo_vehiculo;?></p>
+           <p>Modelo: <?=$movilidad->modelo;?></p>
+        </div>
     </div>
 </div>
 <div class="ticket_personas">

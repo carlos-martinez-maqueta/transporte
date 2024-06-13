@@ -7,58 +7,7 @@ include 'dashboard/class/asientos.php';
 session_start(); // Inicia la sesión al comienzo del archivo
 include 'get/info-viaje.php';
  
-
-
-require_once 'mailer/lib/PHPMailer/Exception.php';
-require_once 'mailer/lib/PHPMailer/PHPMailer.php';
-require_once 'mailer/lib/PHPMailer/SMTP.php';
-require_once 'mailer/vendor/autoload.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
-
-
-    $nombre = 'Carlos Martinez';
-
-
-        // Envío de correo electrónico
-        $correo = "cmartinez.meneses1@gmail.com"; // Cambia esta dirección de correo
-        $mail = new PHPMailer();
-        $mail->isSMTP();
-        $mail->Host = 'mail.valuepay.online';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'no-reply@valuepay.online';
-        $mail->Password = 'gwkdWZvQ26cPzKi';
-        $mail->Port = 587;
-
-        $mail->setFrom('no-reply@valuepay.online', 'NOTIFICACIONES CONEXA');
-        // $mail->addAddress($correo);
-        $mail->addAddress($correo);
-        $mail->Subject = 'XXX';
-        $mail->CharSet = 'UTF-8';
-        $mail->isHTML(true);
-
-        $messages =  '
-        <div style="max-width: 450px;">
-            <img src="https://kingdomyouube.com/images/logo.png" alt="">
-            <h2>Estimado '.$nombre.',</h2>
-            <p>Gracias por reservar en Transporte Safe. <br> 
-                El detalle de su reserva está detallado en el siguiente QR, <br> queremos expresarle nuestra gratitud y confianza. </p> 
-            
-            
-            <img src="https://kingdomyouube.com/images/cas.png" alt="" style="width: 150px;">
-        </div>
-        ';
-
-        $mail->Body = $messages;
-
-        // Enviar el correo de confirmación
-        if ($mail->send()) {
-            echo 'El correo de confirmación se ha enviado correctamente.';
-        } else {
-            echo 'Hubo un error al enviar el correo de confirmación: ' . $mail->ErrorInfo;
-        }
+$descuentoboleto = $totalboletos / 2;
 
 ?>
 <!doctype html>
@@ -94,12 +43,16 @@ use PHPMailer\PHPMailer\SMTP;
             background-color: #ffffff;
         }
         .sections_pay_done .pay_done .div_borders .ticket_personas .item_conteo{
-            padding: 0px;
+           
         }
         .sections_pay_done .pay_done .div_borders .ticket_personas .btn_next_step{
             display: none;
         }
+        .terminos_asientos{
+            display: none;
+        }
     </style>
+ 
     <section class="sections_pay_done py-5 section_datos_personales">
         <div class="container">
             <div class="row     align-items-center">
@@ -110,7 +63,7 @@ use PHPMailer\PHPMailer\SMTP;
                     <div class="pay_done">
                         <h3>Gracias por tu Compra!</h3>
 
-                        <p class="send_mail">Tus boletos serán enviados a <b>correo@gmail.com</b></p>
+                        <p class="send_mail">Tus boletos serán enviados a <b id="correo"></b></p>
                         <div class="div_borders">
                             <?php include 'views/vista-resumen-ticket.php' ?>
                         </div>
@@ -126,5 +79,67 @@ use PHPMailer\PHPMailer\SMTP;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/contenido.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
+    <script>
+        function reservar() {
+            // Obtener datos del localStorage
+            const viaje_id = localStorage.getItem('viaje');
+            const asientos_reservados = localStorage.getItem('asientos_reservados');
+            const precio = localStorage.getItem('totalBoletos');
+            const reservadoas = localStorage.getItem('reservedSeats');
+            const acompanantes = localStorage.getItem('acompanantes');
+
+            const correo = localStorage.getItem('correo');
+            const apellidos = localStorage.getItem('apellidos');
+            const telefono = localStorage.getItem('telefono');
+            const nombre =localStorage.getItem('nombre');
+
+            // Preparar los datos a enviar
+            const data = {
+                viaje_id: viaje_id,
+                asientos_reservados: asientos_reservados,
+                precio: precio,
+                reservadoas: reservadoas,
+                acompanantes: acompanantes,
+                correo: correo,
+                apellidos: apellidos,
+                telefono: telefono,
+                nombre: nombre
+            };
+
+            // Enviar los datos usando fetch
+            fetch('post/pagado.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Success:', data);
+                
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            reservar();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener los datos desde localStorage
+            const correo = localStorage.getItem('correo');
+            
+            // Inyectar los datos en el HTML
+            if (correo) {
+                document.getElementById('correo').textContent = correo;
+            } else {
+                document.getElementById('correo').textContent = 'No se encontró el correo en localStorage';
+            }
+        });
+    </script>    
     </body>
 </html>

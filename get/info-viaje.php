@@ -12,7 +12,7 @@ if (isset($_SESSION['id'])){
 }
 
 // CAPTURAR PASAJEROS VALIDACIÓN SI SON MÁS DE DOS BOLETOS
-$pasajeros = isset($_GET['pasajeros']) ? intval($_GET['pasajeros']) : 0;
+// $pasajeros = isset($_GET['pasajeros']) ? intval($_GET['pasajeros']) : 0;
 // CAPTURAR MONTO TOTAL DE VALOR EN PASAJES 
 
 
@@ -32,15 +32,18 @@ $plantilla = Plantilla::getPlantillaId($plantilla_id);
  $asientos = Asientos::getAsientosByViajeId($viajeid);
  
 
-var_dump($travelList); 
-echo '<br>';
-var_dump($movilidad); 
-echo '<br>';
-var_dump($plantilla);
-echo '<br>';
-echo "<pre>";
-print_r($asientos);
-echo "</pre>";
+// var_dump($travelList); 
+// echo '<br>';
+// echo '<br>';
+// var_dump($movilidad); 
+// echo '<br>';
+// echo '<br>';
+// var_dump($plantilla);
+// echo '<br>';
+// echo '<br>';
+// echo "<pre>";
+// print_r($asientos);
+// echo "</pre>";
 
 $totalboletos = $pasajeros *  $travelList->precio;
 

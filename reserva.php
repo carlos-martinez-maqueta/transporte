@@ -126,5 +126,14 @@ $descuentoboleto = $totalboletos / 2;
         var valor = localStorage.getItem('totalBoletos');
         console.log('El valor de miClave es:', valor);
         </script> -->
+
+        <script>
+ 
+            var viaje = <?= json_encode($viajeid) ?>;
+            var asientos = <?= json_encode($pasajeros) ?>;
+
+            localStorage.setItem('viaje', viaje);
+            localStorage.setItem('asientos_reservados', asientos);
+        </script>         
     </body>
 </html>

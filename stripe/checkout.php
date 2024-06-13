@@ -7,6 +7,7 @@ $stripe = new \Stripe\StripeClient([
   "api_key" => 'sk_test_51PHp94P8D8E0X1o3lrxDHu79N0ql7bUkiGjbHaYoavzdOxf1hIUhKY9h4jzBlMHAL0LB8zjgPTDjrk8OGclQCXee00msXLjbzL'
 ]);
 $unit_amount = isset($_GET['monto']) ? intval($_GET['monto']) : null;
+$viaje = isset($_GET['viaje']) ? intval($_GET['viaje']) : null;
 
 try {
   // Datos del producto
@@ -33,7 +34,7 @@ try {
     'phone_number_collection' => [
       'enabled' => true,
     ],
-    'return_url' => 'http://localhost:8012/transporte/pago-realizado?idviaje=1&pasajeros=1&session_id={CHECKOUT_SESSION_ID}',
+    'return_url' => 'http://localhost:8012/transporte/pago-realizado?idviaje=' . $viaje . '&pasajeros=1&session_id={CHECKOUT_SESSION_ID}',
   ]);
 
   header('Content-Type: application/json');
