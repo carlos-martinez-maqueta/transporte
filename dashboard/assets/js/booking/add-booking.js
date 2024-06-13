@@ -86,6 +86,27 @@ $(document).on("click", ".edit", function() {
     });
 });
 
+$(document).on("click", ".image", function() {
+    var resultId = $(this).data("id");
+  
+    $.ajax({
+      url: "config/booking/get-booking.php",
+      method: "POST",
+      data: {
+        action: "get_voucher_by_booking_id",
+        resultId: resultId,
+      },
+      dataType: "json",
+      success: function(data) {
+        if(data && data.imagen) {
+          $("#voucherModal .modal-body").html('<img src="files/voucher/' + data.imagen + '" class="img-fluid" />');
+        } else {
+          $("#voucherModal .modal-body").html('<p>No image available.</p>');
+        }
+      }
+    });
+  });
+
 $(document).on("click", ".edit", function() {
     var resultId = $(this).data("id");
 
@@ -106,7 +127,7 @@ $(document).on("click", ".edit", function() {
                 var newCard = '<div class="col">' +
                     '<div class="card">' +
                     '<div class="card-body rounded" style="background:#000; color: #fff">' +
-                    '<h5 class="card-title text-center">' + seat.nombre_asiento + '</h5>' +
+                    '<h5 class="card-title text-center">' + seat.asiento + '</h5>' +
                     '</div>' +
                     '</div>' +
                     '</div>';
