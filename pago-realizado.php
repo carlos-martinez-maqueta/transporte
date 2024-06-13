@@ -1,9 +1,11 @@
 <?php
 include 'config/conexion.php';
 include 'dashboard/class/travel.php';
+include 'dashboard/class/plantilla.php';
+include 'dashboard/class/mobility.php';
+include 'dashboard/class/asientos.php';
 session_start(); // Inicia la sesión al comienzo del archivo
 include 'get/info-viaje.php';
- 
  
 
 

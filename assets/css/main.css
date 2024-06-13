@@ -317,3 +317,17 @@ header .ul_header li a{
     position: absolute;
     right: 0px;
 }
+
+.terminos_asientos{
+    padding: 20px 30px;
+    font-size: 12px;
+}
+.terminos_asientos a{
+    font-weight: bold;
+}
+.section_datos_personales .item_conteo .precio_conteo{
+    font-size: 16px;
+}
+.section_datos_personales .item_conteo .precio_conteo b{
+    
+}

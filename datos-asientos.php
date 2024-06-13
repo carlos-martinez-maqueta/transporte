@@ -78,7 +78,7 @@ $descuentoboleto = $totalboletos / 2;
             box-shadow: 0px 3px 6px 0px #888888;
         }
         .auto_seleccionar .auto_img{
-            background: url(assets/img/svg/auto.png);
+            /* background: url(assets/img/svg/auto.png); */
             width: 100%;
             height: 250px;
             background-position: center;
@@ -100,6 +100,10 @@ $descuentoboleto = $totalboletos / 2;
             display: flex;
             align-items: center;
         }
+        .section_datos_personales .item_conteo .precio_conteo b{
+            text-decoration: line-through;
+            font-weight: 600;
+        }
     </style>
     <section class="section_datos_personales">
         <form action="reserva" method="GET">
@@ -117,25 +121,90 @@ $descuentoboleto = $totalboletos / 2;
                                     <li><p><img src="assets/img/svg/seleccionado.svg" alt="">Asientos Seleccionado</p></li>
                                 </ul>
                             </div>
-
+                            <style>
+                                .bus-layout {
+                                    display: grid;
+                                    grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+                                    grid-gap: 10px;
+                                    max-width: 600px;
+                                    margin: auto;
+                                }
+                                .asiento {
+                                    position: relative;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                     
+                                    height: 50px;
+                                    width: 50px;
+                                }
+                                .asiento.reservado span{
+                                    color: #ffffff;
+                                }
+                                .asiento img {
+                                    width: 100%;
+                                    height: auto;
+                                }
+                                .driver-seat {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border: 1px solid black;
+                                    font-size: 11px;
+                                    height: 50px;
+                                    width: 50px;
+                                }
+                                .empty-space {
+                                    height: 50px;
+                                    width: 50px;
+                                }
+                            </style>
                             <div class="auto_seleccionar">
                                 <div class="auto_img">
-                                    <div class="d-flex col-12 justify-content-center py-4">
-                                        <div class="col-10 d-flex justify-content-center p-3 gap-4 border">
-                                        <?php
-                                            foreach ($asientos as $asiento) {
+                                    <div class="d-flex col-12 justify-content-center ">
+                                        <div class=" ">
+                                            <div class="bus-layout">
+                                            <?php
+                                                    // Asignación del mapa de asientos
+                                                    $seat_map = [
+                                                        [1, 1, 1, 1, 2],  // 2 es el asiento del conductor
+                                                        [1, 1, 1, 1, 0], 
+                                                        [1, 0, 0, 0, 0],  // 0 son espacios vacíos
+                                                        [1, 1, 1, 0, 1]
+                                                    ];
+
+                                                    $index = 0;
+                                                    foreach ($seat_map as $row) {
+                                                        foreach ($row as $seat) {
+                                                            if ($seat === 1) {
+                                                                if (isset($asientos[$index])) {
+                                                                    $asiento = $asientos[$index];
+                                                                    $estado = $asiento->estado;
+                                                                    $imgSrc = "assets/img/svg/asiento_vacio.svg"; // Asiento disponible por defecto
+                                                                    if ($estado === "ocupado") {
+                                                                        $imgSrc = "assets/img/svg/asiento_ocupado.svg"; // Asiento ocupado
+                                                                    } elseif ($estado === "reservado") {
+                                                                        $imgSrc = "assets/img/svg/asiento_seleccionado.svg"; // Asiento reservado
+                                                                    }
+                                                                    ?>
+                                                                    <div class="asiento <?= $estado ?>" id="seat-<?= htmlspecialchars($asiento->asiento); ?>" data-id="<?= htmlspecialchars($asiento->asiento); ?>">
+                                                                        <img src="<?= $imgSrc ?>" alt="">
+                                                                        <div style="position: absolute; top: 16px;left: 12px;">
+                                                                            <span style="font-size: 9px;"><?= htmlspecialchars($asiento->asiento); ?></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php 
+                                                                    $index++; 
+                                                                }
+                                                            } elseif ($seat === 2) {
+                                                                echo '<div class="driver-seat">Piloto</div>';
+                                                            } elseif ($seat === 0) {
+                                                                echo '<div class="empty-space"></div>';
+                                                            }
+                                                        }
+                                                    }
                                                 ?>
-                                                <div>
-                                                    <div data-state="disponible" data-value="A10" class="position-relative">
-                                                        <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                                        <div style="position: absolute; top: 8px;left: 12px;">
-                                                            <span style="font-size: 9px;"><?php echo htmlspecialchars($asiento->asiento); ?></span>
-                                                        </div>
-                                                    </div>                                                    
-                                                </div>
-                                                <?php
-                                            }
-                                        ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -162,18 +231,88 @@ $descuentoboleto = $totalboletos / 2;
     <script>
         document.getElementById('save-data').addEventListener('click', function() {
             const viajeid = document.querySelector('[name="idviaje"]').value;
-            const pasajeros = document.querySelector('[name="pasajeros"]').value;
-
+            const pasajeros = parseInt(document.querySelector('[name="pasajeros"]').value);
             const checkbox = document.getElementById('flexCheckDefault');
+            const selectedSeatsCount = document.querySelectorAll('.asiento.reservado').length;
 
-            if (checkbox.checked) {
-                // Redirigir al siguiente paso del formulario
-                window.location.href = `reserva?idviaje=${viajeid}&pasajeros=${pasajeros}`;
-            } else {
+            if (!checkbox.checked) {
                 alert('Debes aceptar los términos y condiciones.');
                 checkbox.focus();
+                return;
             }
+
+            if (selectedSeatsCount < pasajeros) {
+                alert(`Debes seleccionar ${pasajeros} asientos.`);
+                return;
+            }
+
+            // Redirigir al siguiente paso del formulario
+            window.location.href = `reserva?idviaje=${viajeid}&pasajeros=${pasajeros}`;
         });
-    </script>    
+
+
+        // JavaScript para manejar la selección de asientos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Limpiar el localStorage cuando se carga la página
+            localStorage.removeItem('reservedSeats');
+
+            const seats = document.querySelectorAll('.asiento');
+            const urlParams = new URLSearchParams(window.location.search);
+            const maxSeats = parseInt(urlParams.get('pasajeros')) || 1;
+            let selectedSeatsCount = 0;
+
+            seats.forEach(function(seat) {
+                seat.addEventListener('click', function() {
+                    if (seat.classList.contains('disponible')) {
+                        if (selectedSeatsCount < maxSeats) {
+                            seat.classList.remove('disponible');
+                            seat.classList.add('reservado');
+                            seat.querySelector('img').src = 'assets/img/svg/asiento_seleccionado.svg';
+                            saveSeatToLocalStorage(seat.dataset.id);
+                            selectedSeatsCount++;
+                        } else {
+                            alert('Has alcanzado el número máximo de asientos que puedes seleccionar.');
+                        }
+                    } else if (seat.classList.contains('reservado')) {
+                        seat.classList.remove('reservado');
+                        seat.classList.add('disponible');
+                        seat.querySelector('img').src = 'assets/img/svg/asiento_vacio.svg';
+                        removeSeatFromLocalStorage(seat.dataset.id);
+                        selectedSeatsCount--;
+                    }
+                });
+            });
+
+            function saveSeatToLocalStorage(seatId) {
+                let reservedSeats = JSON.parse(localStorage.getItem('reservedSeats')) || [];
+                if (!reservedSeats.includes(seatId)) {
+                    reservedSeats.push(seatId);
+                }
+                localStorage.setItem('reservedSeats', JSON.stringify(reservedSeats));
+            }
+
+            function removeSeatFromLocalStorage(seatId) {
+                let reservedSeats = JSON.parse(localStorage.getItem('reservedSeats')) || [];
+                reservedSeats = reservedSeats.filter(id => id !== seatId);
+                localStorage.setItem('reservedSeats', JSON.stringify(reservedSeats));
+            }
+
+            // Restaurar asientos reservados desde localStorage
+            function restoreReservedSeats() {
+                let reservedSeats = JSON.parse(localStorage.getItem('reservedSeats')) || [];
+                reservedSeats.forEach(function(seatId) {
+                    const seat = document.getElementById(`seat-${seatId}`);
+                    if (seat) {
+                        seat.classList.remove('disponible');
+                        seat.classList.add('reservado');
+                        seat.querySelector('img').src = 'assets/img/svg/asiento_seleccionado.svg';
+                        selectedSeatsCount++;
+                    }
+                });
+            }
+
+            restoreReservedSeats();
+        });
+    </script>
     </body>
 </html>
