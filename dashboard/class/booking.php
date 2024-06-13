@@ -90,7 +90,8 @@ class Booking
         $stmt->bindParam(':imagen', $imagen);
         return $stmt;
     }
-    public static function getVoucherByBookingId($id) {
+    public static function getVoucherByBookingId($id)
+    {
         global $conn;
         $statement = $conn->prepare("SELECT imagen FROM tbl_reservas WHERE id = :id");
         $statement->bindValue(":id", $id);
@@ -99,12 +100,12 @@ class Booking
         return $result;
     }
     public static function getSumaTotalPrecioPorMes($mes, $anio)
-{
-    global $conn;
-    $inicio_mes = "$anio-$mes-01";
-    $fin_mes = date('Y-m-t', strtotime($inicio_mes));
+    {
+        global $conn;
+        $inicio_mes = "$anio-$mes-01";
+        $fin_mes = date('Y-m-t', strtotime($inicio_mes));
 
-    $statement = $conn->prepare("
+        $statement = $conn->prepare("
         SELECT 
             SUM(precio_pagado) as total
         FROM 
@@ -114,12 +115,231 @@ class Booking
             AND fecha_creacion >= :inicio_mes
             AND fecha_creacion <= :fin_mes
     ");
-    $statement->bindParam(':inicio_mes', $inicio_mes);
-    $statement->bindParam(':fin_mes', $fin_mes);
-    $statement->execute();
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
+        $statement->bindParam(':inicio_mes', $inicio_mes);
+        $statement->bindParam(':fin_mes', $fin_mes);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-    return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
-}
+        return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
+    }
+    public static function getCountReservasPorMes($mes, $anio)
+    {
+        global $conn;
+        $inicio_mes = "$anio-$mes-01";
+        $fin_mes = date('Y-m-t', strtotime($inicio_mes));
 
+        $statement = $conn->prepare("
+        SELECT 
+            COUNT(id) as total
+        FROM 
+            tbl_reservas
+        WHERE
+            fecha_creacion >= :inicio_mes
+            AND fecha_creacion <= :fin_mes
+    ");
+        $statement->bindParam(':inicio_mes', $inicio_mes);
+        $statement->bindParam(':fin_mes', $fin_mes);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
+    }
+    public static function getCountViajesPorMes($mes, $anio)
+    {
+        global $conn;
+        $inicio_mes = "$anio-$mes-01";
+        $fin_mes = date('Y-m-t', strtotime($inicio_mes));
+
+        $statement = $conn->prepare("
+        SELECT 
+            COUNT(id) as total
+        FROM 
+            tbl_viajes
+        WHERE
+            fecha_creacion >= :inicio_mes
+            AND fecha_creacion <= :fin_mes
+    ");
+        $statement->bindParam(':inicio_mes', $inicio_mes);
+        $statement->bindParam(':fin_mes', $fin_mes);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
+    }
+    public static function getCountUsuarios()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+        SELECT 
+            COUNT(id) as total
+        FROM 
+            tbl_usuarios
+    ");
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
+    }
+    public static function getCountMobility()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+            SELECT 
+                COUNT(id) as total
+            FROM 
+                tbl_movilidad
+            WHERE
+                estado = 'disponible'
+        ");
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
+    }
+
+    public static function getCountDestinos()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+            SELECT 
+                COUNT(id) as total
+            FROM 
+                tbl_destino
+            WHERE
+                estado = 'activo'
+        ");
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
+    }
+
+    public static function getCountOrigenes()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+            SELECT 
+                COUNT(id) as total
+            FROM 
+                tbl_origen
+            WHERE
+                estado = 'activo'
+        ");
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
+    }
+    public static function getCountStaff()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+        SELECT 
+            COUNT(id) as total
+        FROM 
+            tbl_personal
+        WHERE
+            estado = 'activo'
+    ");
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'] ?? 0; // Devuelve 0 si no hay resultados
+    }
+    public static function getReservasPorMes()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+            SELECT 
+                DATE_FORMAT(fecha_creacion, '%Y-%m') as mes,
+                COUNT(id) as total_reservas
+            FROM 
+                tbl_reservas
+            GROUP BY 
+                DATE_FORMAT(fecha_creacion, '%Y-%m')
+        ");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+    public static function getReferencias()
+    {
+        global $conn;
+    
+        $statement = $conn->prepare("
+            SELECT 
+                referencia,
+                COUNT(*) as total_referencias
+            FROM 
+                tbl_reservas
+            GROUP BY 
+                referencia
+        ");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $result;
+    }
+    
+    public static function getGananciasMensuales()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+        SELECT 
+            DATE_FORMAT(fecha_creacion, '%Y-%m') as mes,
+            SUM(precio_pagado) as total_ganancias
+        FROM 
+            tbl_reservas
+        GROUP BY 
+            DATE_FORMAT(fecha_creacion, '%Y-%m')
+    ");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+    public static function getGastosMensuales()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+        SELECT 
+            DATE_FORMAT(fecha, '%Y-%m') as mes,
+            SUM(precio) as total_gastos
+        FROM 
+            tbl_gastos
+        GROUP BY 
+            DATE_FORMAT(fecha, '%Y-%m')
+    ");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+    public static function getGastosPorCategoria()
+    {
+        global $conn;
+
+        $statement = $conn->prepare("
+        SELECT 
+            nombre,
+            SUM(precio) as total_gastado
+        FROM 
+            tbl_gastos
+        GROUP BY 
+            nombre
+    ");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }

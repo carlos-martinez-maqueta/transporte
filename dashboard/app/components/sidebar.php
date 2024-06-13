@@ -5,14 +5,14 @@
     <?php if ($user_role == 1) : ?>
         <!-- Heading -->
         <div class="sidebar-heading text-white font_one">
-            <p class="small mb-0">Menú</p>
+            <p class="small mb-0">Men&uacute;</p>
         </div>
 
         <div class="list-group list-group-flush">
             <a href="index" class="list-group-item list-group-item-action bg-transparent text-color-sidebar active small"><i class="fas fa-tachometer-alt me-2"></i>Panel</a>
         </div>
         <div class="sidebar-heading text-white font_one">
-            <p class="small mb-0">Gestión</p>
+            <p class="small mb-0">Gesti&oacute;n</p>
         </div>
 
         <div class="list-group list-group-flush">
@@ -28,11 +28,28 @@
             <a href="destination-management" class="list-group-item list-group-item-action bg-transparent text-color-sidebar active small"><i class='bx bx-book me-2'></i> Gestion de Destino</a>
         </div>
         <div class="list-group list-group-flush">
-            <a href="mobility-management" class="list-group-item list-gr    oup-item-action bg-transparent text-color-sidebar active small"><i class='bx bx-book me-2'></i> Gestion de Movilidad</a>
+            <a href="mobility-management" class="list-group-item list-group-item-action bg-transparent text-color-sidebar active small"><i class='bx bx-book me-2'></i> Gestion de Movilidad</a>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="expenses-management" class="list-group-item list-group-item-action bg-transparent text-color-sidebar active small"><i class='bx bx-line-chart me-2'></i> Gestion de Egresos</a>
         </div>
         <div class="list-group list-group-flush">
             <a href="discount-management" class="list-group-item list-group-item-action bg-transparent text-color-sidebar active small"><i class='bx bx-purchase-tag-alt me-2'></i> Cupones de Descuento</a>
         </div>
+
+        <div class="sidebar-heading text-white font_one">
+            <p class="small mb-0">P&aacute;gina</p>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="home-management" class="list-group-item list-group-item-action bg-transparent text-color-sidebar active small"><i class='bx bx-label me-2'></i> Gestion de Banner</a>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="best-destination-management" class="list-group-item list-group-item-action bg-transparent text-color-sidebar active small"><i class='bx bx-label me-2'></i> Gestion de Mejores Destinos</a>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="comments-management" class="list-group-item list-group-item-action bg-transparent text-color-sidebar active small"><i class='bx bx-label me-2'></i> Gestion de Comentarios</a>
+        </div>
+
 
 
         <div class="sidebar-heading text-white font_one">
