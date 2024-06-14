@@ -144,6 +144,15 @@ class Booking
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result;
     }
+    public static function getQrByBookingId($id)
+    {
+        global $conn;
+        $statement = $conn->prepare("SELECT qr FROM tbl_reservas WHERE id = :id");
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
     public static function getSumaTotalPrecioPorMes($mes, $anio)
     {
         global $conn;
@@ -386,5 +395,14 @@ class Booking
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
+    }
+    public static function updateBookingQrId($id, $qr_filename)
+    {
+        global $conn;
+        $sql = "UPDATE tbl_reservas SET qr=:qr_filename WHERE id=:id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':qr_filename', $qr_filename);
+        return $stmt;
     }
 }
