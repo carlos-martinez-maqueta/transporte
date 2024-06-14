@@ -4,6 +4,38 @@ include 'config/conexion.php';
 include 'dashboard/class/travel.php';
 $idreserva = isset($_GET['idreserva']) ? intval($_GET['idreserva']) : 0;
 
+include 'dashboard/class/booking.php';
+$reserva = Booking::getBookingAllId($idreserva);
+
+if (!empty($reserva)) {
+    // Asumiendo que el primer objeto en el array es la reserva principal
+    $reservaPrincipal = $reserva[0];
+    // Filtrar acompañantes eliminando duplicados por ID
+    $acompanantes = array_slice($reserva, 1);
+    $acompanantesUnicos = [];
+    foreach ($acompanantes as $acompanante) {
+        // Eliminar el pasajero principal de la lista de acompañantes
+        if ($acompanante->nombrePasajero != $reservaPrincipal->nombrePasajero || 
+            $acompanante->apellidosPasajero != $reservaPrincipal->apellidosPasajero) {
+            $key = $acompanante->nombrePasajero . $acompanante->apellidosPasajero;
+            if (!isset($acompanantesUnicos[$key])) {
+                $acompanantesUnicos[$key] = $acompanante;
+            }
+        }
+    }
+
+    // Obtener los asientos únicos
+    $asientosUnicos = [];
+    foreach ($reserva as $r) {
+        if (!in_array($r->asientoNumero, $asientosUnicos)) {
+            $asientosUnicos[] = $r->asientoNumero;
+        }
+    }
+}
+// $fechaViajeFormateada = date('d \d\e M Y', strtotime($reservaPrincipal->fechaViaje));
+// $fechaFinFormateada = date('d \d\e M Y', strtotime($reservaPrincipal->fechaFin));
+// var_dump($reserva);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +52,7 @@ $idreserva = isset($_GET['idreserva']) ? intval($_GET['idreserva']) : 0;
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 15px;
-        padding: 10px 20px 30px;
+        padding: 18px 20px 30px;
         position: relative;
         top: -133px;
         width: 90%;
@@ -67,6 +99,13 @@ $idreserva = isset($_GET['idreserva']) ? intval($_GET['idreserva']) : 0;
         font-size: 12px;
         left: 10px;
     }
+    h3{
+        text-transform: uppercase;
+        font-size: 16px;
+    }
+    .personas_listado p{
+        font-size: 14px;
+    }
 </style>
 <body>
     <section>
@@ -75,44 +114,53 @@ $idreserva = isset($_GET['idreserva']) ? intval($_GET['idreserva']) : 0;
             <div class="boleto">
                 <div class="cabza">
                     <div style="width: 40%;text-align: center;">
-                        <p>PERU</p>
-                        <span>2024-06-11 23:36:00</span>
+                        <p><?= $reservaPrincipal->nombreOrigen ?></p>
+                        <span><?= $reservaPrincipal->fechaViajeFormat ?></span>
                     </div>
                     <div style="width: 20%;text-align: center;"></div>
                     <div style="width: 40%;text-align: center;">
-                        <p>COLOMBIA</p>
-                        <span>2024-06-11 23:36:00</span>
+                        <p><?= $reservaPrincipal->nombreDestino ?></p>
+                        <span><?= $reservaPrincipal->fechaFinFormat ?></span>
+
                     </div>
                 </div>
                 <div class="codigo_cosas">
-                    <div>CODIGO BOLETO: TSB-001</div>
+                    <div>CODIGO BOLETO: <?= $reservaPrincipal->correlativoViaje ?></div>
                     <br>
-                    <div>PAGO: <p>500 MXM</p></div>
+                    <div>PAGO: <p><?php
+                       $precio_pagado = $reservaPrincipal->precio_pagado / 100;
+                       $precio_formateado = number_format($precio_pagado, 2, '.', '');
+                    ?><?= $precio_formateado ?> MXM</p></div>
                 </div>
                 <div class="boleto_asientos">
                     <p>ASIENTOS:</p>
                     <ul>
-                        <li><img src="assets/img/svg/asiento_vacio.svg" alt=""><p>A1</p></li>
-                        <li><img src="assets/img/svg/asiento_vacio.svg" alt=""><p>A2</p></li>
-                        <li><img src="assets/img/svg/asiento_vacio.svg" alt=""><p>A3</p></li>
+                    <?php foreach ($asientosUnicos as $asiento) { ?>
+                            <li><img src="assets/img/svg/asiento_vacio.svg" alt=""><p><?= $asiento ?></p></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>  
-            <div style="background-color: #d7d7d7;
-            border-radius: 15px;
-            padding: 10px;
-            margin: 10px 0px;
-            position: relative;
-            top: -120px;">
+            <div class="personas_listado" style="background-color: #d7d7d7;
+                border-radius: 15px;
+                padding: 20px;
+                margin: 10px 0px;
+                position: relative;
+                top: -120px;">
 
                 <h3>Comprador</h3>
-                <p><b>Nombre:</b> Carlos Smith</p>
-                <p><b>Apellido:</b> Martinez Meneses</p>
-                <p><b>Correo:</b> cmartinez.meneses1@gmail.com</p>
+                <p><b>Nombre:</b> <?= $reservaPrincipal->nombrePasajero ?></p>
+                <p><b>Apellido:</b> <?= $reservaPrincipal->apellidosPasajero ?></p>
+                <p><b>Correo:</b> <?= $reservaPrincipal->correoPasajero ?></p>
+                <p><b>Celular:</b> <?= $reservaPrincipal->celularPasajero ?></p>
 
                 <h3>Acompañantes</h3>
-                <p><b>1:</b> Miguel Martinez</p>
-                <p><b>2:</b> Angel Martinez</p>                
+                <?php 
+                $acompananteIndex = 1;
+                foreach ($acompanantesUnicos as $acompanante) { ?>
+                    <p><b><?= $acompananteIndex ?>:</b> <?= $acompanante->nombrePasajero ?> <?= $acompanante->apellidosPasajero ?></p>
+                    <?php $acompananteIndex++; ?>
+                <?php } ?>                    
             </div>
         </div>
     </section>

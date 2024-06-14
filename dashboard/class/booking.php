@@ -26,6 +26,51 @@ class Booking
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
         return $result;
     }
+    public static function getBookingAllId($id)
+    {
+        global $conn; // Asumiendo que $conn es tu conexión a la base de datos PDO
+    
+        $statement = $conn->prepare("
+        SELECT 
+            tr.*,  
+            tpe.nombre AS nombreStaff,
+            tpe.apellidos AS apellidosStaff,
+            tvi.correlativo AS correlativoViaje,
+            DATE_FORMAT(tvi.fecha_inicio, '%d de %M %Y') AS fechaViajeFormat,
+            DATE_FORMAT(tvi.fecha_fin, '%d de %M %Y') AS fechaFinFormat,
+            trp.nombre AS nombrePasajero,
+            trp.apellidos AS apellidosPasajero,
+            trp.correo AS correoPasajero,
+            trp.celular AS celularPasajero,
+            ta.asiento AS asientoNumero,
+            orig.nombre AS nombreOrigen,
+            dest.nombre AS nombreDestino
+        FROM 
+            tbl_reservas tr
+        LEFT JOIN
+            tbl_personal tpe ON tpe.id = tr.staff_id
+        LEFT JOIN
+            tbl_viajes tvi ON tvi.id = tr.viaje_id
+        LEFT JOIN
+            tbl_reservas_pasajeros trp ON trp.reserva_id = tr.id
+        LEFT JOIN
+            tbl_asientos ta ON ta.reserva_id = tr.id
+        LEFT JOIN
+            tbl_origen orig ON orig.id = tvi.origen_id
+        LEFT JOIN
+            tbl_destino dest ON dest.id = tvi.destino_id
+        WHERE
+            tr.id = :id  
+        ORDER BY 
+            tr.fecha_creacion DESC
+    ");
+    
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+    
+        return $result;
+    }
     public static function getBookingPassengersId($id)
     {
         global $conn;

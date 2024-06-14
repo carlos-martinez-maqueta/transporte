@@ -1,5 +1,14 @@
 <?php
 require '../config/conexion.php'; // Asegúrate de tener tu configuración de base de datos aquí
+include 'lib-qr/barcode.php';
+require_once '../mailer/lib/PHPMailer/Exception.php';
+require_once '../mailer/lib/PHPMailer/PHPMailer.php';
+require_once '../mailer/lib/PHPMailer/SMTP.php';
+require_once '../mailer/vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 // Obtener el cuerpo de la solicitud JSON
 $data = json_decode(file_get_contents('php://input'), true);
@@ -23,10 +32,28 @@ if ($data) {
         $sql_reserva = "INSERT INTO tbl_reservas (staff_id, viaje_id, referencia, asientos_reservados, imagen, precio_pagado, fecha_creacion, estado) 
                         VALUES (NULL, '$viaje_id', 'WEB', '$asientos_reservados', NULL, '$precio', '$fecha_creacion', '$estado')";
         $stmt_reserva = $conn->prepare($sql_reserva);
-        $stmt_reserva->execute();
+ 
+        if ($stmt_reserva->execute()) {
+            // Obtener el ID de la última inserción en tbl_reservas
+            $ultimo_id_insertado = $conn->lastInsertId();
 
-        // Obtener el ID de la última inserción en tbl_reservas
-        $ultimo_id_insertado = $conn->lastInsertId();
+            
+            // Generar y guardar el código QR
+            $qr_folder = 'qr_user/';
+
+            $generator = new barcode_generator();
+            header('Content-Type: image/svg+xml');
+            $svg = $generator->render_svg("qr", "https://transportesafe.com/reserva-realizada/?idreserva=$ultimo_id_insertado", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
+
+            $qr_filename = "qr_code_$ultimo_id_insertado.svg";
+            $qr_filepath = $qr_folder . $qr_filename;
+
+            file_put_contents($qr_filepath, $svg);
+
+            $sql_qr = "UPDATE tbl_reservas SET qr_reserva = '$qr_filename' WHERE id = '$ultimo_id_insertado'";
+            $sql_user_stm = $conn->prepare($sql_qr);
+            $sql_user_stm->execute();
+        }
 
         // Actualizar tbl_viajes
         $sql_update_viajes = "UPDATE tbl_viajes SET count = count - '$asientos_reservados' WHERE id = '$viaje_id'";
@@ -69,6 +96,46 @@ if ($data) {
             $stmt_acom = $conn->prepare($sql_acompanante);
             $stmt_acom->execute();
         }
+        
+        
+            // Envío de correo electrónico
+            $enviomail = "cmartinez.meneses1@gmail.com"; // Cambia esta dirección de correo
+            $mail = new PHPMailer();
+            $mail->isSMTP();
+            $mail->Host = 'mail.valuepay.online';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'no-reply@valuepay.online';
+            $mail->Password = 'gwkdWZvQ26cPzKi';
+            $mail->Port = 587;
+        
+            $mail->setFrom('no-reply@valuepay.online', 'Gracias por tu compra - Transporte Safe');
+            // $mail->addAddress($correo);
+            $mail->addAddress($enviomail);
+            $mail->Subject = 'Transporte Safe';
+            $mail->CharSet = 'UTF-8';
+            $mail->isHTML(true);
+        
+            $messages =  '
+            <div style="max-width: 450px;">
+                <img src="https://kingdomyouube.com/images/logo.png" alt="">
+                <h2>Estimado '.$nombre.',</h2>
+                <p>Gracias por reservar en Transporte Safe. <br> 
+                    El detalle de su reserva está detallado en el siguiente QR, <br> queremos expresarle nuestra gratitud y confianza. </p> 
+                
+                
+                <img src="http://transportesafe.com/post/qr_user/'.$qr_filename.'" alt="" style="width: 150px;">
+            </div>
+            ';
+        
+            $mail->Body = $messages;
+        
+            // Enviar el correo de confirmación
+            if ($mail->send()) {
+                echo 'El correo de confirmación se ha enviado correctamente.';
+            } else {
+                echo 'Hubo un error al enviar el correo de confirmación: ' . $mail->ErrorInfo;
+            }
+
 
         // Confirmar la transacción
         $conn->commit();
