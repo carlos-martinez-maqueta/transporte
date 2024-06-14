@@ -52,7 +52,7 @@ $(document).ready(function () {
         });
     });
 });
-$(document).on("click", ".edit", function() {
+$(document).on("click", ".edit", function () {
     var resultId = $(this).data("id");
 
     $.ajax({
@@ -63,12 +63,12 @@ $(document).on("click", ".edit", function() {
             resultId: resultId,
         },
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             // Limpiar el contenido anterior de la tabla
             $("#pasajerosTableBody").empty();
 
             // Iterar sobre los datos de los pasajeros y añadir filas a la tabla
-            $.each(data, function(index, passenger) {
+            $.each(data, function (index, passenger) {
                 var nombre = passenger.nombre ? passenger.nombre : "Sin nombre";
                 var apellidos = passenger.apellidos ? passenger.apellidos : "Sin apellidos";
                 var correo = passenger.correo ? passenger.correo : "Sin correo";
@@ -86,28 +86,48 @@ $(document).on("click", ".edit", function() {
     });
 });
 
-$(document).on("click", ".image", function() {
+$(document).on("click", ".image", function () {
     var resultId = $(this).data("id");
-  
-    $.ajax({
-      url: "config/booking/get-booking.php",
-      method: "POST",
-      data: {
-        action: "get_voucher_by_booking_id",
-        resultId: resultId,
-      },
-      dataType: "json",
-      success: function(data) {
-        if(data && data.imagen) {
-          $("#voucherModal .modal-body").html('<img src="files/voucher/' + data.imagen + '" class="img-fluid" />');
-        } else {
-          $("#voucherModal .modal-body").html('<p>No image available.</p>');
-        }
-      }
-    });
-  });
 
-$(document).on("click", ".edit", function() {
+    $.ajax({
+        url: "config/booking/get-booking.php",
+        method: "POST",
+        data: {
+            action: "get_voucher_by_booking_id",
+            resultId: resultId,
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data && data.imagen) {
+                $("#voucherModal .modal-body").html('<img src="files/voucher/' + data.imagen + '" class="img-fluid" />');
+            } else {
+                $("#voucherModal .modal-body").html('<p>No image available.</p>');
+            }
+        }
+    });
+});
+$(document).on("click", ".qr", function () {
+    var resultId = $(this).data("id");
+
+    $.ajax({
+        url: "config/booking/get-booking.php",
+        method: "POST",
+        data: {
+            action: "get_qr_by_booking_id",
+            resultId: resultId,
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data && data.qr) {
+                $("#qrModal .modal-body").html('<img src="config/qr_codes/' + data.qr + '" class="img-fluid" />');
+            } else {
+                $("#qrModal .modal-body").html('<p>No hay qr en esta reserva.</p>');
+            }
+        }
+    });
+});
+
+$(document).on("click", ".edit", function () {
     var resultId = $(this).data("id");
 
     $.ajax({
@@ -118,12 +138,12 @@ $(document).on("click", ".edit", function() {
             resultId: resultId,
         },
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             // Limpiar el contenido anterior de los asientos
             $("#asientosContainer").empty();
 
             // Iterar sobre los datos de los asientos y crear las tarjetas
-            $.each(data, function(index, seat) {
+            $.each(data, function (index, seat) {
                 var newCard = '<div class="col">' +
                     '<div class="card">' +
                     '<div class="card-body rounded" style="background:#000; color: #fff">' +

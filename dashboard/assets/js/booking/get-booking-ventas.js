@@ -88,6 +88,7 @@ function getTable(dataTable) {
           '<div class="d-flex justify-content-center align-items-center gap-1">' +
           '<button type="button" class="btn btn-sm btn-secondary edit" data-bs-toggle="modal" data-bs-target="#editarModal" data-id="' + result.id + '"><i class="bx bx-food-menu"></i></button>' +
           '<button type="button" class="btn btn-sm btn-info image" data-bs-toggle="modal" data-bs-target="#voucherModal" data-id="' + result.id + '"><i class="bx bx-image-alt"></i></button>' +
+          '<button type="button" class="btn btn-sm btn-dark qr" data-bs-toggle="modal" data-bs-target="#qrModal" data-id="' + result.id + '"><i class="bx bx-qr" ></i></button>' +
           '</div>' +
           '</td>' +
           '</tr>';

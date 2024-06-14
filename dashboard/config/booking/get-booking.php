@@ -31,4 +31,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'get_voucher_by_booking_id') 
     $result = Booking::getVoucherByBookingId($id);
     echo json_encode($result);
 }
+if (isset($_POST['action']) && $_POST['action'] == 'get_qr_by_booking_id') {
+    $id = $_POST['resultId'];
+    $result = Booking::getQrByBookingId($id);
+    echo json_encode($result);
+}
 
