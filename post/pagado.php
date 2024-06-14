@@ -108,16 +108,16 @@ if ($data) {
             $mail->Password = 'gwkdWZvQ26cPzKi';
             $mail->Port = 587;
         
-            $mail->setFrom('no-reply@valuepay.online', 'Gracias por tu compra - Transporte Safe');
+            $mail->setFrom('no-reply@valuepay.online', 'Transporte Safe');
             // $mail->addAddress($correo);
             $mail->addAddress($enviomail);
-            $mail->Subject = 'Transporte Safe';
+            $mail->Subject = 'Gracias por tu compra - Transporte Safe';
             $mail->CharSet = 'UTF-8';
             $mail->isHTML(true);
         
             $messages =  '
             <div style="max-width: 450px;">
-                <img src="https://kingdomyouube.com/images/logo.png" alt="">
+                <img src="http://transportesafe.com/images/logo.png" alt="">
                 <h2>Estimado '.$nombre.',</h2>
                 <p>Gracias por reservar en Transporte Safe. <br> 
                     El detalle de su reserva está detallado en el siguiente QR, <br> queremos expresarle nuestra gratitud y confianza. </p> 
