@@ -3,6 +3,7 @@
     include '../../class/booking.php';
     include '../../class/travel.php';
     include '../../core/Security.php';
+    include '../../lib-qr/barcode.php';
 
     session_start();
 
@@ -27,6 +28,25 @@
 
         if ($result->execute()) {
             $lastInsertedId = $conn->lastInsertId();
+
+
+
+
+            // Generar y guardar el código QR
+            $qr_folder = __DIR__ . '../../qr_codes/';
+
+            $generator = new barcode_generator();
+            header('Content-Type: image/svg+xml');
+            $svg = $generator->render_svg("qr", "https://transportesafe.com/user/?user=$lastInsertedId", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
+
+            $qr_filename = "qr_code_booking_$lastInsertedId.svg";
+            $qr_filepath = $qr_folder . $qr_filename;
+
+            file_put_contents($qr_filepath, $svg);
+
+            $result2 = Booking::updateBookingQrId($lastInsertedId, $qr_filename);
+            $result2->execute();
+
 
             // Actualizar los asientos seleccionados
             if (!empty($selectedSeats)) {
