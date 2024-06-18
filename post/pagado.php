@@ -42,15 +42,15 @@ if ($data) {
             $qr_folder = 'qr_user/';
 
             $generator = new barcode_generator();
-            header('Content-Type: image/svg+xml');
-            $svg = $generator->render_svg("qr", "https://transportesafe.com/reserva-realizada/?idreserva=$ultimo_id_insertado", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
+            header('Content-Type: image/png');
+            $svg = $generator->render_image("qr", "https://transportesafe.com/reserva-realizada?idreserva=$ultimo_id_insertado", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
 
-            $qr_filename = "qr_code_$ultimo_id_insertado.svg";
+            $qr_filename = "qr_code_$ultimo_id_insertado.png";
             $qr_filepath = $qr_folder . $qr_filename;
 
             file_put_contents($qr_filepath, $svg);
 
-            $sql_qr = "UPDATE tbl_reservas SET qr_reserva = '$qr_filename' WHERE id = '$ultimo_id_insertado'";
+            $sql_qr = "UPDATE tbl_reservas SET qr = '$qr_filename' WHERE id = '$ultimo_id_insertado'";
             $sql_user_stm = $conn->prepare($sql_qr);
             $sql_user_stm->execute();
         }
@@ -117,13 +117,13 @@ if ($data) {
         
             $messages =  '
             <div style="max-width: 450px;">
-                <img src="http://transportesafe.com/images/logo.png" alt="">
+                <img src="https://transportesafe.com/assets/img/logo.png" alt="">
                 <h2>Estimado '.$nombre.',</h2>
                 <p>Gracias por reservar en Transporte Safe. <br> 
                     El detalle de su reserva está detallado en el siguiente QR, <br> queremos expresarle nuestra gratitud y confianza. </p> 
                 
                 
-                <img src="http://transportesafe.com/post/qr_user/'.$qr_filename.'" alt="" style="width: 150px;">
+                <img src="https://transportesafe.com/post/qr_user/'.$qr_filename.'" alt="" style="width: 150px;">
             </div>
             ';
         

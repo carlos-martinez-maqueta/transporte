@@ -11,7 +11,7 @@ $travelList = Travel::getTravelAll();
 //var_dump($travelList);
 
 // Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
-$user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+$user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
 
 
 //OBTENER DATOS GET 
@@ -177,7 +177,7 @@ $today = date("Y-m-d");
                         </div>
                         <div class="col-lg-7 col-md-7 col-10 col_info pt-lg-2">
                             <div class="info_uno justify-content-between d-flex">
-                                <h6>Nombre Viaje</h6>
+                                <h6>Transporte SAFE</h6>
                                 
                                 <p>Estimación: <?= $diferencia_horas ?> hr <?=$diferencia_minutos?> m </p>
                                 <span>Hacientos Disponibles <?= $origin->count ?></span>
@@ -207,6 +207,9 @@ $today = date("Y-m-d");
                             </div>
                         </div>
                         <div class="col-lg-4 col_price">
+                            <div class="info_cuatros">
+                                <p class="mb-0">Dato: El pago es para reserva de boletos, lo restante se cancela al ingreso del viaje </p>
+                            </div>                             
                             <div class="flex_prices">
                                 <div class="price_div">
                                     <div class="span"><?=  $allcount = $pasajeros * $origin->precio; ?> MXM </div>
@@ -253,9 +256,7 @@ $today = date("Y-m-d");
                                     <div class="info_trees px-4">
                                         <p class="mb-0">Mátricula de Movilidad: <?= $origin->matriculaMovilidad ?></p>
                                     </div>  
-                                    <div class="info_cuatros">
-                                        <p class="mb-0">Dato: El pago es para reserva de boletos, se cancela al ingreso al viaje </p>
-                                    </div>                                  
+                                 
                                 </div>
                             </div>  
                         </div>

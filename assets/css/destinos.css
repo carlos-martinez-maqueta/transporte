@@ -76,9 +76,12 @@
     width: 15px;
     margin-right: 5px;
 }
-.fondo_boleto_despliegue .info_cuatros p{
+.info_cuatros{
+    margin: 10px 0px 0px;
+}
+.info_cuatros p{
     font-size: 14px;
-    color: #31bb73;
+    color: #004aad;
     font-weight: bold;
 }
 .section_ticket .row_ticket .col_price{

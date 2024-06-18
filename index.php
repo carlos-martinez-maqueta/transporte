@@ -3,15 +3,33 @@ include 'config/conexion.php';
 session_start(); // Inicia la sesión al comienzo del archivo
 
 // Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
-$user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+$user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
 $today = date("Y-m-d");
 
+include 'dashboard/class/home.php';
 include 'dashboard/class/origin.php';
 include 'dashboard/class/destination.php';
+include 'dashboard/class/travel.php';
+include 'dashboard/class/user.php';
+
+
 $originList = Origin::getOriginAll();
 $destinoList = Destination::getDestinationAll();
  
+$homeObj = Home::getHome();
+$trabelObj = Travel::getTravelAll();
+$usercount = User::getUserAllActive();
+$resultBest = Home::getBestAll();
+$resultComents = Home::getCommentsAll();
 
+
+$numeroDeViajes = count($trabelObj);
+$numeroDeUsuarios = count($usercount);
+
+$numeroDeOrigin = count($originList);
+$numeroDeDestino = count($destinoList);
+
+$numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,7 +40,7 @@ $destinoList = Destination::getDestinationAll();
 
     <section class="banner_div">
         <div class="">
-            <img src="assets/img/banner_home.png" alt="" class="d-lg-block d-none w-100">
+            <img src="dashboard/files/home/<?= $homeObj->banner ?>" class="d-lg-block d-none w-100" alt="">
             <img src="assets/img/banner_home_mobile.png" alt="" class="d-lg-none d-block w-100">
             <div class="buscador_home container">
                 <div class="row justify-content-md-center row_lg_home">
@@ -85,7 +103,7 @@ $destinoList = Destination::getDestinationAll();
             <div class="row justify-content-md-center">
                 <div class="col-lg-8 col-12">
                     <div class="publicidad_img">
-                        <img src="assets/img/publicidad.png" alt="" class="img-fluid">
+                        <img src="dashboard/files/home/<?= $homeObj->publicidad ?>" alt="" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -97,27 +115,20 @@ $destinoList = Destination::getDestinationAll();
             <div class="row">
                 <div class="col-12">
                     <div class="div owl-carousel owl-info">
-                        <div class="info_flex">
-                            <div><img src="assets/img/info.png" alt="" class="img-fluid"></div>
-                            <div class="px-3">
-                                <p>Best Destinations</p>
-                                <span>Lorem ipsum es el texto que se usa habitualmente</span>
-                            </div>
-                        </div>
-                        <div class="info_flex">
-                            <div><img src="assets/img/info.png" alt="" class="img-fluid"></div>
-                            <div class="px-3">
-                                <p>Best Destinations</p>
-                                <span>Lorem ipsum es el texto que se usa habitualmente</span>
-                            </div>
-                        </div>
-                        <div class="info_flex">
-                            <div><img src="assets/img/info.png" alt="" class="img-fluid"></div>
-                            <div class="px-3">
-                                <p>Best Destinations</p>
-                                <span>Lorem ipsum es el texto que se usa habitualmente</span>
-                            </div>
-                        </div>                                                
+                        <?php
+                            foreach ($resultBest as $resultsBest) 
+                            { 
+                        ?>
+                            <div class="info_flex">
+                                <div><img src="assets/img/info.png" alt="" class="img-fluid"></div>
+                                <div class="px-3">
+                                    <p><?= $resultsBest->title; ?></p>
+                                    <span><?= $resultsBest->subtitle; ?></span>
+                                </div>
+                            </div>                                
+                        <?php 
+                            }
+                        ?>                                                                      
                     </div>
                 </div>
             </div>
@@ -135,45 +146,26 @@ $destinoList = Destination::getDestinationAll();
                 <div class="col-12 mt-5">
                     <div class="seccion_resenas">
                         <div class="owl-carousel owl-items">
+                        <?php
+                            foreach ($resultComents as $resultscoment) 
+                            { 
+                        ?> 
                             <div class="item_resena">
                                 <div class="title_resena">
-                                    <h6>Hotel Equatorial jwelqe</h6>
-                                    <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño.</p>
+                                    <h6><?= $resultscoment->titulo; ?></h6>
+                                    <p><?= $resultscoment->parrafo; ?></p>
                                 </div>
                                 <div class="flex_item_user">
                                     <div><img src="assets/img/eclipse.png" class="img-fluid" alt=""></div>
                                     <div class="px-3">
-                                        <p>Javier Paredes</p>
-                                        <span>Ing. Sistemas</span>
+                                        <p><?= $resultscoment->nombre; ?></p>
+                                        <span><?= $resultscoment->cargo; ?></span>
                                     </div>
                                 </div>                                
                             </div>
-                            <div class="item_resena">
-                                <div class="title_resena">
-                                    <h6>Hotel Equatorial jwelqe</h6>
-                                    <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño.</p>
-                                </div>
-                                <div class="flex_item_user">
-                                    <div><img src="assets/img/eclipse.png" class="img-fluid" alt=""></div>
-                                    <div class="px-3">
-                                        <p>Javier Paredes</p>
-                                        <span>Ing. Sistemas</span>
-                                    </div>
-                                </div>                                
-                            </div>
-                            <div class="item_resena">
-                                <div class="title_resena">
-                                    <h6>Hotel Equatorial jwelqe</h6>
-                                    <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño.</p>
-                                </div>
-                                <div class="flex_item_user">
-                                    <div><img src="assets/img/eclipse.png" class="img-fluid" alt=""></div>
-                                    <div class="px-3">
-                                        <p>Javier Paredes</p>
-                                        <span>Ing. Sistemas</span>
-                                    </div>
-                                </div>                                
-                            </div>                                                        
+                        <?php 
+                            }
+                        ?>                                                                                                        
                         </div>
                     </div>
                 </div>
@@ -183,35 +175,31 @@ $destinoList = Destination::getDestinationAll();
   
     <section class="section_datos">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <img src="assets/img/globo.png" alt="" class="img-fluid">
+                    <img src="dashboard/files/home/<?= $homeObj->banner2 ?>" alt="" class="img-fluid">
                 </div>
                 <div class="col-lg-6">
                     <div class="div_datos">
-                        <span>Explore the world</span>
-                        <h4>Plan your trip with us whenever <br> you want</h4>
+                        <span><?= $homeObj->texto1 ?></span>
+                        <h4><?= $homeObj->texto2 ?></h4>
                         <p class="mb-5">
-                            Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones
-                            de tipografías o de borradores de diseño para probar el diseño visual antes de insertar 
-                            el texto fina. Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en
-                            demostraciones de tipografías o de borradores de diseño para probar el diseño visual
-                            antes de insertar el texto fina.                            
+                            <?= $homeObj->parrafo ?>                           
                         </p>
 
-                        <a href="">Leer más</a>
+                        <!-- <a href="">Leer más</a> -->
 
                         <div class="flex_items mt-5">
                             <div class="item_div">
-                                <p>5336</p>
-                                <span>Viajes</span>
+                                <p><?=$numerototalDestinos?></p>
+                                <span>Destinos</span>
                             </div>
                             <div class="item_div">
-                                <p>85</p>
+                                <p><?=$numeroDeViajes?></p>
                                 <span>Viajes</span>                                
                             </div>
                             <div class="item_div">
-                                <p>300</p>
+                                <p><?=$numeroDeUsuarios?></p>
                                 <span>Usuarios</span>                                
                             </div>
                         </div>

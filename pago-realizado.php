@@ -57,7 +57,7 @@ $descuentoboleto = $totalboletos / 2;
  
     <section class="sections_pay_done py-5 section_datos_personales">
         <div class="container">
-            <div class="row     align-items-center">
+            <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div><img src="assets/img/login.png" alt=""></div>
                 </div>

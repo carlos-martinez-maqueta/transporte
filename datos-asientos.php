@@ -190,12 +190,12 @@ $descuentoboleto = $totalboletos / 2;
                                                                         $imgSrc = "assets/img/svg/asiento_seleccionado.svg"; // Asiento reservado
                                                                     }
                                                                     ?>
-<div class="asiento <?= $estado ?>" id="<?= htmlspecialchars($asiento->asiento); ?>" data-id="<?= htmlspecialchars($asiento->id); ?>">
-    <img src="<?= $imgSrc ?>" alt="">
-    <div style="position: absolute; top: 16px;left: 12px;">
-        <span style="font-size: 9px;"><?= htmlspecialchars($asiento->asiento); ?></span>
-    </div>
-</div>
+                                                                    <div class="asiento <?= $estado ?>" id="<?= htmlspecialchars($asiento->asiento); ?>" data-id="<?= htmlspecialchars($asiento->id); ?>">
+                                                                        <img src="<?= $imgSrc ?>" alt="">
+                                                                        <div style="position: absolute; top: 16px;left: 12px;">
+                                                                            <span style="font-size: 9px;"><?= htmlspecialchars($asiento->asiento); ?></span>
+                                                                        </div>
+                                                                    </div>
                                                                     <?php 
                                                                     $index++; 
                                                                 }

@@ -38,7 +38,7 @@
                         <h3>Contáctanos</h3>
                         <ul>
                             <li><a href="contacto">Contáctanos</a></li>
-                            <li><a href="">Contacto@gmail.com</a></li>
+                            <li><a href="">contacto@transportesafe.com</a></li>
                         </ul>                             
                     </div>                                               
                 </div>
@@ -59,7 +59,7 @@
         <div class="container">
             <div class="row py-3">
                 <div class="col-lg-10 col-12 center_mobile">
-                    <p class="m-0">@ Transporte Safe | Todos los derechos reservados | Desarrollado por  <a href="" class="web_dev">DIINTEC Solutions</a></p>
+                    <p class="m-0">@ Transporte Safe | Todos los derechos reservados | Desarrollado por  <a target="_blanck" href="https://diintec.com/" class="web_dev">DIINTEC Solutions</a></p>
                 </div>
                 <div class="col-lg-2 col-12 text-end center_mobile">
                     <p class="m-0"><a href="">Facebook</a></p>

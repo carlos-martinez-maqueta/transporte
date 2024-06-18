@@ -2,7 +2,7 @@
 session_start();
 
 // Verifica si ya hay una sesión activa
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['cliente'])) {
     // Si hay una sesión activa, redirige al usuario a la página de inicio
     header("Location: index");
     exit();

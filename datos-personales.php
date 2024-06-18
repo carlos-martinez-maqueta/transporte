@@ -97,7 +97,7 @@ $descuentoboleto = $totalboletos / 2;
                                             <label for="">Teléfono</label>
                                         <?php else: ?> 
                                             <input type="text" class="form-control" name="telefono" id="" required>
-                                            <label for="" >Teléfono</label>
+                                            <label for="" >Teléfono con WhatsApp</label>
                                         <?php endif; ?>
                                     </div>                                
                                 </div>                            

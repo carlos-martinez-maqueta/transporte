@@ -2,7 +2,7 @@
 session_start(); // Inicia la sesión al comienzo del archivo
 
 // Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
-$user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+$user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
 ?>
 <!doctype html>
 <html lang="en">
