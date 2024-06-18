@@ -1,6 +1,6 @@
 <?php
 $host ="localhost";
-$database ="db_transporte_bajiov2";
+$database ="db_transporte_bajio";
 $user ="root";
 $pass ="";
 

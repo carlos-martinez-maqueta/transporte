@@ -60,7 +60,6 @@
         <form id="addBookingSales" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
             <input type="hidden" id="viaje_id" name="viaje_id" value="">
-            <input type="hidden" id="staff_id" name="staff_id" value="<?= htmlspecialchars($usuario_id, ENT_QUOTES, 'UTF-8') ?>">
             <div class="row mb-4 p-4 card bg-light">
                 <div class="col-lg-12 mb-4">
                     <h5 class="font_two">Seleccionar Viaje</h5>
@@ -69,14 +68,11 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" scope="col">CORRELATIVO</th>
-                                    <th class="text-center" scope="col">ORIGEN</th>
-                                    <th class="text-center" scope="col">DESTINO</th>
                                     <th class="text-center" scope="col">MOVILIDAD</th>
                                     <th class="text-center" scope="col">ASIENTOS</th>
                                     <th class="text-center" scope="col">ASIENTOS DISPONIBLES</th>
-                                    <th class="text-center" scope="col">FECHA INICIO</th>
-                                    <th class="text-center" scope="col">FECHA FIN</th>
-                                    <th class="text-center" scope="col">PRECIO</th>
+                                    <th class="text-center" scope="col">HORA SALIDA</th>
+                                    <th class="text-center" scope="col">FECHA</th>
                                     <th class="text-center" scope="col">ESTADO</th>
                                     <th class="text-center" scope="col">SELECCIONAR</th>
                                 </tr>
@@ -184,6 +180,7 @@
                         <div class="col-xl-12 col-md-12 p-4">
                             <div class="card">
                                 <div class="card-body">
+
                                     <div class="mb-3">
                                         <label for="imagen" class="form-label">Seleccionar Imgaen</label>
                                         <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" aria-label="Select File" required>
