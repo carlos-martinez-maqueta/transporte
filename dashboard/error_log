@@ -1,0 +1,153 @@
+[14-Jun-2024 06:49:09 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:49:09 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:49:09 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:49:09 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:49:17 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:49:17 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:49:17 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:49:17 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:49:48 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:49:48 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:49:48 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:49:48 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:50:02 UTC] PHP Warning:  Attempt to read property "id" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 48
+[14-Jun-2024 06:50:02 UTC] PHP Warning:  Attempt to read property "banner" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 55
+[14-Jun-2024 06:50:02 UTC] PHP Warning:  Attempt to read property "publicidad" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 80
+[14-Jun-2024 06:50:02 UTC] PHP Warning:  Attempt to read property "banner2" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 106
+[14-Jun-2024 06:50:02 UTC] PHP Warning:  Attempt to read property "texto1" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 133
+[14-Jun-2024 06:50:02 UTC] PHP Warning:  Attempt to read property "texto2" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 136
+[14-Jun-2024 06:50:02 UTC] PHP Warning:  Attempt to read property "parrafo" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 139
+[14-Jun-2024 06:50:11 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:50:11 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:50:11 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:50:11 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:52:15 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:52:15 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:52:15 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:52:15 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:53:05 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:53:05 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:53:05 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:53:05 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:57:15 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:57:15 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:57:15 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:57:15 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:57:20 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:57:20 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 06:57:20 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:57:20 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 06:59:59 UTC] PHP Warning:  Attempt to read property "id" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 48
+[14-Jun-2024 06:59:59 UTC] PHP Warning:  Attempt to read property "banner" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 55
+[14-Jun-2024 06:59:59 UTC] PHP Warning:  Attempt to read property "publicidad" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 80
+[14-Jun-2024 06:59:59 UTC] PHP Warning:  Attempt to read property "banner2" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 106
+[14-Jun-2024 06:59:59 UTC] PHP Warning:  Attempt to read property "texto1" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 133
+[14-Jun-2024 06:59:59 UTC] PHP Warning:  Attempt to read property "texto2" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 136
+[14-Jun-2024 06:59:59 UTC] PHP Warning:  Attempt to read property "parrafo" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 139
+[14-Jun-2024 07:00:01 UTC] PHP Warning:  Attempt to read property "id" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 48
+[14-Jun-2024 07:00:01 UTC] PHP Warning:  Attempt to read property "banner" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 55
+[14-Jun-2024 07:00:01 UTC] PHP Warning:  Attempt to read property "publicidad" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 80
+[14-Jun-2024 07:00:01 UTC] PHP Warning:  Attempt to read property "banner2" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 106
+[14-Jun-2024 07:00:01 UTC] PHP Warning:  Attempt to read property "texto1" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 133
+[14-Jun-2024 07:00:01 UTC] PHP Warning:  Attempt to read property "texto2" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 136
+[14-Jun-2024 07:00:01 UTC] PHP Warning:  Attempt to read property "parrafo" on bool in /home/umdekfts/transportesafe.com/dashboard/home-management.php on line 139
+[14-Jun-2024 07:00:12 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 07:00:12 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 07:00:12 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 07:00:12 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:03:33 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[14-Jun-2024 16:03:33 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[14-Jun-2024 16:03:33 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 16:03:33 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 16:03:33 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[14-Jun-2024 16:03:33 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[14-Jun-2024 16:03:53 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:03:53 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:03:53 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:03:53 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:06:22 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:06:22 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:06:22 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:06:22 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:08:44 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:08:44 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:08:44 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:08:44 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:18:23 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:18:23 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:18:23 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:18:23 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:24:31 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:24:31 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 16:24:31 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:24:31 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 16:28:20 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[14-Jun-2024 16:28:20 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[14-Jun-2024 16:28:20 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 16:28:20 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 16:28:20 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[14-Jun-2024 16:28:20 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[14-Jun-2024 17:41:03 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[14-Jun-2024 17:41:03 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[14-Jun-2024 17:41:03 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 17:41:03 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 17:41:03 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[14-Jun-2024 17:41:03 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[14-Jun-2024 17:47:32 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 17:47:32 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 17:47:32 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 17:47:32 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 17:51:18 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[14-Jun-2024 17:51:18 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[14-Jun-2024 17:51:18 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 17:51:18 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 17:51:18 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[14-Jun-2024 17:51:18 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[14-Jun-2024 22:00:54 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[14-Jun-2024 22:00:54 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[14-Jun-2024 22:00:54 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 22:00:54 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 22:00:54 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[14-Jun-2024 22:00:54 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[14-Jun-2024 22:10:58 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[14-Jun-2024 22:10:58 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[14-Jun-2024 22:10:58 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 22:10:58 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 22:10:58 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[14-Jun-2024 22:10:58 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[14-Jun-2024 22:10:59 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[14-Jun-2024 22:10:59 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[14-Jun-2024 22:10:59 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 22:10:59 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 22:10:59 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[14-Jun-2024 22:10:59 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[14-Jun-2024 22:14:56 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 22:14:56 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 22:14:56 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 22:14:56 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 22:40:27 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 22:40:27 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[14-Jun-2024 22:40:27 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 22:40:27 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[14-Jun-2024 23:27:46 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[14-Jun-2024 23:27:46 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[14-Jun-2024 23:27:46 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 23:27:46 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[14-Jun-2024 23:27:46 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[14-Jun-2024 23:27:46 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[15-Jun-2024 04:36:32 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[15-Jun-2024 04:36:32 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[15-Jun-2024 04:36:32 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[15-Jun-2024 04:36:32 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[15-Jun-2024 04:36:32 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[15-Jun-2024 04:36:32 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
+[15-Jun-2024 04:37:44 UTC] PHP Warning:  Undefined variable $destinationObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[15-Jun-2024 04:37:44 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 70
+[15-Jun-2024 04:37:44 UTC] PHP Warning:  Undefined variable $mobilityObj in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[15-Jun-2024 04:37:44 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/umdekfts/transportesafe.com/dashboard/bookings-list.php on line 79
+[18-Jun-2024 01:09:23 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 5
+[18-Jun-2024 01:09:23 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/app/components/sidebar.php on line 74
+[18-Jun-2024 01:09:23 UTC] PHP Warning:  Undefined variable $staffObj in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[18-Jun-2024 01:09:23 UTC] PHP Warning:  Attempt to read property "nombre" on null in /home/umdekfts/transportesafe.com/dashboard/app/components/topbar.php on line 16
+[18-Jun-2024 01:09:23 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 64
+[18-Jun-2024 01:09:23 UTC] PHP Warning:  Undefined variable $user_role in /home/umdekfts/transportesafe.com/dashboard/index.php on line 286
