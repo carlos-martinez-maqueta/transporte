@@ -5,8 +5,8 @@ include 'dashboard/class/plantilla.php';
 include 'dashboard/class/mobility.php';
 include 'dashboard/class/asientos.php';
 session_start(); // Inicia la sesión al comienzo del archivo
-include 'get/info-viaje.php';
-$descuentoboleto = $totalboletos / 2;
+include 'get/info-viaje-dos.php';
+// $descuentoboleto = $totalboletos / 2;
 ?>
 <!doctype html>
 <html lang="en">
@@ -128,8 +128,7 @@ $descuentoboleto = $totalboletos / 2;
         </script> -->
 
         <script>
- 
-            var viaje = <?= json_encode($viajeid) ?>;
+            var viaje = <?= json_encode($viaje_id) ?>;
             var asientos = <?= json_encode($pasajeros) ?>;
 
             localStorage.setItem('viaje', viaje);

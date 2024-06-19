@@ -80,11 +80,13 @@ class Booking
                 tbl_personal tpe ON tpe.id = tr.staff_id
             LEFT JOIN
                 tbl_viajes tvi ON tvi.id = tr.viaje_id
+            WHERE 
+                tr.id = :id                
             ORDER BY 
                 tr.fecha_creacion DESC");
         $statement->bindValue(":id", $id);
         $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+        $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result;
     }
     public static function addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking, $point_id, $tipoBooking)

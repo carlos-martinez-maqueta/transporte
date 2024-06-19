@@ -8,6 +8,8 @@ $stripe = new \Stripe\StripeClient([
 ]);
 $unit_amount = isset($_GET['monto']) ? intval($_GET['monto']) : null;
 $viaje = isset($_GET['viaje']) ? intval($_GET['viaje']) : null;
+$destino = isset($_GET['destino']) ? $_GET['destino'] : null;
+$pasajeros = isset($_GET['pasajeros']) ? intval($_GET['pasajeros']) : null;
 
 try {
   // Datos del producto
@@ -34,7 +36,7 @@ try {
     'phone_number_collection' => [
       'enabled' => true,
     ],
-    'return_url' => 'https://transportesafe.com/pago-realizado?idviaje=' . $viaje . '&pasajeros=1&session_id={CHECKOUT_SESSION_ID}',
+    'return_url' => 'http://localhost:8012/transporte/pago-realizado?destino=' . $destino . '&idviaje=' . $viaje . '&pasajeros=' . $pasajeros . '&session_id={CHECKOUT_SESSION_ID}',
   ]);
 
   header('Content-Type: application/json');

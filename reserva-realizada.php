@@ -1,42 +1,20 @@
 <?php
-session_start(); // Inicia la sesión al comienzo del archivo
 include 'config/conexion.php';
 include 'dashboard/class/travel.php';
-$idreserva = isset($_GET['idreserva']) ? intval($_GET['idreserva']) : 0;
-
+include 'dashboard/class/origin.php';
+include 'dashboard/class/mobility.php';
+include 'dashboard/class/asientos.php';
 include 'dashboard/class/booking.php';
-$reserva = Booking::getBookingAllId($idreserva);
 
-if (!empty($reserva)) {
-    // Asumiendo que el primer objeto en el array es la reserva principal
-    $reservaPrincipal = $reserva[0];
-    // Filtrar acompañantes eliminando duplicados por ID
-    $acompanantes = array_slice($reserva, 1);
-    $acompanantesUnicos = [];
-    foreach ($acompanantes as $acompanante) {
-        // Eliminar el pasajero principal de la lista de acompañantes
-        if ($acompanante->nombrePasajero != $reservaPrincipal->nombrePasajero || 
-            $acompanante->apellidosPasajero != $reservaPrincipal->apellidosPasajero) {
-            $key = $acompanante->nombrePasajero . $acompanante->apellidosPasajero;
-            if (!isset($acompanantesUnicos[$key])) {
-                $acompanantesUnicos[$key] = $acompanante;
-            }
-        }
-    }
+session_start(); // Inicia la sesión al comienzo del archivo
+include 'get/info-viaje-dos.php';
 
-    // Obtener los asientos únicos
-    $asientosUnicos = [];
-    foreach ($reserva as $r) {
-        if (!in_array($r->asientoNumero, $asientosUnicos)) {
-            $asientosUnicos[] = $r->asientoNumero;
-        }
-    }
-}
-// $fechaViajeFormateada = date('d \d\e M Y', strtotime($reservaPrincipal->fechaViaje));
-// $fechaFinFormateada = date('d \d\e M Y', strtotime($reservaPrincipal->fechaFin));
-// var_dump($reserva);
+$reserva = isset( $_GET['reserva']) ?  $_GET['reserva'] : null;
 
-
+$objReserva = Booking::getBookingVentasId($reserva);
+$objAsiento = Booking::getSeatsPassengersId($reserva);
+$objPersonas = Booking::getBookingPassengersId($reserva);
+// var_dump($objPersonas);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,30 +93,30 @@ if (!empty($reserva)) {
             <div class="boleto">
                 <div class="cabza">
                     <div style="width: 40%;text-align: center;">
-                        <p><?= $reservaPrincipal->nombreOrigen ?></p>
-                        <span><?= $reservaPrincipal->fechaViajeFormat ?></span>
+                        <p><?=$ticketObj->origen;?></p>
+                        <span><?=$ticketObj->hora_salida;?></span>
                     </div>
-                    <div style="width: 20%;text-align: center;"></div>
+                    <div style="width: 20%;text-align: center;"></div>  
                     <div style="width: 40%;text-align: center;">
-                        <p><?= $reservaPrincipal->nombreDestino ?></p>
-                        <span><?= $reservaPrincipal->fechaFinFormat ?></span>
+                        <p><?=$ticketObj->destino;?></p>
+                        <span><?=$ticketObj->hora_llegada;?></span>
 
                     </div>
                 </div>
                 <div class="codigo_cosas">
-                    <div>CODIGO BOLETO: <?= $reservaPrincipal->correlativoViaje ?></div>
+                    <div>CODIGO BOLETO: <?=$viajeObj->correlativo?></div>
                     <br>
-                    <div>PAGO: <p><?php
-                    //    $precio_pagado = $reservaPrincipal->precio_pagado / 100;
-                    //    $precio_formateado = number_format($precio_pagado, 2, '.', '');
-                    ?><?= $reservaPrincipal->precio_pagado ?> MXM</p></div>
+                    <div>PAGO: <p><?=$objReserva->precio_pagado;?> MXM</p></div>
                 </div>
                 <div class="boleto_asientos">
                     <p>ASIENTOS:</p>
                     <ul>
-                    <?php foreach ($asientosUnicos as $asiento) { ?>
-                            <li><img src="assets/img/svg/asiento_vacio.svg" alt=""><p><?= $asiento ?></p></li>
-                        <?php } ?>
+                        <?php
+                            foreach ($objAsiento as $asiento) {
+                                echo "<li><img src='assets/img/svg/asiento_vacio.svg' alt=''><p>{$asiento->asiento}</p></li>";
+                            }
+                        ?>
+                      
                     </ul>
                 </div>
             </div>  
@@ -149,31 +127,25 @@ if (!empty($reserva)) {
                 position: relative;
                 top: -120px;">
 
-                <h3>Comprador</h3>
-                <p><b>Nombre:</b> <?= $reservaPrincipal->nombrePasajero ?></p>
-                <p><b>Apellido:</b> <?= $reservaPrincipal->apellidosPasajero ?></p>
-                <p><b>Correo:</b> <?= $reservaPrincipal->correoPasajero ?></p>
-                <p><b>Celular:</b> <?= $reservaPrincipal->celularPasajero ?></p>
+                <?php $comprador = $objPersonas[0]; 
+            echo "<h3>Comprador</h3>";
+            echo "<p><b>Nombre:</b> {$comprador->nombre}</p>";
+            echo "<p><b>Apellido:</b> {$comprador->apellidos}</p>";
+            echo "<p><b>Correo:</b> " . ($comprador->correo ? $comprador->correo : 'N/A') . "</p>";
+            echo "<p><b>Celular:</b> " . ($comprador->celular ? $comprador->celular : 'N/A') . "</p>";
 
-                
-                <?php 
-                $acompananteIndex = 1;
-                if ($acompananteIndex) {
-                    $validar = $reserva[0]->asientos_reservados;             
-                    
-                    if  ($validar > 1) {
-                        echo '<h3>Acompañantes</h3>';
-                    }
-                   
-                   foreach ($acompanantesUnicos as $acompanante) { ?>
-                    <p><b><?= $acompananteIndex ?>:</b> <?= $acompanante->nombrePasajero ?> <?= $acompanante->apellidosPasajero ?></p>
-                    <?php $acompananteIndex++; ?>
-                    <?php } ?>
-                
-                
-                   
-                <?php } ?>     
-                             
+ 
+                                
+                if (count($objPersonas) > 1) {
+            echo "<h3>Acompañantes</h3>";
+            for ($i = 1; $i < count($objPersonas); $i++) {
+                $acompanante = $objPersonas[$i];?>
+                <div class="d-flex">
+                    <div class="me-2"><p><b>Nombre:</b>  <?=$acompanante->nombre?> </p></div> 
+                    <div class="me-2"><p><b>Apellido:</b>  <?=$acompanante->apellidos?> </p> </div>
+                </div>
+                <?php  }
+        }?>
             </div>
         </div>
     </section>

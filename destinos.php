@@ -3,7 +3,7 @@
 include 'config/conexion.php';
 include 'dashboard/class/travel.php';
 include 'dashboard/class/origin.php';
-include 'dashboard/class/destination.php';
+include 'dashboard/class/mobility.php';
 
 session_start(); // Inicia la sesión al comienzo del archivo
 
@@ -12,6 +12,8 @@ $travelList = Travel::getTravelAll();
 
 // Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
 $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
+$pasajeros = isset( $_GET['pasajeros']) ?  $_GET['pasajeros'] : null;
+$fecha = isset( $_GET['fecha']) ?  $_GET['fecha'] : null;
 
 // Separa el valor de 'destino' en $id y $tipo
 list($id, $tipo) = explode('-', $_GET['destino']);
@@ -43,11 +45,17 @@ try {
         }
 
         $ticketObj = Travel::getPointsFechHomeId($viaje_id, $id);
+        $viajeObj = Travel::getMarvelId($viaje_id);
+        $movilidadObj = Mobility::getMobilityId($viajeObj->movilidad_id);
 
-        var_dump($ticketObj);
+        // var_dump($movilidadObj);
 
+        $horafecha = new DateTime($horafecha = $ticketObj->fecha);
+
+        $fecha_formateada = strftime('%d de %B de %Y', $horafecha->getTimestamp());
+        
         // Hacer algo con el viaje_id seleccionado
-        echo "El viaje con viaje_id $viaje_id tiene un count mayor a 0 en otra_tabla.";
+        //echo "El viaje con viaje_id $viaje_id tiene un count mayor a 0 en otra_tabla.";
 
         // Por ejemplo, podrías almacenar el viaje_id en una variable para usarlo más tarde
         $selected_viaje_id = $viaje_id;
@@ -63,29 +71,6 @@ try {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-$fecha = isset($_GET['fecha']) ? $_GET['fecha'] : '';
-$pasajeros = isset($_GET['pasajeros']) ? $_GET['pasajeros'] : 1; // Por defecto, 1 pasajero si no se especifica
-
-// $origenes = Origin::getOriginId($origen); 
-// $destinos = Destination::getDestinationId($destino); 
-
-$originList = Origin::getOriginAll();
-$destinoList = Destination::getDestinationAll();
-
-// var_dump($origenes)
-
-$today = date("Y-m-d");
 ?>
 <!doctype html>
 <html lang="en">
@@ -124,21 +109,9 @@ $today = date("Y-m-d");
                                 <div class="col-lg col-6  mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <select class="form-select" id="" name="origen" aria-label="Floating label select example">
-                                            <?php if ($origen) { ?>
-                                                <option value="<?= $origenes->id ?>"><?= $origenes->nombre ?></option>
-                                                <?php
-                                                foreach ($originList as $origin) {
-                                                    echo '<option value="' . $origin->id . '">' . $origin->nombre . '</option>';
-                                                }
-                                                ?>
-                                            <?php } else { ?>
+ 
                                                 <option value="">Seleccionar</option>
-                                                <?php
-                                                foreach ($originList as $origin) {
-                                                    echo '<option value="' . $origin->id . '">' . $origin->nombre . '</option>';
-                                                }
-                                                ?>
-                                            <?php } ?>
+ 
 
                                         </select>
                                         <label for="">Origen</label>
@@ -147,21 +120,9 @@ $today = date("Y-m-d");
                                 <div class="col-lg col-6  mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <select class="form-select" id="" name="destino" aria-label="Floating label select example">
-                                            <?php if ($destino) { ?>
-                                                <option value="<?= $destinos->id ?>"><?= $destinos->nombre ?></option>
-                                                <?php
-                                                foreach ($destinoList as $origin) {
-                                                    echo '<option value="' . $origin->id . '">' . $origin->nombre . '</option>';
-                                                }
-                                                ?>
-                                            <?php } else { ?>
+ 
                                                 <option value="">Seleccionar</option>
-                                                <?php
-                                                foreach ($destinoList as $origin) {
-                                                    echo '<option value="' . $origin->id . '">' . $origin->nombre . '</option>';
-                                                }
-                                                ?>
-                                            <?php } ?>
+ 
                                         </select>
                                         <label for="">Destino</label>
                                     </div>
@@ -169,20 +130,16 @@ $today = date("Y-m-d");
                                 <div class="col-lg col-6  mb-lg-0 mb-3">
 
                                     <div class="form-floating">
-
-                                        <?php
-                                        if ($origen) { ?>
-                                            <input type="date" class="form-control" id="" value="<?php echo $fecha ?>" name="fecha" placeholder="">
-                                        <?php   } else { ?>
+ 
                                             <input type="date" class="form-control" id="" value="<?php echo $today; ?>" name="fecha" placeholder="">
-                                        <?php } ?>
+ 
                                         <label for="">Fecha</label>
                                     </div>
 
                                 </div>
                                 <div class="col-lg col-6  mb-lg-0 mb-3">
                                     <div class="form-floating">
-                                        <input type="number" class="form-control" id="" value="<?php echo $pasajeros ?>" name="pasajeros" placeholder="">
+                                        <input type="number" class="form-control" id="" value="2" name="pasajeros" placeholder="">
                                         <label for="">Pasajeros</label>
                                     </div>
                                 </div>
@@ -201,68 +158,42 @@ $today = date("Y-m-d");
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-lg-12">
-                    <?php
-
-                    foreach ($travelList as $origin) {
-                        $fecha_inicio = new DateTime($origin->fecha_inicio);
-                        $fecha_fin = new DateTime($origin->fecha_fin);
-
-                        $diferencia = $fecha_inicio->diff($fecha_fin);
-
-                        // Calcula la diferencia total en horas
-                        $diferencia_horas = $diferencia->h + ($diferencia->days * 24);
-
-                        // Agrega los minutos a la diferencia total
-                        $diferencia_minutos = $diferencia->i;
-
-                        //SACAR LAS HORAS DE INICIO Y FIN
-                        $fecha_inicios = new DateTime($origin->fecha_inicio);
-                        $hora_inicio = $fecha_inicios->format('H:i'); // Formato de 24 horas: HH:mm
-
-                        $fecha_fin = new DateTime($origin->fecha_fin);
-                        $hora_fin = $fecha_fin->format('H:i'); // Formato de 24 horas: HH:mm
-
-
-                        setlocale(LC_TIME, 'es_ES.UTF-8'); // Establecer el idioma a español
-
-                        $fecha_inicioss = new DateTime($origin->fecha_inicio);
-                        $fecha_formateada = strftime('%d de %B de %Y', $fecha_inicioss->getTimestamp());
-                    ?>
+ 
+                     
                         <div class="row row_ticket" id=" ">
                             <div class="col-lg-1 col-md-1 col-2 col_id">
                                 <div class="id_p_ticket">
-                                    <p>#<?= $origin->correlativo ?> </p>
+                                    <p><?=$viajeObj->correlativo?></p>
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-7 col-10 col_info pt-lg-2">
                                 <div class="info_uno justify-content-between d-flex">
                                     <h6>Transporte SAFE</h6>
-
-                                    <p>Estimación: <?= $diferencia_horas ?> hr <?= $diferencia_minutos ?> m </p>
-                                    <span>Hacientos Disponibles <?= $origin->count ?></span>
+                                    <p>Tiempo Estimado</p>
+                                    <span>Hacientos Disponibles <?=$viajeObj->count?></span>
                                 </div>
                                 <div class="info_dos">
                                     <div class="anchos_w">
-                                        <p><?= $origin->nombreOrigen ?></p>
-                                        <span><?= $hora_inicio ?></span>
+                                        <p><?=$ticketObj->origen?></p>
+                                        <span><?=$ticketObj->hora_salida?></span> 
                                     </div>
                                     <div class="anchos_w">
                                         <p class="linea_sepa"></p>
                                     </div>
                                     <div class="anchos_w text-center">
                                         <img src="assets/img/svg/camion.svg" alt="">
-                                        <p><?= $diferencia_horas ?> hr <?= $diferencia_minutos ?> m </p>
+                                        <p><?=$ticketObj->tiempo_viaje?></p>
                                     </div>
                                     <div class="anchos_w">
                                         <p class="linea_sepa"></p>
                                     </div>
                                     <div class="anchos_w text-end">
-                                        <p><?= $origin->nombreDestino ?></p>
-                                        <span><?= $hora_fin ?></span>
+                                        <p><?=$ticketObj->destino?></p>
+                                        <span><?=$ticketObj->hora_llegada?></span>
                                     </div>
                                 </div>
                                 <div>
-                                    <span><?= $fecha_formateada ?></span>
+                                    <span><?=$fecha_formateada?></span>
                                 </div>
                             </div>
                             <div class="col-lg-4 col_price">
@@ -271,36 +202,35 @@ $today = date("Y-m-d");
                                 </div>
                                 <div class="flex_prices">
                                     <div class="price_div">
-                                        <div class="span"><?= $allcount = $pasajeros * $origin->precio; ?> MXM </div>
+                                        <div class="span"><?=$ticketObj->precio?> MXM </div>
                                         <div class="span_span">Precio boletos</div>
                                     </div>
                                     <div class="price_div_descuentos">
                                         <div class="span">
-                                            <?php $descuento = $origin->precio / 2;
-                                            $allcount = $pasajeros * $descuento;
-
-                                            echo $allcount ?> MXM
+                                            <?=$ticketObj->reserva?> MXM
                                         </div>
                                         <div class="span_span">Precio para reserva</div>
                                     </div>
                                 </div>
                                 <div class="flex_button mb-lg-3">
-
-                                    <?php if ($origin->count > 0) { ?>
-                                        <a data-bs-toggle="collapse" href="#<?= $origin->id ?>" role="button" aria-expanded="false" aria-controls="<?= $origin->id ?>" class="detail_button"><img src="assets/img/detail.svg" class="img-fluid" alt="">Ver Detalles</a>
-                                        <a href="datos-personales?idviaje=<?= $origin->id ?>&pasajeros=<?php echo $pasajeros ?>" class="pay_button"><img src="assets/img/pay.svg" class="img-fluid" alt="">
-                                            Comprar Boleto
-                                        </a>
-                                    <?php } else { ?>
-                                        <a class=" disabled_pay btn-secondary">
-                                            No Disponible
-                                        </a>
-                                    <?php } ?>
+                                    <?php
+                                     
+                                    if  ($viajeObj->count > $pasajeros) {?>
+                                            <a data-bs-toggle="collapse" href="#ddddd" role="button" aria-expanded="false" aria-controls="ddddd" class="detail_button"><img src="assets/img/detail.svg" class="img-fluid" alt="">Ver Detalles</a>
+                                            <a href="datos-personales?destino=<?=$id.'-'.$tipo;?>&fecha=2024-06-18&pasajeros=<?= $pasajeros ?>" class="pay_button"><img src="assets/img/pay.svg" class="img-fluid" alt="">
+                                                Comprar Boleto
+                                            </a>
+                                    <?php }else{ ?>
+                                            <a class=" disabled_pay btn-secondary">
+                                                No Disponible
+                                            </a>
+                                    <?php }
+                                    ?>
                                 </div>
                             </div>
 
                             <div class="col-12 fondo_boleto_despliegue">
-                                <div class="collapse py-4" id="<?= $origin->id ?>">
+                                <div class="collapse py-4" id="ddddd">
                                     <div class="d-flex">
                                         <div class="items_list_tres">
                                             <ul>
@@ -308,7 +238,7 @@ $today = date("Y-m-d");
                                                     <p>1 dia</p>
                                                 </li>
                                                 <li>
-                                                    <p><img src="assets/img/svg/people.svg" alt=""><?= $origin->capacidadMovilidad ?></p>
+                                                    <p><img src="assets/img/svg/people.svg" alt=""><?=$movilidadObj->capacidad_asientos?></p>
                                                 </li>
                                                 <li>
                                                     <p><img src="assets/img/svg/wifi.svg" alt="">Wifi</p>
@@ -324,8 +254,9 @@ $today = date("Y-m-d");
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="info_trees px-4">
-                                            <p class="mb-0">Mátricula de Movilidad: <?= $origin->matriculaMovilidad ?></p>
+                                        <div class="info_trees px-4 d-flex">
+                                            <p class="mb-0 me-2"><b>Mátricula de Movilidad:</b> <?=$movilidadObj->matricula?></p>
+                                            <p class="mb-0"><b>Tipo de Movilidad:</b> <?=$movilidadObj->tipo_vehiculo?></p>
                                         </div>
 
                                     </div>
@@ -333,8 +264,8 @@ $today = date("Y-m-d");
                             </div>
                         </div>
 
-                    <?php }
-                    ?>
+ 
+ 
                 </div>
             </div>
         </div>

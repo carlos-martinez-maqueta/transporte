@@ -16,7 +16,7 @@
                     <div class="px-3">
                         <h3>Servicios</h3>
                         <ul>
-                            <li><a href="destinos">Destinos</a></li>
+                            <li><a href="rutas">Rutas</a></li>
                         </ul>                            
                     </div>
                     <div  class="px-3">

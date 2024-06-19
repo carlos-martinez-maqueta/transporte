@@ -26,11 +26,13 @@ if ($data) {
     $apellidos = $data['apellidos'];
     $telefono = $data['telefono'];
     $nombre = $data['nombre'];
+    $punto = $data['punto'];
+    $tipo = $data['tipo'];
 
     try {
         // Insertar datos en tbl_reservas
-        $sql_reserva = "INSERT INTO tbl_reservas (staff_id, viaje_id, referencia, asientos_reservados, imagen, precio_pagado, fecha_creacion, estado) 
-                        VALUES (NULL, '$viaje_id', 'WEB', '$asientos_reservados', NULL, '$precio', '$fecha_creacion', '$estado')";
+        $sql_reserva = "INSERT INTO tbl_reservas (staff_id, viaje_id, punto_id, tipo_viaje, referencia, asientos_reservados, imagen, precio_pagado, fecha_creacion, estado) 
+                        VALUES (NULL, '$viaje_id', '$punto', '$tipo', 'WEB', '$asientos_reservados', NULL, '$precio', '$fecha_creacion', '$estado')";
         $stmt_reserva = $conn->prepare($sql_reserva);
  
         if ($stmt_reserva->execute()) {
@@ -43,9 +45,9 @@ if ($data) {
 
             $generator = new barcode_generator();
             header('Content-Type: image/svg+xml');
-            $svg = $generator->render_image("qr", "https://transportesafe.com/reserva-realizada?idreserva=$ultimo_id_insertado", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
+            $svg = $generator->render_svg("qr", "https://transportesafe.com/reserva-realizada?destino=$punto-$tipo&reserva=$ultimo_id_insertado", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
 
-            $qr_filename = "qr_code_$ultimo_id_insertado.png";
+            $qr_filename = "qr_code_$ultimo_id_insertado.svg";
             $qr_filepath = $qr_folder . $qr_filename;
 
             file_put_contents($qr_filepath, $svg);

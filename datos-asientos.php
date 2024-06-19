@@ -5,10 +5,8 @@ include 'dashboard/class/plantilla.php';
 include 'dashboard/class/mobility.php';
 include 'dashboard/class/asientos.php';
 session_start(); // Inicia la sesión al comienzo del archivo
-include 'get/info-viaje.php';
+include 'get/info-viaje-dos.php';
 
-
-$descuentoboleto = $totalboletos / 2;
 ?>
 <!doctype html>
 <html lang="en">
@@ -107,8 +105,11 @@ $descuentoboleto = $totalboletos / 2;
     </style>
     <section class="section_datos_personales">
         <form action="reserva" method="GET">
-            <input type="hidden" name="idviaje" value="<?php echo $viajeid ?>">
-            <input type="hidden" name="pasajeros" value="<?php echo $pasajeros ?>">            
+            <input type="hidden" name="destino" value="<?=$id.'-'.$tipo;?>">
+            <input type="hidden" name="fecha" value="<?php echo $fecha ?>">
+            <input type="hidden" name="pasajeros" value="<?php echo $pasajeros ?>">
+            <input type="hidden" name="idviaje" value="<?=$viaje_id;?>">  
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
@@ -226,7 +227,7 @@ $descuentoboleto = $totalboletos / 2;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         // Pasar la variable PHP a JavaScript e imprimir en la consola
-        var totalBoletos = <?= json_encode($descuentoboleto) ?>;
+        var totalBoletos = <?= json_encode($ticketObj->reserva * $pasajeros) ?>;
         totalBoletos *= 100;
         // Guardar el valor en localStorage
         localStorage.setItem('totalBoletos', totalBoletos);
@@ -234,9 +235,12 @@ $descuentoboleto = $totalboletos / 2;
     <script>
         document.getElementById('save-data').addEventListener('click', function() {
             const viajeid = document.querySelector('[name="idviaje"]').value;
-            const pasajeros = parseInt(document.querySelector('[name="pasajeros"]').value);
+ 
             const checkbox = document.getElementById('flexCheckDefault');
             const selectedSeatsCount = document.querySelectorAll('.asiento.reservado').length;
+            const pasajeros = document.querySelector('[name="pasajeros"]').value;
+            const fecha = document.querySelector('[name="fecha"]').value;
+            const destino = document.querySelector('[name="destino"]').value;
 
             if (!checkbox.checked) {
                 alert('Debes aceptar los términos y condiciones.');
@@ -250,7 +254,8 @@ $descuentoboleto = $totalboletos / 2;
             }
 
             // Redirigir al siguiente paso del formulario
-            window.location.href = `reserva?idviaje=${viajeid}&pasajeros=${pasajeros}`;
+            
+            window.location.href = `reserva?destino=${destino}&pasajeros=${pasajeros}&fecha=${fecha}`;
         });
 
         document.addEventListener('DOMContentLoaded', function() {

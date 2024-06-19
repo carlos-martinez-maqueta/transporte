@@ -6,9 +6,8 @@ include 'dashboard/class/mobility.php';
 include 'dashboard/class/asientos.php';
 
 session_start(); // Inicia la sesión al comienzo del archivo
-include 'get/info-viaje.php';
+include 'get/info-viaje-dos.php';
  
-$descuentoboleto = $totalboletos / 2;
 
 
 ?>
@@ -67,6 +66,8 @@ $descuentoboleto = $totalboletos / 2;
 
                         <p class="send_mail">Tus boletos serán enviados a <b id="correo"></b></p>
                         <div class="div_borders">
+                            <input type="hidden" name="punto" value="<?=$id;?>">
+                            <input type="hidden" name="tipo" value="<?=$tipo;?>">
                             <?php include 'views/vista-resumen-ticket.php' ?>
                         </div>
                     </div>
@@ -83,6 +84,9 @@ $descuentoboleto = $totalboletos / 2;
     <script src="assets/js/owl.carousel.min.js"></script>
     <script>
         function reservar() {
+            const punto = document.querySelector('[name="punto"]').value;
+            const tipo = document.querySelector('[name="tipo"]').value;
+
             // Obtener datos del localStorage
             const viaje_id = localStorage.getItem('viaje');
             const asientos_reservados = localStorage.getItem('asientos_reservados');
@@ -94,7 +98,7 @@ $descuentoboleto = $totalboletos / 2;
             const apellidos = localStorage.getItem('apellidos');
             const telefono = localStorage.getItem('telefono');
             const nombre =localStorage.getItem('nombre');
-
+            
             // Preparar los datos a enviar
             const data = {
                 viaje_id: viaje_id,
@@ -105,7 +109,9 @@ $descuentoboleto = $totalboletos / 2;
                 correo: correo,
                 apellidos: apellidos,
                 telefono: telefono,
-                nombre: nombre
+                nombre: nombre,
+                punto: punto,
+                tipo: tipo
             };
 
             // Enviar los datos usando fetch

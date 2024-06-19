@@ -1,33 +1,35 @@
 <?php
 include 'config/conexion.php';
 include 'dashboard/class/travel.php';
-include 'dashboard/class/plantilla.php';
+include 'dashboard/class/origin.php';
 include 'dashboard/class/mobility.php';
 include 'dashboard/class/asientos.php';
+
 session_start(); // Inicia la sesión al comienzo del archivo
-include 'get/info-viaje.php';
-$descuentoboleto = $totalboletos / 2;
+include 'get/info-viaje-dos.php';
+
 ?>
+
 <!doctype html>
 <html lang="en">
 <?php include 'app/head.php' ?>
     <style>
-        body{
+        body {
             background-color: #ffffff;
         }
-        header{
+        header {
             border-bottom: 1px solid #000000;
         }
-        .terminos_asientos{
+        .terminos_asientos {
             display: none;
         }
     </style>
-  <body>
+<body>
     <?php include 'app/header-home.php' ?>
- 
+
     <section class="section_steps">
         <div class="container">
-            <div class="row align-items-center justify-content-center justify-content-md-center ">
+            <div class="row align-items-center justify-content-center justify-content-md-center">
                 <div class="col-xl-2 col-lg-3 col-md-4 col-3">
                     <div class="border_blanco"><img src="assets/img/svg/step_1.svg" class="me-2 img_icon" alt="">Seleccionar Boletos</div>
                 </div>
@@ -46,10 +48,14 @@ $descuentoboleto = $totalboletos / 2;
             </div>
         </div>
     </section>
+
     <section class="section_datos_personales">
-        <form action="datos-asientos" method="GET" id="datos-form">
-            <input type="hidden" name="idviaje" value="<?php echo $viajeid ?>">
+        <form method="GET" id="datos-form">
+            <input type="hidden" name="destino" value="<?=$id.'-'.$tipo;?>">
+            <input type="hidden" name="fecha" value="<?php echo $fecha ?>">
             <input type="hidden" name="pasajeros" value="<?php echo $pasajeros ?>">
+            <input type="hidden" name="idviaje" value="<?=$viaje_id;?>">
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-7">
@@ -61,12 +67,12 @@ $descuentoboleto = $totalboletos / 2;
                                     <div class="form-floating mb-3">
                                         <?php if ($user): ?>
                                             <input type="text" class="form-control" id="" value="<?= htmlspecialchars($nombre) ?>">
-                                            <label for="">Nombres</label>                                    
+                                            <label for="">Nombres</label>
                                         <?php else: ?>
-                                            <input type="text" class="form-control" id="" name="nombre" required >
-                                            <label for="" name="nombre">Nombres</label>  
+                                            <input type="text" class="form-control" id="" name="nombre" required>
+                                            <label for="" name="nombre">Nombres</label>
                                         <?php endif; ?>
-                                    </div>                                
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-6">
                                     <div class="form-floating mb-3">
@@ -75,9 +81,9 @@ $descuentoboleto = $totalboletos / 2;
                                             <label for="">Apellidos</label>
                                         <?php else: ?>
                                             <input type="text" name="apellidos" class="form-control" id="" required>
-                                            <label for="">Apellidos</label>                                        
+                                            <label for="">Apellidos</label>
                                         <?php endif; ?>
-                                    </div>                                
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-6">
                                     <div class="form-floating mb-3">
@@ -86,23 +92,24 @@ $descuentoboleto = $totalboletos / 2;
                                             <label for="">Correo Electrónico</label>
                                         <?php else: ?>
                                             <input type="text" class="form-control" name="correo" id="" required>
-                                            <label for="" >Correo Electrónico</label>                                        
+                                            <label for="">Correo Electrónico</label>
                                         <?php endif; ?>
-                                    </div>                                
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-6">
                                     <div class="form-floating mb-3">
                                         <?php if ($user): ?>
-                                            <input type="text" class="form-control" id="" value="<?= htmlspecialchars($telefono) ?>" >
+                                            <input type="text" class="form-control" id="" value="<?= htmlspecialchars($telefono) ?>">
                                             <label for="">Teléfono</label>
-                                        <?php else: ?> 
+                                        <?php else: ?>
                                             <input type="text" class="form-control" name="telefono" id="" required>
-                                            <label for="" >Teléfono con WhatsApp</label>
+                                            <label for="">Teléfono con WhatsApp</label>
                                         <?php endif; ?>
-                                    </div>                                
-                                </div>                            
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="datos_acompanantes">
                             <?php if ($pasajeros > 1): ?>
                                 <h4>Datos de Acompañantes</h4>
@@ -123,7 +130,7 @@ $descuentoboleto = $totalboletos / 2;
                                     </div>
                                 <?php endfor; ?>
                             <?php endif; ?>
-                        </div>                 
+                        </div>
                     </div>
                     <div class="col-lg-6 col-md-5 px-lg-5">
                         <?php include 'views/vista-resumen-ticket.php' ?>
@@ -143,7 +150,8 @@ $descuentoboleto = $totalboletos / 2;
             const telefono = document.querySelector('[name="telefono"]');
             const viajeid = document.querySelector('[name="idviaje"]').value;
             const pasajeros = document.querySelector('[name="pasajeros"]').value;
-           
+            const fecha = document.querySelector('[name="fecha"]').value;
+            const destino = document.querySelector('[name="destino"]').value;
 
             // Verificar si todos los campos requeridos están llenos
             const isValid = nombre.checkValidity() && apellidos.checkValidity() && correo.checkValidity() && telefono.checkValidity();
@@ -154,7 +162,9 @@ $descuentoboleto = $totalboletos / 2;
                 localStorage.setItem('apellidos', apellidos.value);
                 localStorage.setItem('correo', correo.value);
                 localStorage.setItem('telefono', telefono.value);
+                localStorage.setItem('fecha', fecha);
 
+                localStorage.setItem('destino', destino); 
                 // Guardar datos de acompañantes
                 const acompanantes = [];
                 document.querySelectorAll('.acompanante').forEach((acompanante, index) => {
@@ -166,8 +176,10 @@ $descuentoboleto = $totalboletos / 2;
                 });
                 localStorage.setItem('acompanantes', JSON.stringify(acompanantes));
 
+               
+
                 // Redirigir al siguiente paso del formulario
-                window.location.href = `datos-asientos?idviaje=${viajeid}&pasajeros=${pasajeros}`;
+                window.location.href = `datos-asientos?destino=${destino}&pasajeros=${pasajeros}&fecha=${fecha}`;
             } else {
                 alert('Por favor, complete todos los campos requeridos');
                 if (!nombre.checkValidity()) nombre.focus();
@@ -177,6 +189,5 @@ $descuentoboleto = $totalboletos / 2;
             }
         });
     </script>
-
-    </body>
+</body>
 </html>
