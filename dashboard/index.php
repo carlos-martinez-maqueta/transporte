@@ -163,7 +163,7 @@ foreach ($gananciasData as $ganancia) {
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold font_two text-uppercase mb-1">
-                                    Total Origenes</div>
+                                    Puntos Idas</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $origenesCount ?></div>
                             </div>
                             <div class="col-auto">
@@ -179,7 +179,7 @@ foreach ($gananciasData as $ganancia) {
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold font_two text-uppercase mb-1">
-                                    Total Destinos</div>
+                                    Puntos Vueltas</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $destinosCount ?></div>
                             </div>
                             <div class="col-auto">

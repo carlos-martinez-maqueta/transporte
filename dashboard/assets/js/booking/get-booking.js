@@ -79,6 +79,8 @@ function getTable(dataTable) {
         var newRow = '<tr>' +
           '<td class="align-middle text-center">' + result.id + '</td>' +
           '<td class="align-middle text-center">' + result.nombreStaff + result.apellidosStaff + '</td>' +
+          '<td class="align-middle text-center">' + result.puntoOrigen + '</td>' +
+          '<td class="align-middle text-center">' + result.puntoDestino + '</td>' +
           '<td class="align-middle text-center">' + result.correlativoViaje + '</td>' +
           '<td class="align-middle text-center">' + result.referencia + '</td>' +
           '<td class="align-middle text-center">' + result.asientos_reservados + '</td>' +

@@ -8,7 +8,7 @@
     session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $staffId = Security::getUserId();   
+        $staffId = Security::getUserId();
         $viaje_id = !empty($_POST['viaje_id']) ? $_POST['viaje_id'] : null;
         $referencia = !empty($_POST['referencia']) ? $_POST['referencia'] : null;
         $num_asientos = !empty($_POST['num_asientos']) ? $_POST['num_asientos'] : null;
@@ -20,11 +20,25 @@
         $correo = !empty($_POST['correo']) ? $_POST['correo'] : null;
         $celular = !empty($_POST['celular']) ? $_POST['celular'] : null;
 
+
+
+        // NUEVO
+        $point_id = !empty($_POST['point_id']) ? $_POST['point_id'] : null;
+
+
         $travelObj = Travel::getMarvelId($viaje_id);
-        $precioBooking = $travelObj->precio;
+        $tipoBooking = $travelObj->tipo;
+
+
+        // Aquí se debe realizar la consulta con la tabla correcta usando $point_id
+        $pointObj = Travel::getPointsFechId($viaje_id, $point_id);
+        $precioPoint = $pointObj->precio;
+
+
+        // $precioBooking = $travelObj->precio;
 
         // Agregar la reserva
-        $result = Booking::addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking);
+        $result = Booking::addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioPoint, $point_id, $tipoBooking);
 
         if ($result->execute()) {
             $lastInsertedId = $conn->lastInsertId();

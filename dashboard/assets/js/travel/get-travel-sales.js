@@ -3,6 +3,8 @@ $(document).ready(function () {
     var selectedPrice = 0;
     var selectedSeats = [];
     var maxSeats = 1; // Inicialmente, el máximo de asientos seleccionados es 1
+    var selectedPointPrice = 0; // Variable global para almacenar el precio del punto seleccionado
+
     // Inicializar DataTable
     dataTable = $("#table-travel").DataTable({
         ordering: false,
@@ -44,7 +46,7 @@ $(document).ready(function () {
         var id = $(this).val();
         var row = $(this).closest('tr');
         selectedPrice = parseFloat(row.find('td:eq(8)').text());
-        updateTotalPrice();
+
         getPlantilla(id);
 
     });
@@ -54,18 +56,37 @@ $(document).ready(function () {
         maxSeats = parseInt($(this).val()); // Actualizar el máximo de asientos seleccionados
 
         updateTotalPrice();
-     
-    });
 
+    });
+    // Al escribir en el campo de búsqueda, filtrar los puntos en tiempo real
+    $('#searchPoint').on('keyup', function () {
+        var searchText = $(this).val().toLowerCase(); // Obtener el texto ingresado y convertirlo a minúsculas
+        var $pointsTable = $('#points').find('table'); // Obtener la tabla de puntos
+
+        // Filtrar los puntos según el texto ingresado
+        $pointsTable.find('tbody tr').each(function () {
+            var $row = $(this);
+            var origen = $row.find('td:first').text().toLowerCase(); // Obtener el nombre del punto y convertirlo a minúsculas
+            if (origen.includes(searchText)) {
+                $row.show(); // Mostrar la fila si el texto está incluido en el nombre del punto
+            } else {
+                $row.hide(); // Ocultar la fila si no coincide con el texto ingresado
+            }
+        });
+    });
     function updateTotalPrice() {
         var numPasajeros = parseInt($('#numPasajeros').val());
-        var totalPrice = numPasajeros * selectedPrice;
-        $('#precioTotal').val(totalPrice.toFixed(2));
+        var totalPrice = numPasajeros * selectedPointPrice;
 
+        if (numPasajeros === 1) {
+            totalPrice = selectedPointPrice;
+        }
+
+        $('#precioTotal').val(totalPrice.toFixed(2));
     }
 
 
-   
+
     function formatFecha(fecha) {
         var fechaFormateada = new Date(fecha);
         var dia = fechaFormateada.getDate().toString().padStart(2, '0');
@@ -108,6 +129,7 @@ $(document).ready(function () {
 
                     var newRow = '<tr>' +
                         '<td class="align-middle text-center">' + result.correlativo + '</td>' +
+                        '<td class="align-middle text-center">' + result.tipo + '</td>' +
                         '<td class="align-middle text-center">' + result.matriculaMovilidad + '</td>' +
                         '<td class="align-middle text-center">' + result.capacidadMovilidad + '</td>' +
                         '<td class="align-middle text-center">' + result.count + '</td>' +
@@ -484,6 +506,51 @@ $(document).ready(function () {
                         console.error('Error al obtener los estados de los asientos: ' + error);
                     }
                 });
+                // Obtener y mostrar los puntos del viaje seleccionado
+                // Obtener y mostrar los puntos del viaje seleccionado
+                $.ajax({
+                    url: 'config/travel/get-points.php',
+                    method: 'POST',
+                    data: { id: id },
+                    dataType: 'json',
+                    success: function (points) {
+                        var pointsHTML = '<div class="table-responsive">';
+                        pointsHTML += '<table class="table">';
+                        pointsHTML += '<thead><tr><th>ORIGEN</th><th>DESTINO</th><th>HORA</th><th>TIEMPO</th><th>PRECIO</th><th>Seleccionar</th></tr></thead>';
+                        pointsHTML += '<tbody>';
+                        points.forEach(function (point) {
+                            pointsHTML += '<tr>';
+                            pointsHTML += '<td>' + point.origen + '</td>';
+                            pointsHTML += '<td>' + point.destino + '</td>';
+                            pointsHTML += '<td>' + point.hora_salida + '</td>';
+                            pointsHTML += '<td>' + point.tiempo_viaje + '</td>';
+                            pointsHTML += '<td>' + point.precio + '</td>';
+                            pointsHTML += '<td class="align-middle text-center"><input class="form-check-input select-point" type="radio" name="select-point" value="' + point.id + '"></td>';
+                            pointsHTML += '</tr>';
+                        });
+                        pointsHTML += '</tbody>';
+                        pointsHTML += '</table>';
+                        pointsHTML += '</div>';
+                        $('#points').html(pointsHTML);
+
+                        // Al seleccionar un punto, actualizar el input hidden con el ID del punto seleccionado
+                        $('input[name="select-point"]').on('change', function () {
+                            var pointId = $(this).val(); // Obtener el ID del punto seleccionado
+                            $('#point_id').val(pointId); // Actualizar el valor del input hidden
+                            var totalPrice = 0; // Inicializar el precio total a 0
+                            var pointPrice = parseFloat($(this).closest('tr').find('td:eq(4)').text());
+                            selectedPointPrice = pointPrice; // Actualizar el precio del punto seleccionado
+                            updateTotalPrice(); // Actualizar el precio total en función del número de pasajeros
+                        });
+
+                    },
+
+                    error: function (xhr, status, error) {
+                        console.error('Error al obtener los puntos del viaje: ' + error);
+                    }
+                });
+
+
             }
         });
         // Arreglo para almacenar los asientos seleccionados
@@ -509,7 +576,7 @@ $(document).ready(function () {
             }
             // Actualizar el precio total y el número de pasajeros
             updateTotalPrice();
-       
+
             // Guardar los asientos seleccionados en el input hidden
             $('#selectedSeats').val(selectedSeats.join(','));
         });
@@ -529,5 +596,5 @@ $(document).ready(function () {
         console.log(selectedSeats); // Ver los asientos seleccionados en la consola
     });
 
-  
+
 });

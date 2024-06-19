@@ -188,6 +188,8 @@ $usersObj = User::getUserAllActive();
                             <tr>
                                 <th class="text-center" scope="col">ID</th>
                                 <th class="text-center" scope="col">STAFF</th>
+                                <th class="text-center" scope="col">ORIGEN</th>
+                                <th class="text-center" scope="col">DESTINO</th>
                                 <th class="text-center" scope="col">VIAJE</th>
                                 <th class="text-center" scope="col">REFERENCIA</th>
                                 <th class="text-center" scope="col">ASIENTOS RESERVADOS</th>
@@ -295,6 +297,8 @@ $usersObj = User::getUserAllActive();
                             <tr>
                                 <th class="text-center" scope="col">ID</th>
                                 <th class="text-center" scope="col">VIAJE</th>
+                                <th class="text-center" scope="col">ORIGEN</th>
+                                <th class="text-center" scope="col">DESTINO</th>
                                 <th class="text-center" scope="col">REFERENCIA</th>
                                 <th class="text-center" scope="col">ASIENTOS RESERVADOS</th>
                                 <th class="text-center" scope="col">PRECIO PAGADO</th>

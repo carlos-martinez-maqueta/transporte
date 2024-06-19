@@ -68,6 +68,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" scope="col">CORRELATIVO</th>
+                                    <th class="text-center" scope="col">TIPO</th>
                                     <th class="text-center" scope="col">MOVILIDAD</th>
                                     <th class="text-center" scope="col">ASIENTOS</th>
                                     <th class="text-center" scope="col">ASIENTOS DISPONIBLES</th>
@@ -95,8 +96,21 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
+                        <div class="card p-3">
+                            <div class="form-group">
+                                <label for="searchPoint">Buscar punto:</label>
+                                <input type="text" class="form-control" id="searchPoint" placeholder="Ingrese un criterio de búsqueda">
+                            </div>
+                            <div id="points">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12">
                         <h5 class="font_two">Pasajeros</h5>
                         <div class="border row p-3 my-4">
+                            <input type="hidden" name="point_id" id="point_id">
                             <div class="col-xl-6">
                                 <label for="numPasajeros" class="form-label mb-0">Número de Pasajeros:</label>
                                 <select id="numPasajeros" class="form-select" name="num_asientos">

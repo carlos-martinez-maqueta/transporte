@@ -12,7 +12,17 @@ class Booking
                 tr.*,
                 COALESCE(tpe.nombre, 'N/A') AS nombreStaff,
                 COALESCE(tpe.apellidos, '') AS apellidosStaff,
-                COALESCE(tvi.correlativo, 'N/A') AS correlativoViaje
+                COALESCE(tvi.correlativo, 'N/A') AS correlativoViaje,
+                CASE
+                    WHEN tr.tipo_viaje = 'ida' THEN (SELECT tn.origen FROM tbl_idas tn WHERE tn.id = tr.punto_id)
+                    WHEN tr.tipo_viaje = 'vuelta' THEN (SELECT tn.origen FROM tbl_vueltas tn WHERE tn.id = tr.punto_id)
+                    ELSE 'N/A'
+                END AS puntoOrigen,
+                CASE
+                    WHEN tr.tipo_viaje = 'ida' THEN (SELECT tn.destino FROM tbl_idas tn WHERE tn.id = tr.punto_id)
+                    WHEN tr.tipo_viaje = 'vuelta' THEN (SELECT tn.destino FROM tbl_vueltas tn WHERE tn.id = tr.punto_id)
+                    ELSE 'N/A'
+                END AS puntoDestino
             FROM 
                 tbl_reservas tr
             LEFT JOIN
@@ -21,11 +31,12 @@ class Booking
                 tbl_viajes tvi ON tvi.id = tr.viaje_id
             ORDER BY 
                 tr.fecha_creacion DESC
-            ");
+        ");
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
         return $result;
     }
+    
     public static function getBookingPassengersId($id)
     {
         global $conn;
@@ -49,36 +60,46 @@ class Booking
         global $conn;
         $statement = $conn->prepare("
         SELECT 
-            tr.*,
-            tpe.nombre AS nombreStaff,
-            tpe.apellidos AS apellidosStaff,
-            tvi.correlativo AS correlativoViaje
-        FROM 
-            tbl_reservas tr
-        JOIN
-            tbl_personal tpe ON tpe.id = tr.staff_id
-        LEFT JOIN
-            tbl_viajes tvi ON tvi.id = tr.viaje_id
-        WHERE 
-            tr.staff_id=:id
-        ORDER BY 
-            tr.fecha_creacion DESC ");
+                tr.*,
+                COALESCE(tpe.nombre, 'N/A') AS nombreStaff,
+                COALESCE(tpe.apellidos, '') AS apellidosStaff,
+                COALESCE(tvi.correlativo, 'N/A') AS correlativoViaje,
+                CASE
+                    WHEN tr.tipo_viaje = 'ida' THEN (SELECT tn.origen FROM tbl_idas tn WHERE tn.id = tr.punto_id)
+                    WHEN tr.tipo_viaje = 'vuelta' THEN (SELECT tn.origen FROM tbl_vueltas tn WHERE tn.id = tr.punto_id)
+                    ELSE 'N/A'
+                END AS puntoOrigen,
+                CASE
+                    WHEN tr.tipo_viaje = 'ida' THEN (SELECT tn.destino FROM tbl_idas tn WHERE tn.id = tr.punto_id)
+                    WHEN tr.tipo_viaje = 'vuelta' THEN (SELECT tn.destino FROM tbl_vueltas tn WHERE tn.id = tr.punto_id)
+                    ELSE 'N/A'
+                END AS puntoDestino
+            FROM 
+                tbl_reservas tr
+            LEFT JOIN
+                tbl_personal tpe ON tpe.id = tr.staff_id
+            LEFT JOIN
+                tbl_viajes tvi ON tvi.id = tr.viaje_id
+            ORDER BY 
+                tr.fecha_creacion DESC");
         $statement->bindValue(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
         return $result;
     }
-    public static function addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking)
+    public static function addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking, $point_id, $tipoBooking)
     {
         global $conn;
-        $sql = "INSERT INTO tbl_reservas (staff_id , viaje_id , referencia, asientos_reservados, precio_pagado, fecha_creacion, estado) 
-        VALUES (:staffId, :viaje_id, :referencia, :num_asientos, :precioBooking, NOW(), 'confirmada')";
+        $sql = "INSERT INTO tbl_reservas (staff_id , viaje_id, punto_id, tipo_viaje, referencia, asientos_reservados, precio_pagado, fecha_creacion, estado) 
+        VALUES (:staffId, :viaje_id, :point_id, :tipoBooking, :referencia, :num_asientos, :precioBooking, NOW(), 'confirmada')";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':staffId', $staffId);
         $stmt->bindParam(':viaje_id', $viaje_id);
         $stmt->bindParam(':referencia', $referencia);
         $stmt->bindParam(':num_asientos', $num_asientos);
         $stmt->bindParam(':precioBooking', $precioBooking);
+        $stmt->bindParam(':point_id', $point_id);
+        $stmt->bindParam(':tipoBooking', $tipoBooking);
         return $stmt;
     }
     public static function editBookingImageId($lastInsertedId, $imagen)
@@ -216,7 +237,7 @@ class Booking
             SELECT 
                 COUNT(id) as total
             FROM 
-                tbl_destino
+                tbl_vueltas
             WHERE
                 estado = 'activo'
         ");
@@ -234,7 +255,7 @@ class Booking
             SELECT 
                 COUNT(id) as total
             FROM 
-                tbl_origen
+                tbl_idas
             WHERE
                 estado = 'activo'
         ");
