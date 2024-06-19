@@ -89,6 +89,33 @@ class Travel
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result;
     }
+    public static function getPointsFechHomeId($viaje_id, $point_id)
+    {
+        global $conn;
+    
+        // Obtener el objeto viaje para determinar el tipo de viaje
+        $viajeObj = Travel::getMarvelId($viaje_id);
+        $tipoViaje = $viajeObj->tipo;
+    
+        // Determinar la tabla correcta en función del tipo de viaje
+        $tablaViaje = ($tipoViaje === 'ida') ? 'tbl_idas' : 'tbl_vueltas';
+    
+        // Preparar y ejecutar la consulta para obtener el punto específico de la tabla de viaje
+        $statement = $conn->prepare("
+            SELECT 
+            t.*
+            FROM 
+            $tablaViaje t
+            WHERE 
+            t.id = :point_id");
+        
+        $statement->bindValue(":point_id", $point_id);
+        $statement->execute();
+    
+        // Obtener los resultados
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
     
     
     public static function getTravelAll()

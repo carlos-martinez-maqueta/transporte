@@ -4,7 +4,7 @@ session_start(); // Inicia la sesión al comienzo del archivo
 
 // Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
 $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
- 
+
 
 include 'dashboard/class/home.php';
 include 'dashboard/class/Going.php';
@@ -15,7 +15,7 @@ include 'dashboard/class/user.php';
 
 $goingList = Going::getGoingAll();
 $returnList = Vuelta::getGoingAll();
- 
+
 $homeObj = Home::getHome();
 $trabelObj = Travel::getTravelAll();
 $usercount = User::getUserAllActive();
@@ -43,7 +43,7 @@ $resultComents = Home::getCommentsAll();
 //     if ($carlos->origen ){
 //         echo $carlos->origen;echo '<br>';
 //     }
-    
+
 // }
 
 
@@ -57,10 +57,11 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
 ?>
 <!doctype html>
 <html lang="en">
-    <?php include 'app/head.php' ?>
-  <body>
+<?php include 'app/head.php' ?>
 
-  <?php include 'app/header-home.php' ?>
+<body>
+
+    <?php include 'app/header-home.php' ?>
 
     <section class="banner_div">
         <div class="">
@@ -77,12 +78,13 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
                                         <select class="form-select mt-2" id="cliente" name="destino" style="width: 100%;" aria-label="Floating label select example">
                                             <option value="0" selected>Seleccionar</option>
                                             <?php foreach ($goingList as $going) : ?>
-                                                <option value="<?= $going->id ?>"><?= $going->origen ?> / <?= $going->destino ?></option>
+                                                <option value="<?= $going->id ?>-<?= $going->tipo ?>"><?= $going->origen ?> / <?= $going->destino ?></option>
                                             <?php endforeach; ?>
                                             <?php foreach ($returnList as $vuelta) : ?>
-                                                <option value="<?= $vuelta->id ?>"><?= $vuelta->origen ?> / <?= $vuelta->destino ?></option>
-                                            <?php endforeach; ?>                                            
+                                                <option value="<?= $vuelta->id ?>-<?= $vuelta->tipo ?>"><?= $vuelta->origen ?> / <?= $vuelta->destino ?></option>
+                                            <?php endforeach; ?>
                                         </select>
+
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg col-md col-6 mb-lg-0 mb-3 d-none">
@@ -99,21 +101,21 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
                                     </div>                                   
                                 </div> -->
                                 <div class="col-lg col-md col-6 mb-lg-0 mb-3">
-                                 
+
                                     <div class="form-floating">
                                         <input type="date" class="form-control" value="" id="fecha" name="fecha" placeholder="" required>
                                         <label for="">Fecha</label>
-                                    </div>                                     
-                                                                     
+                                    </div>
+
                                 </div>
                                 <div class="col-lg col-md col-6 mb-lg-0 mb-3">
                                     <div class="form-floating">
                                         <input type="number" class="form-control" id="" name="pasajeros" placeholder="" required>
                                         <label for="">Pasajeros</label>
-                                    </div>                                     
+                                    </div>
                                 </div>
                                 <div class="col-lg col-md col-12 mb-lg-0 mb-3 text-center">
-                                    <button type="submit"  class="btn btn-dark"><img class="mx-2" src="assets/img/buscar.svg" alt="">Buscar</button>
+                                    <button type="submit" class="btn btn-dark"><img class="mx-2" src="assets/img/buscar.svg" alt="">Buscar</button>
                                 </div>
                             </div>
                         </form>
@@ -122,7 +124,7 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
             </div>
         </div>
     </section>
- 
+
     <section class="publicidad_div py-5">
         <div class="container">
             <div class="row justify-content-md-center">
@@ -134,15 +136,14 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
             </div>
         </div>
     </section>
- 
+
     <section class="section_datos_informacion">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="div owl-carousel owl-info">
                         <?php
-                            foreach ($resultBest as $resultsBest) 
-                            { 
+                        foreach ($resultBest as $resultsBest) {
                         ?>
                             <div class="info_flex">
                                 <div><img src="assets/img/info.png" alt="" class="img-fluid"></div>
@@ -150,16 +151,16 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
                                     <p><?= $resultsBest->title; ?></p>
                                     <span><?= $resultsBest->subtitle; ?></span>
                                 </div>
-                            </div>                                
-                        <?php 
-                            }
-                        ?>                                                                      
+                            </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </section>
- 
+
     <section class="section_clientes mb-5">
         <div class="container">
             <div class="row">
@@ -171,33 +172,32 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
                 <div class="col-12 mt-5">
                     <div class="seccion_resenas">
                         <div class="owl-carousel owl-items">
-                        <?php
-                            foreach ($resultComents as $resultscoment) 
-                            { 
-                        ?> 
-                            <div class="item_resena">
-                                <div class="title_resena">
-                                    <h6><?= $resultscoment->titulo; ?></h6>
-                                    <p><?= $resultscoment->parrafo; ?></p>
-                                </div>
-                                <div class="flex_item_user">
-                                    <div><img src="assets/img/eclipse.png" class="img-fluid" alt=""></div>
-                                    <div class="px-3">
-                                        <p><?= $resultscoment->nombre; ?></p>
-                                        <span><?= $resultscoment->cargo; ?></span>
+                            <?php
+                            foreach ($resultComents as $resultscoment) {
+                            ?>
+                                <div class="item_resena">
+                                    <div class="title_resena">
+                                        <h6><?= $resultscoment->titulo; ?></h6>
+                                        <p><?= $resultscoment->parrafo; ?></p>
                                     </div>
-                                </div>                                
-                            </div>
-                        <?php 
+                                    <div class="flex_item_user">
+                                        <div><img src="assets/img/eclipse.png" class="img-fluid" alt=""></div>
+                                        <div class="px-3">
+                                            <p><?= $resultscoment->nombre; ?></p>
+                                            <span><?= $resultscoment->cargo; ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
                             }
-                        ?>                                                                                                        
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-  
+
     <section class="section_datos">
         <div class="container">
             <div class="row align-items-center">
@@ -209,38 +209,38 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
                         <span><?= $homeObj->texto1 ?></span>
                         <h4><?= $homeObj->texto2 ?></h4>
                         <p class="mb-5">
-                            <?= $homeObj->parrafo ?>                           
+                            <?= $homeObj->parrafo ?>
                         </p>
 
                         <!-- <a href="">Leer más</a> -->
 
                         <div class="flex_items mt-5">
                             <div class="item_div">
-                                <p><?=$numerototalDestinos?></p>
+                                <p><?= $numerototalDestinos ?></p>
                                 <span>Destinos</span>
                             </div>
                             <div class="item_div">
-                                <p><?=$numeroDeViajes?></p>
-                                <span>Viajes</span>                                
+                                <p><?= $numeroDeViajes ?></p>
+                                <span>Viajes</span>
                             </div>
                             <div class="item_div">
-                                <p><?=$numeroDeUsuarios?></p>
-                                <span>Usuarios</span>                                
+                                <p><?= $numeroDeUsuarios ?></p>
+                                <span>Usuarios</span>
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
     </section>
-    
+
     <?php include 'app/footer.php' ?>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/contenido.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
-     <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Obtén la fecha actual
             var today = new Date();
@@ -257,12 +257,13 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             // Llama a select2() en el elemento #cliente después de que el DOM haya cargado
             $('#cliente').select2();
             console.log('0');
         });
-    </script>
-    </body>
+    </script> -->
+</body>
+
 </html>
