@@ -53,6 +53,21 @@ header .ul_header li a{
     font-weight: 500;
     text-decoration: none;
 }
+.form-floatings label{
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+.form-floatings span{
+    font-size: 13px;
+}
+.form-floatings .select2-container--default .select2-selection--single{
+    border: 1px solid #000;
+    height: 35px;
+}
+.form-floatings .select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 35px;
+}
 .publicidad_div .publicidad_img{
     text-align: center;
 }

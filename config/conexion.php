@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "umdekfts_user";
-$password = "umdekfts_Pass";
-$dbname = "umdekfts_transportesafe";
+$username = "root";
+$password = "";
+$dbname = "db_transporte_bajio";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8mb4", $username, $password);
