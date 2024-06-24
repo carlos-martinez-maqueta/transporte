@@ -5,12 +5,12 @@
 //
 $(document).ready(function(){
   $('.owl-items').owlCarousel({
-    loop: false,
-    autoplay: false,
+    loop: true,
+    autoplay: true,
     dots: true,
     nav: false,
     margin: 20,    
-    autoplayTimeout: 5000,
+    autoplayTimeout: 3000,
     smartSpeed: 1000,
     responsive:{
       0:{
@@ -27,11 +27,11 @@ $(document).ready(function(){
 
   $('.owl-info').owlCarousel({
     loop: false,
-    autoplay: false,
+    autoplay: true,
     dots: true,
     nav: false,
     margin: 20,    
-    autoplayTimeout: 5000,
+    autoplayTimeout: 3000,
     smartSpeed: 1000,
     responsive:{
       0:{
@@ -41,7 +41,7 @@ $(document).ready(function(){
         items:2
       },
       768:{
-        items:3
+        items:2
       }
     }
   })

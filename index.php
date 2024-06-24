@@ -7,7 +7,7 @@ $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
 
 
 include 'dashboard/class/home.php';
-include 'dashboard/class/Going.php';
+include 'dashboard/class/going.php';
 include 'dashboard/class/return.php';
 include 'dashboard/class/travel.php';
 include 'dashboard/class/user.php';
@@ -75,7 +75,7 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
                                 <div class="col-lg-6 col-md col-6 mb-lg-0 mb-3">
                                     <div class=" form-floatings">
                                         <label for="cliente">Seleccionar Viaje: </label>
-                                        <select class="form-select mt-2" id="cliente" name="destino" style="width: 100%;" aria-label="Floating label select example">
+                                        <select class="form-select mt-2"  name="destino" style="width: 100%;" aria-label="Floating label select example">
                                             <option value="0" selected>Seleccionar</option>
                                             <?php foreach ($goingList as $going) : ?>
                                                 <option value="<?= $going->id ?>-<?= $going->tipo ?>"><?= $going->origen ?> / <?= $going->destino ?></option>
@@ -146,8 +146,8 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
                         foreach ($resultBest as $resultsBest) {
                         ?>
                             <div class="info_flex">
-                                <div><img src="assets/img/info.png" alt="" class="img-fluid"></div>
-                                <div class="px-3">
+                                <div class="medio_flex"><img src="dashboard/files/home/<?= $resultsBest->imagen; ?>" alt="" class="img-fluid"></div>
+                                <div class="medio_flex px-3">
                                     <p><?= $resultsBest->title; ?></p>
                                     <span><?= $resultsBest->subtitle; ?></span>
                                 </div>
@@ -176,16 +176,16 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
                             foreach ($resultComents as $resultscoment) {
                             ?>
                                 <div class="item_resena">
-                                    <div class="title_resena">
+                                    <!-- <div class="title_resena">
                                         <h6><?= $resultscoment->titulo; ?></h6>
                                         <p><?= $resultscoment->parrafo; ?></p>
-                                    </div>
+                                    </div> -->
                                     <div class="flex_item_user">
-                                        <div><img src="assets/img/eclipse.png" class="img-fluid" alt=""></div>
-                                        <div class="px-3">
+                                        <div><img src="dashboard/files/home/<?= $resultscoment->imagen; ?>" class="img-fluid" alt=""></div>
+                                        <!-- <div class="px-3">
                                             <p><?= $resultscoment->nombre; ?></p>
                                             <span><?= $resultscoment->cargo; ?></span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             <?php

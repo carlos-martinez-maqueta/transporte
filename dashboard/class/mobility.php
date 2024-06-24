@@ -53,7 +53,7 @@ class Mobility
         $stmt->bindParam(':banner', $banner);
         return $stmt;
     }
-    public static function editMobilityId($id, $matricula, $marca, $modelo, $color, $cantidad_asientos, $tipo_vehiculo, $estado)
+    public static function editMobilityId($id, $matricula, $marca, $modelo, $color, $tipo_vehiculo, $estado)
     {
         global $conn;
         $sql = "UPDATE tbl_movilidad 
@@ -61,7 +61,6 @@ class Mobility
                 marca=:marca, 
                 modelo=:modelo, 
                 color=:color, 
-                capacidad_asientos=:cantidad_asientos, 
                 tipo_vehiculo=:tipo_vehiculo, 
                 estado=:estado 
             WHERE id=:id";
@@ -71,7 +70,6 @@ class Mobility
         $stmt->bindParam(':marca', $marca);
         $stmt->bindParam(':modelo', $modelo);
         $stmt->bindParam(':color', $color);
-        $stmt->bindParam(':cantidad_asientos', $cantidad_asientos);
         $stmt->bindParam(':tipo_vehiculo', $tipo_vehiculo);
         $stmt->bindParam(':estado', $estado);
         return $stmt;

@@ -101,42 +101,42 @@ $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
                 <div class="timeline-step">
                     <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2003">
                         <div class="inner-circle"></div>
-                        <p class="h6 mt-3 mb-1">2003</p>
+                        <p class="h6 mt-3 mb-1"></p>
                         <p class="h6 text-muted mb-0 mb-lg-0">QUERETARO</p>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2004">
                         <div class="inner-circle"></div>
-                        <p class="h6 mt-3 mb-1">2004</p>
+                        <p class="h6 mt-3 mb-1"></p>
                         <p class="h6 text-muted mb-0 mb-lg-0">Parque Ind. Bernardo Quintana </p>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2005">
                         <div class="inner-circle"></div>
-                        <p class="h6 mt-3 mb-1">2005</p>
+                        <p class="h6 mt-3 mb-1"></p>
                         <p class="h6 text-muted mb-0 mb-lg-0">Parque El Marques </p>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2010">
                         <div class="inner-circle"></div>
-                        <p class="h6 mt-3 mb-1">2010</p>
-                        <p class="h6 text-muted mb-0 mb-lg-0">Pedro Escobedo </p>
+                        <p class="h6 mt-3 mb-1"></p>
+                        <p class="h6 text-muted mb-0 mb-lg-0">Pedro <br> Escobedo </p>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2010">
                         <div class="inner-circle"></div>
-                        <p class="h6 mt-3 mb-1">2010</p>
-                        <p class="h6 text-muted mb-0 mb-lg-0">San Juan de Rio </p>
+                        <p class="h6 mt-3 mb-1"></p>
+                        <p class="h6 text-muted mb-0 mb-lg-0">San Juan <br> de Rio </p>
                     </div>
                 </div>                
                 <div class="timeline-step mb-0">
                     <div class="timeline-content arriba" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
                         
-                        <p class="h6 mb-3">2020</p>
+                        <p class="h6 mb-4"></p>
                         <p class="h6 text-muted mb-2 mb-lg-4">Singuilucan <br> </p>
                         <div class="inner-circle"></div>
                     </div>
@@ -144,7 +144,7 @@ $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
                 <div class="timeline-step mb-0">
                     <div class="timeline-content arriba" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
                         
-                        <p class="h6 mb-3">2020</p>
+                        <p class="h6 mb-4"></p>
                         <p class="h6 text-muted mb-2 mb-lg-4">Tulancingo </p>
                         <div class="inner-circle"></div>
                     </div>
@@ -152,7 +152,7 @@ $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
                 <div class="timeline-step mb-0">
                     <div class="timeline-content arriba" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
                         
-                        <p class="h6 mb-3">2020</p>
+                        <p class="h6 mb-4"></p>
                         <p class="h6 text-muted mb-2 mb-lg-4">Huauchinango </p>
                         <div class="inner-circle"></div>
                     </div>
@@ -160,7 +160,7 @@ $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
                 <div class="timeline-step mb-0">
                     <div class="timeline-content arriba" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
                         
-                        <p class="h6 mb-1">2020</p>
+                        <p class="h6 mb-3"></p>
                         <p class="h6 text-muted mb-2 mb-lg-3">Villa Avila Camacho </p>
                         <div class="inner-circle"></div>
                     </div>
@@ -168,7 +168,7 @@ $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
                 <div class="timeline-step mb-0">
                     <div class="timeline-content arriba" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
                         
-                        <p class="h6  mb-1">2020</p>
+                        <p class="h6  mb-3"></p>
                         <p class="h6 text-muted mb-2 mb-lg-3">Villa Lazaro Cardenas</p>
                         <div class="inner-circle"></div>
                     </div>

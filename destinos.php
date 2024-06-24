@@ -1,13 +1,18 @@
 <?php
 
 include 'config/conexion.php';
+include 'dashboard/class/going.php';
+include 'dashboard/class/return.php';
 include 'dashboard/class/travel.php';
 include 'dashboard/class/origin.php';
 include 'dashboard/class/mobility.php';
 
 session_start(); // Inicia la sesión al comienzo del archivo
 
+ 
 $travelList = Travel::getTravelAll();
+$goingList = Going::getGoingAll();
+$returnList = Vuelta::getGoingAll();
 //var_dump($travelList);
 
 // Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
@@ -20,6 +25,7 @@ list($id, $tipo) = explode('-', $_GET['destino']);
 
 try {
     // Filtrar tbl_viajes_puntos para obtener viaje_id
+    
     $query = "SELECT viaje_id FROM tbl_viajes_puntos WHERE puntos_id = :id AND tipo = :tipo";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -32,9 +38,10 @@ try {
         $viaje_id = $row['viaje_id'];
 
         // Consulta para verificar si el viaje tiene un count menor o igual a 0 en otra_tabla
-        $count_query = "SELECT COUNT(*) AS count FROM tbl_viajes WHERE id = :viaje_id";
+        $count_query = "SELECT COUNT(*) AS count FROM tbl_viajes WHERE id = :viaje_id AND fecha_salida = :viaje_fecha";
         $count_stmt = $conn->prepare($count_query);
         $count_stmt->bindParam(':viaje_id', $viaje_id, PDO::PARAM_INT);
+        $count_stmt->bindParam(':viaje_fecha', $fecha, PDO::PARAM_STR);
         $count_stmt->execute();
         $count_row = $count_stmt->fetch(PDO::FETCH_ASSOC);
         $count = $count_row['count'];
@@ -63,7 +70,7 @@ try {
     }
 
     if ($selected_viaje_id === null) {
-        echo "No se encontraron resultados válidos para el punto_id $id y tipo $tipo en tbl_viajes_puntos.";
+        // echo "No se encontraron resultados válidos para el punto_id $id y tipo $tipo en tbl_viajes_puntos.";
     }
 
 } catch (PDOException $e) {
@@ -105,33 +112,36 @@ try {
                 <div class="row justify-content-md-center justify-content-center">
                     <div class="col-10 row_buscador">
                         <form action="destinos" method="GET">
-                            <div class="row">
-                                <div class="col-lg col-6  mb-lg-0 mb-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-6  mb-lg-0 mb-3">
                                     <div class="form-floating">
-                                        <select class="form-select" id="" name="origen" aria-label="Floating label select example">
- 
-                                                <option value="">Seleccionar</option>
- 
-
+                                        <select class="form-select mt-2"  name="destino" style="width: 100%;" aria-label="Floating label select example">
+                                            <option value="0" selected>Seleccionar</option>
+                                            <?php foreach ($goingList as $going) : ?>
+                                                <option value="<?= $going->id ?>-<?= $going->tipo ?>"><?= $going->origen ?> / <?= $going->destino ?></option>
+                                            <?php endforeach; ?>
+                                            <?php foreach ($returnList as $vuelta) : ?>
+                                                <option value="<?= $vuelta->id ?>-<?= $vuelta->tipo ?>"><?= $vuelta->origen ?> / <?= $vuelta->destino ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                         <label for="">Origen</label>
                                     </div>
                                 </div>
-                                <div class="col-lg col-6  mb-lg-0 mb-3">
+                                <!-- <div class="col-lg col-6  mb-lg-0 mb-3 d-none">
                                     <div class="form-floating">
-                                        <select class="form-select" id="" name="destino" aria-label="Floating label select example">
+                                        <select class="form-select" id="" value=" " name="" aria-label="Floating label select example">
  
                                                 <option value="">Seleccionar</option>
  
                                         </select>
                                         <label for="">Destino</label>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-lg col-6  mb-lg-0 mb-3">
 
                                     <div class="form-floating">
  
-                                            <input type="date" class="form-control" id="" value="<?php echo $today; ?>" name="fecha" placeholder="">
+                                    <input type="date" class="form-control" id="" value="<?php echo $fecha; ?>" name="fecha" placeholder="">
  
                                         <label for="">Fecha</label>
                                     </div>
@@ -139,7 +149,7 @@ try {
                                 </div>
                                 <div class="col-lg col-6  mb-lg-0 mb-3">
                                     <div class="form-floating">
-                                        <input type="number" class="form-control" id="" value="2" name="pasajeros" placeholder="">
+                                        <input type="number" class="form-control" id="" value="<?php echo $pasajeros; ?>" name="pasajeros" placeholder="">
                                         <label for="">Pasajeros</label>
                                     </div>
                                 </div>
@@ -158,114 +168,113 @@ try {
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-lg-12">
- 
-                     
-                        <div class="row row_ticket" id=" ">
-                            <div class="col-lg-1 col-md-1 col-2 col_id">
-                                <div class="id_p_ticket">
-                                    <p><?=$viajeObj->correlativo?></p>
+                    <?php if($count) { ?>
+                    <div class="row row_ticket" id="">
+                        <div class="col-lg-1 col-md-1 col-2 col_id">
+                            <div class="id_p_ticket">
+                                <p><?=$viajeObj->correlativo?></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-10 col_info pt-lg-2">
+                            <div class="info_uno justify-content-between d-flex">
+                                <h6>Transporte SAFE</h6>
+                                <p>Tiempo Estimado</p>
+                                <span>Asientos Disponibles <?=$viajeObj->count?></span>
+                            </div>
+                            <div class="info_dos">
+                                <div class="anchos_w">
+                                    <p><?=$ticketObj->origen?></p>
+                                    <span><?=$ticketObj->hora_salida?></span> 
+                                </div>
+                                <div class="anchos_w">
+                                    <p class="linea_sepa"></p>
+                                </div>
+                                <div class="anchos_w text-center">
+                                    <img src="assets/img/svg/camion.svg" alt="">
+                                    <p><?=$ticketObj->tiempo_viaje?></p>
+                                </div>
+                                <div class="anchos_w">
+                                    <p class="linea_sepa"></p>
+                                </div>
+                                <div class="anchos_w text-end">
+                                    <p><?=$ticketObj->destino?></p>
+                                    <span><?=$ticketObj->hora_llegada?></span>
                                 </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-10 col_info pt-lg-2">
-                                <div class="info_uno justify-content-between d-flex">
-                                    <h6>Transporte SAFE</h6>
-                                    <p>Tiempo Estimado</p>
-                                    <span>Hacientos Disponibles <?=$viajeObj->count?></span>
+                            <div>
+                                <span><?=$fecha_formateada?></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col_price">
+                            <div class="info_cuatros">
+                                <p class="mb-0">Dato: El pago es para reserva de boletos, lo restante se cancela al ingreso del viaje </p>
+                            </div>
+                            <div class="flex_prices">
+                                <div class="price_div">
+                                    <div class="span"><?=$ticketObj->precio?> MXM </div>
+                                    <div class="span_span">Precio boletos</div>
                                 </div>
-                                <div class="info_dos">
-                                    <div class="anchos_w">
-                                        <p><?=$ticketObj->origen?></p>
-                                        <span><?=$ticketObj->hora_salida?></span> 
+                                <div class="price_div_descuentos">
+                                    <div class="span">
+                                        <?=$ticketObj->reserva?> MXM
                                     </div>
-                                    <div class="anchos_w">
-                                        <p class="linea_sepa"></p>
-                                    </div>
-                                    <div class="anchos_w text-center">
-                                        <img src="assets/img/svg/camion.svg" alt="">
-                                        <p><?=$ticketObj->tiempo_viaje?></p>
-                                    </div>
-                                    <div class="anchos_w">
-                                        <p class="linea_sepa"></p>
-                                    </div>
-                                    <div class="anchos_w text-end">
-                                        <p><?=$ticketObj->destino?></p>
-                                        <span><?=$ticketObj->hora_llegada?></span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span><?=$fecha_formateada?></span>
+                                    <div class="span_span">Precio para reserva</div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col_price">
-                                <div class="info_cuatros">
-                                    <p class="mb-0">Dato: El pago es para reserva de boletos, lo restante se cancela al ingreso del viaje </p>
-                                </div>
-                                <div class="flex_prices">
-                                    <div class="price_div">
-                                        <div class="span"><?=$ticketObj->precio?> MXM </div>
-                                        <div class="span_span">Precio boletos</div>
-                                    </div>
-                                    <div class="price_div_descuentos">
-                                        <div class="span">
-                                            <?=$ticketObj->reserva?> MXM
-                                        </div>
-                                        <div class="span_span">Precio para reserva</div>
-                                    </div>
-                                </div>
-                                <div class="flex_button mb-lg-3">
-                                    <?php
-                                     
-                                    if  ($viajeObj->count > $pasajeros) {?>
-                                            <a data-bs-toggle="collapse" href="#ddddd" role="button" aria-expanded="false" aria-controls="ddddd" class="detail_button"><img src="assets/img/detail.svg" class="img-fluid" alt="">Ver Detalles</a>
-                                            <a href="datos-personales?destino=<?=$id.'-'.$tipo;?>&fecha=2024-06-18&pasajeros=<?= $pasajeros ?>" class="pay_button"><img src="assets/img/pay.svg" class="img-fluid" alt="">
-                                                Comprar Boleto
-                                            </a>
-                                    <?php }else{ ?>
-                                            <a class=" disabled_pay btn-secondary">
-                                                No Disponible
-                                            </a>
-                                    <?php }
-                                    ?>
-                                </div>
-                            </div>
-
-                            <div class="col-12 fondo_boleto_despliegue">
-                                <div class="collapse py-4" id="ddddd">
-                                    <div class="d-flex">
-                                        <div class="items_list_tres">
-                                            <ul>
-                                                <li>
-                                                    <p>1 dia</p>
-                                                </li>
-                                                <li>
-                                                    <p><img src="assets/img/svg/people.svg" alt=""><?=$movilidadObj->capacidad_asientos?></p>
-                                                </li>
-                                                <li>
-                                                    <p><img src="assets/img/svg/wifi.svg" alt="">Wifi</p>
-                                                </li>
-                                                <li>
-                                                    <p><img src="assets/img/svg/luz.svg" alt="">Luz</p>
-                                                </li>
-                                                <li>
-                                                    <p><img src="assets/img/svg/guia.svg" alt="">Guia/Representante</p>
-                                                </li>
-                                                <li>
-                                                    <p><img src="assets/img/svg/tv.svg" alt="">Tv</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="info_trees px-4 d-flex">
-                                            <p class="mb-0 me-2"><b>Mátricula de Movilidad:</b> <?=$movilidadObj->matricula?></p>
-                                            <p class="mb-0"><b>Tipo de Movilidad:</b> <?=$movilidadObj->tipo_vehiculo?></p>
-                                        </div>
-
-                                    </div>
-                                </div>
+                            <div class="flex_button mb-lg-3">
+                                <?php
+                                    
+                                if  ($viajeObj->count > $pasajeros) {?>
+                                        <a data-bs-toggle="collapse" href="#ddddd" role="button" aria-expanded="false" aria-controls="ddddd" class="detail_button"><img src="assets/img/detail.svg" class="img-fluid" alt="">Ver Detalles</a>
+                                        <a href="datos-personales?destino=<?=$id.'-'.$tipo;?>&fecha=2024-06-18&pasajeros=<?= $pasajeros ?>" class="pay_button"><img src="assets/img/pay.svg" class="img-fluid" alt="">
+                                            Comprar Boleto
+                                        </a>
+                                <?php }else{ ?>
+                                        <a class=" disabled_pay btn-secondary">
+                                            No Disponible
+                                        </a>
+                                <?php }
+                                ?>
                             </div>
                         </div>
 
- 
- 
+                        <div class="col-12 fondo_boleto_despliegue">
+                            <div class="collapse py-4" id="ddddd">
+                                <div class="d-flex">
+                                    <div class="items_list_tres">
+                                        <ul>
+                                            <li>
+                                                <p>1 dia</p>
+                                            </li>
+                                            <li>
+                                                <p><img src="assets/img/svg/people.svg" alt=""><?=$movilidadObj->capacidad_asientos?></p>
+                                            </li>
+                                            <li>
+                                                <p><img src="assets/img/svg/wifi.svg" alt="">Wifi</p>
+                                            </li>
+                                            <li>
+                                                <p><img src="assets/img/svg/luz.svg" alt="">Luz</p>
+                                            </li>
+                                            <li>
+                                                <p><img src="assets/img/svg/guia.svg" alt="">Guia/Representante</p>
+                                            </li>
+                                            <li>
+                                                <p><img src="assets/img/svg/tv.svg" alt="">Tv</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="info_trees px-4 d-flex">
+                                        <p class="mb-0 me-2"><b>Mátricula de Movilidad:</b> <?=$movilidadObj->matricula?></p>
+                                        <p class="mb-0"><b>Tipo de Movilidad:</b> <?=$movilidadObj->tipo_vehiculo?></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } else{ ?>
+                        <p>No se encontró Viajes para Esta Fecha</p>
+                    <?php } ?>
                 </div>
             </div>
         </div>

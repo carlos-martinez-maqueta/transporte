@@ -41,22 +41,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="titulo" required>
-                                    <label for="floatingInput">Titulo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="floatingInput" placeholder="Escribe el párrafo aquí" name="parrafo" style="height: 200px;" required></textarea>
-                                    <label for="floatingInput">Parrafo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="nombres" required>
-                                    <label for="floatingInput">Nombre Completo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="cargo" required>
-                                    <label for="floatingInput">Cargo</label>
-                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -97,22 +81,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="titulo" placeholder="name@example.com" name="titulo" required>
-                                    <label for="floatingInput">Titulo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="parrafo" placeholder="Escribe el párrafo aquí" name="parrafo" style="height: 200px;" required></textarea>
-                                    <label for="floatingInput">Parrafo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="nombres" placeholder="name@example.com" name="nombres" required>
-                                    <label for="floatingInput">Nombre Completo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="cargo" placeholder="name@example.com" name="cargo" required>
-                                    <label for="floatingInput">Cargo</label>
-                                </div>
+                               
 
                             </div>
                         </div>

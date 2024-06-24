@@ -37,7 +37,7 @@ $templateArray = Travel::getTemplateAll();
                 <form id="addMobility" method="POST" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Staff</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Movilidad</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -71,7 +71,7 @@ $templateArray = Travel::getTemplateAll();
                                     <label for="floatingInput">Tipo de Vehiculo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <select class="form-select selectProduct" id="floatingSelect" name="plantilla_id">
+                                    <select class="form-select selectProduct" id="floatingSelect" name="plantilla_id" required>
                                         <option value="" selected>Seleccionar una opción</option>
                                         <?php foreach ($templateArray as $result) : ?>
                                             <option value="<?= htmlspecialchars($result->id) ?>"><?= htmlspecialchars($result->nombre) ?> - N° Asientos: <?= htmlspecialchars($result->numero_asientos) ?></option>

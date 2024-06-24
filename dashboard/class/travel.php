@@ -188,33 +188,36 @@ class Travel
     public static function addTravel($fecha_salida, $hora_salida, $movilidad_id, $staffId, $tipo_viaje)
     {
         global $conn;
-    
+
         // Obtener el último correlativo de la tabla
         $sql_correlativo = "SELECT correlativo FROM tbl_viajes ORDER BY id DESC LIMIT 1";
         $stmt_correlativo = $conn->prepare($sql_correlativo);
         $stmt_correlativo->execute();
         $ultimo_correlativo = $stmt_correlativo->fetchColumn();
-    
+
         // Generar el nuevo correlativo
+        $prefix = ($tipo_viaje == 'ida') ? 'TSI' : 'TSV'; // Determinar el prefijo según el tipo de viaje
+        $date_part = date('dmy'); // Obtener la fecha actual en el formato ddmmy
+
         if ($ultimo_correlativo) {
             // Extraer el número del correlativo actual
-            $numero_correlativo = (int)substr($ultimo_correlativo, 4); // Extraer el número sin el prefijo "TSB-"
+            $numero_correlativo = (int)substr($ultimo_correlativo, 9); // Extraer el número después de 'TSI' o 'TSV' y la fecha
             $nuevo_numero_correlativo = $numero_correlativo + 1;
-            $nuevo_correlativo = 'TSB-' . str_pad($nuevo_numero_correlativo, 3, '0', STR_PAD_LEFT);
+            $nuevo_correlativo = $prefix . $date_part . str_pad($nuevo_numero_correlativo, 3, '0', STR_PAD_LEFT);
         } else {
-            $nuevo_correlativo = 'TSB-001';
+            $nuevo_correlativo = $prefix . $date_part . '001';
         }
-    
+
         // Obtener la capacidad de asientos de la tabla tbl_movilidad
         $sql_capacidad = "SELECT capacidad_asientos FROM tbl_movilidad WHERE id = :movilidad_id";
         $stmt_capacidad = $conn->prepare($sql_capacidad);
         $stmt_capacidad->bindParam(':movilidad_id', $movilidad_id);
         $stmt_capacidad->execute();
         $capacidad_asientos = $stmt_capacidad->fetchColumn();
-    
+
         // Insertar el nuevo viaje en la tabla tbl_viajes
         $sql = "INSERT INTO tbl_viajes (correlativo, count, fecha_salida, hora_salida, movilidad_id, fecha_creacion, estado, staff_id, tipo) 
-                VALUES (:correlativo, :count, :fecha_salida, :hora_salida, :movilidad_id, NOW(), 'disponible', :staff_id, :tipo)";
+            VALUES (:correlativo, :count, :fecha_salida, :hora_salida, :movilidad_id, NOW(), 'disponible', :staff_id, :tipo)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':correlativo', $nuevo_correlativo);
         $stmt->bindParam(':count', $capacidad_asientos);
@@ -223,8 +226,11 @@ class Travel
         $stmt->bindParam(':movilidad_id', $movilidad_id);
         $stmt->bindParam(':staff_id', $staffId);
         $stmt->bindParam(':tipo', $tipo_viaje);
+
+
         return $stmt;
     }
+
     
 
 

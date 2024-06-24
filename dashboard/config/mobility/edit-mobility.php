@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Editar el resto de los campos
-    $result = Mobility::editMobilityId($id, $matricula, $marca, $modelo, $color, $cantidad_asientos, $tipo_vehiculo, $estado);
+    $result = Mobility::editMobilityId($id, $matricula, $marca, $modelo, $color, $tipo_vehiculo, $estado);
 
 
     if ($result->execute()) {

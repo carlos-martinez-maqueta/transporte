@@ -3,6 +3,54 @@
 class Booking
 {
 
+    public static function getAllReservasByTravelId($id)
+    {
+        global $conn;
+        $statement = $conn->prepare("SELECT * FROM tbl_reservas WHERE viaje_id = :id");
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_OBJ);
+        return $results;
+    }
+
+    public static function getPasajerosByReservaId($reserva_id)
+    {
+        global $conn;
+        $statement = $conn->prepare(" SELECT 
+                rp.*, 
+                r.viaje_id, 
+                r.tipo_viaje, 
+                r.punto_id, 
+                COALESCE(tpe.nombre, 'N/A') AS nombreStaff, 
+                COALESCE(tpe.apellidos, '') AS apellidosStaff, 
+                COALESCE(tvi.correlativo, 'N/A') AS correlativoViaje,
+                CASE
+                    WHEN r.tipo_viaje = 'ida' THEN (SELECT tn.origen FROM tbl_idas tn WHERE tn.id = r.punto_id)
+                    WHEN r.tipo_viaje = 'vuelta' THEN (SELECT tn.origen FROM tbl_vueltas tn WHERE tn.id = r.punto_id)
+                    ELSE 'N/A'
+                END AS puntoOrigen,
+                CASE
+                    WHEN r.tipo_viaje = 'ida' THEN (SELECT tn.destino FROM tbl_idas tn WHERE tn.id = r.punto_id)
+                    WHEN r.tipo_viaje = 'vuelta' THEN (SELECT tn.destino FROM tbl_vueltas tn WHERE tn.id = r.punto_id)
+                    ELSE 'N/A'
+                END AS puntoDestino
+            FROM 
+                tbl_reservas_pasajeros rp
+            JOIN 
+                tbl_reservas r ON rp.reserva_id = r.id
+            LEFT JOIN
+                tbl_personal tpe ON tpe.id = r.staff_id
+            LEFT JOIN
+                tbl_viajes tvi ON tvi.id = r.viaje_id
+            WHERE 
+                rp.reserva_id = :reserva_id");
+        $statement->bindParam(":reserva_id", $reserva_id);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_OBJ);
+        return $results;
+    }
+
+
     public static function getBookingAll()
     {
         // Es una variable que esta en otro archivos
@@ -56,39 +104,40 @@ class Booking
         return $result;
     }
     public static function getBookingVentasId($id)
-    {
-        global $conn;
-        $statement = $conn->prepare("
+{
+    global $conn;
+    $statement = $conn->prepare("
         SELECT 
-                tr.*,
-                COALESCE(tpe.nombre, 'N/A') AS nombreStaff,
-                COALESCE(tpe.apellidos, '') AS apellidosStaff,
-                COALESCE(tvi.correlativo, 'N/A') AS correlativoViaje,
-                CASE
-                    WHEN tr.tipo_viaje = 'ida' THEN (SELECT tn.origen FROM tbl_idas tn WHERE tn.id = tr.punto_id)
-                    WHEN tr.tipo_viaje = 'vuelta' THEN (SELECT tn.origen FROM tbl_vueltas tn WHERE tn.id = tr.punto_id)
-                    ELSE 'N/A'
-                END AS puntoOrigen,
-                CASE
-                    WHEN tr.tipo_viaje = 'ida' THEN (SELECT tn.destino FROM tbl_idas tn WHERE tn.id = tr.punto_id)
-                    WHEN tr.tipo_viaje = 'vuelta' THEN (SELECT tn.destino FROM tbl_vueltas tn WHERE tn.id = tr.punto_id)
-                    ELSE 'N/A'
-                END AS puntoDestino
-            FROM 
-                tbl_reservas tr
-            LEFT JOIN
-                tbl_personal tpe ON tpe.id = tr.staff_id
-            LEFT JOIN
-                tbl_viajes tvi ON tvi.id = tr.viaje_id
-            WHERE 
-                tr.id = :id                
-            ORDER BY 
-                tr.fecha_creacion DESC");
-        $statement->bindValue(":id", $id);
-        $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_OBJ);
-        return $result;
-    }
+            tr.*,
+            COALESCE(tpe.nombre, 'N/A') AS nombreStaff,
+            COALESCE(tpe.apellidos, '') AS apellidosStaff,
+            COALESCE(tvi.correlativo, 'N/A') AS correlativoViaje,
+            CASE
+                WHEN tr.tipo_viaje = 'ida' THEN (SELECT tn.origen FROM tbl_idas tn WHERE tn.id = tr.punto_id)
+                WHEN tr.tipo_viaje = 'vuelta' THEN (SELECT tn.origen FROM tbl_vueltas tn WHERE tn.id = tr.punto_id)
+                ELSE 'N/A'
+            END AS puntoOrigen,
+            CASE
+                WHEN tr.tipo_viaje = 'ida' THEN (SELECT tn.destino FROM tbl_idas tn WHERE tn.id = tr.punto_id)
+                WHEN tr.tipo_viaje = 'vuelta' THEN (SELECT tn.destino FROM tbl_vueltas tn WHERE tn.id = tr.punto_id)
+                ELSE 'N/A'
+            END AS puntoDestino
+        FROM 
+            tbl_reservas tr
+        LEFT JOIN
+            tbl_personal tpe ON tpe.id = tr.staff_id
+        LEFT JOIN
+            tbl_viajes tvi ON tvi.id = tr.viaje_id
+        WHERE 
+            tr.staff_id = :id                
+        ORDER BY 
+            tr.fecha_creacion DESC");
+    $statement->bindValue(":id", $id);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_OBJ);
+    return $result;
+}
+
     public static function addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking, $point_id, $tipoBooking)
     {
         global $conn;

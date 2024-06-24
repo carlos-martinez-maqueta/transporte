@@ -16,7 +16,7 @@ async function initialize() {
       throw new Error('El valor de totalBoletos no está definido en localStorage.');
     }
     const fetchClientSecret = async () => {
-      const response = await fetch(`http://localhost:8012/transporte/stripe/checkout.php?destino=${encodeURIComponent(destino)}&monto=${encodeURIComponent(valor)}&viaje=${encodeURIComponent(viaje)}&pasajeros=${encodeURIComponent(pasajeros)}`, {
+      const response = await fetch(`https://transportesafe.com/stripe/checkout.php?destino=${encodeURIComponent(destino)}&monto=${encodeURIComponent(valor)}&viaje=${encodeURIComponent(viaje)}&pasajeros=${encodeURIComponent(pasajeros)}`, {
         method: "POST",
       });
       if (!response.ok) {

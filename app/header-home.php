@@ -7,7 +7,7 @@
             <div class="col-lg-6 col-8">
                 <ul class="ul_header">
                     <li class="active"><a href="index">Inicio</a></li>
-                    <li><a href="Rutas">Rutas</a></li>
+                    <li><a href="rutas">Rutas</a></li>
                     <!-- <li><a href="nosotros">Nosotros</a></li> -->
                     <li><a href="contacto">Contacto</a></li>
                 </ul>

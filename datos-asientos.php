@@ -7,6 +7,8 @@ include 'dashboard/class/asientos.php';
 session_start(); // Inicia la sesión al comienzo del archivo
 include 'get/info-viaje-dos.php';
 
+$numerosdeasientos = $movilidadObj->capacidad_asientos;
+ 
 ?>
 <!doctype html>
 <html lang="en">
@@ -130,6 +132,9 @@ include 'get/info-viaje-dos.php';
                                     max-width: 600px;
                                     margin: auto;
                                 }
+                                .layout-16{
+                                    grid-template-columns: repeat(6, 1fr) !important; /* 5 columnas */
+                                }
                                 .asiento {
                                     position: relative;
                                     display: flex;
@@ -167,14 +172,15 @@ include 'get/info-viaje-dos.php';
                                 <div class="auto_img">
                                     <div class="d-flex col-12 justify-content-center ">
                                         <div class=" ">
-                                            <div class="bus-layout">
+                                             
                                             <?php
+                                                if($numerosdeasientos == 11){
+                                                    echo '<div class="bus-layout">';
                                                     // Asignación del mapa de asientos
                                                     $seat_map = [
                                                         [1, 1, 1, 1, 2],  // 2 es el asiento del conductor
                                                         [1, 1, 1, 1, 0], 
-                                                        [1, 0, 0, 0, 0],  // 0 son espacios vacíos
-                                                        [1, 1, 1, 0, 1]
+                                                        [1, 0, 0, 1, 1]
                                                     ];
 
                                                     $index = 0;
@@ -206,9 +212,99 @@ include 'get/info-viaje-dos.php';
                                                                 echo '<div class="empty-space"></div>';
                                                             }
                                                         }
+                                                    }  
+                                                    echo '</div>';
+                                                }
+                                            ?>                                                
+                                                <?php
+                                                    if($numerosdeasientos == 13){
+                                                        echo '<div class="bus-layout">';
+                                                        // Asignación del mapa de asientos
+                                                        $seat_map = [
+                                                            [1, 1, 1, 1, 2],  // 2 es el asiento del conductor
+                                                            [1, 1, 1, 1, 0], 
+                                                            [1, 0, 0, 0, 0],  // 0 son espacios vacíos
+                                                            [1, 1, 1, 0, 1]
+                                                        ];
+
+                                                        $index = 0;
+                                                        foreach ($seat_map as $row) {
+                                                            foreach ($row as $seat) {
+                                                                if ($seat === 1) {
+                                                                    if (isset($asientos[$index])) {
+                                                                        $asiento = $asientos[$index];
+                                                                        $estado = $asiento->estado;
+                                                                        $imgSrc = "assets/img/svg/asiento_vacio.svg"; // Asiento disponible por defecto
+                                                                        if ($estado === "ocupado") {
+                                                                            $imgSrc = "assets/img/svg/asiento_ocupado.svg"; // Asiento ocupado
+                                                                        } elseif ($estado === "reservado") {
+                                                                            $imgSrc = "assets/img/svg/asiento_seleccionado.svg"; // Asiento reservado
+                                                                        }
+                                                                        ?>
+                                                                        <div class="asiento <?= $estado ?>" id="<?= htmlspecialchars($asiento->asiento); ?>" data-id="<?= htmlspecialchars($asiento->id); ?>">
+                                                                            <img src="<?= $imgSrc ?>" alt="">
+                                                                            <div style="position: absolute; top: 16px;left: 12px;">
+                                                                                <span style="font-size: 9px;"><?= htmlspecialchars($asiento->asiento); ?></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <?php 
+                                                                        $index++; 
+                                                                    }
+                                                                } elseif ($seat === 2) {
+                                                                    echo '<div class="driver-seat">Piloto</div>';
+                                                                } elseif ($seat === 0) {
+                                                                    echo '<div class="empty-space"></div>';
+                                                                }
+                                                            }
+                                                        }  
+                                                        echo '</div>';
                                                     }
                                                 ?>
-                                            </div>
+                                                <?php
+                                                    if($numerosdeasientos == 16){
+                                                        echo '<div class="bus-layout layout-16">';
+                                                        // Asignación del mapa de asientos
+                                                        $seat_map = [
+                                                            [1, 1, 1, 1, 1, 2],  // 2 es el asiento del conductor
+                                                            [1, 1, 1, 1, 1, 0], 
+                                                            [1, 0, 0, 0, 0, 1],  // 1 son espacios vacíos
+                                                            [1, 1, 1, 1, 1, 0]
+                                                        ];
+
+                                                        $index = 0;
+                                                        foreach ($seat_map as $row) {
+                                                            foreach ($row as $seat) {
+                                                                if ($seat === 1) {
+                                                                    if (isset($asientos[$index])) {
+                                                                        $asiento = $asientos[$index];
+                                                                        $estado = $asiento->estado;
+                                                                        $imgSrc = "assets/img/svg/asiento_vacio.svg"; // Asiento disponible por defecto
+                                                                        if ($estado === "ocupado") {
+                                                                            $imgSrc = "assets/img/svg/asiento_ocupado.svg"; // Asiento ocupado
+                                                                        } elseif ($estado === "reservado") {
+                                                                            $imgSrc = "assets/img/svg/asiento_seleccionado.svg"; // Asiento reservado
+                                                                        }
+                                                                        ?>
+                                                                        <div class="asiento <?= $estado ?>" id="<?= htmlspecialchars($asiento->asiento); ?>" data-id="<?= htmlspecialchars($asiento->id); ?>">
+                                                                            <img src="<?= $imgSrc ?>" alt="">
+                                                                            <div style="position: absolute; top: 16px;left: 12px;">
+                                                                                <span style="font-size: 9px;"><?= htmlspecialchars($asiento->asiento); ?></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <?php 
+                                                                        $index++; 
+                                                                    }
+                                                                } elseif ($seat === 2) {
+                                                                    echo '<div class="driver-seat">Piloto</div>';
+                                                                } elseif ($seat === 0) {
+                                                                    echo '<div class="empty-space"></div>';
+                                                                }
+                                                            }
+                                                        }  
+                                                        echo '</div>';
+                                                    }
+                                                ?>                                                
+                                            
                                         </div>
                                     </div>
                                 </div>

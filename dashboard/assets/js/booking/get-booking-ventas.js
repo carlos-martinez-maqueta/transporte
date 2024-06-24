@@ -39,10 +39,10 @@ function formatFecha(fecha) {
   var fechaFormateada = new Date(fecha);
   var dia = fechaFormateada.getDate().toString().padStart(2, '0');
   var mes = (fechaFormateada.getMonth() + 1).toString().padStart(2, '0');
-  var año = fechaFormateada.getFullYear();
+  var ano = fechaFormateada.getFullYear();
   var hora = fechaFormateada.getHours().toString().padStart(2, '0');
   var minutos = fechaFormateada.getMinutes().toString().padStart(2, '0');
-  return dia + '/' + mes + '/' + año + ' ' + hora + ':' + minutos;
+  return dia + '/' + mes + '/' + ano + ' ' + hora + ':' + minutos;
 }
 function getTable(dataTable) {
 
@@ -79,6 +79,7 @@ function getTable(dataTable) {
         var newRow = '<tr>' +
           '<td class="align-middle text-center">' + result.id + '</td>' +
           '<td class="align-middle text-center">' + result.correlativoViaje + '</td>' +
+          '<td class="align-middle text-center">' + result.tipo_viaje + '</td>' +
           '<td class="align-middle text-center">' + result.puntoOrigen + '</td>' +
           '<td class="align-middle text-center">' + result.puntoDestino + '</td>' +
           '<td class="align-middle text-center">' + result.referencia + '</td>' +

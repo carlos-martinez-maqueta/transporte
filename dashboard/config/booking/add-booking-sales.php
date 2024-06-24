@@ -8,7 +8,8 @@
     session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $staffId = Security::getUserId();
+        // $staffId = Security::getUserId();
+        $staffId = !empty($_POST['u']) ? $_POST['u'] : null;
         $viaje_id = !empty($_POST['viaje_id']) ? $_POST['viaje_id'] : null;
         $referencia = !empty($_POST['referencia']) ? $_POST['referencia'] : null;
         $num_asientos = !empty($_POST['num_asientos']) ? $_POST['num_asientos'] : null;
@@ -51,7 +52,7 @@
 
             $generator = new barcode_generator();
             header('Content-Type: image/svg+xml');
-            $svg = $generator->render_svg("qr", "https://transportesafe.com/user/?user=$lastInsertedId", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
+            $svg = $generator->render_svg("qr", "https://transportesafe.com/reserva-realizada?reserva=$lastInsertedId&destino=$point_id-$tipoBooking", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
 
             $qr_filename = "qr_code_booking_$lastInsertedId.svg";
             $qr_filepath = $qr_folder . $qr_filename;

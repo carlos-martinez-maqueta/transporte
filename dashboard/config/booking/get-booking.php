@@ -5,7 +5,7 @@ include '../../core/Security.php';
 
 
 session_start();
-
+ $usuario_id= Security::getUserId();
 
 if (isset($_POST['action']) && $_POST['action'] == 'get_all_booking') {
     $result = Booking::getBookingAll();

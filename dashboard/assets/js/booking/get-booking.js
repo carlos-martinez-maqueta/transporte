@@ -31,8 +31,11 @@ $(document).ready(function () {
       },
     }
   });
+     // Captura el valor del correlativo de la URL
+   var urlParams = new URLSearchParams(window.location.search);
+   var correlativo = urlParams.get('correlativo');
 
-  getTable(dataTable);
+  getTable(dataTable, correlativo);
 
 });
 function formatFecha(fecha) {
@@ -44,7 +47,7 @@ function formatFecha(fecha) {
   var minutos = fechaFormateada.getMinutes().toString().padStart(2, '0');
   return dia + '/' + mes + '/' + año + ' ' + hora + ':' + minutos;
 }
-function getTable(dataTable) {
+function getTable(dataTable, correlativo) {
 
   $.ajax({
     url: 'config/booking/get-booking.php',
@@ -82,6 +85,7 @@ function getTable(dataTable) {
           '<td class="align-middle text-center">' + result.puntoOrigen + '</td>' +
           '<td class="align-middle text-center">' + result.puntoDestino + '</td>' +
           '<td class="align-middle text-center">' + result.correlativoViaje + '</td>' +
+          '<td class="align-middle text-center">' + result.tipo_viaje + '</td>' +
           '<td class="align-middle text-center">' + result.referencia + '</td>' +
           '<td class="align-middle text-center">' + result.asientos_reservados + '</td>' +
           '<td class="align-middle text-center">' + result.precio_pagado + '</td>' +
@@ -97,6 +101,10 @@ function getTable(dataTable) {
           '</tr>';
         dataTable.row.add($(newRow)).draw(false);
       });
+        // Aplicar filtro si se ha pasado un correlativo
+       if (correlativo) {
+        dataTable.search(correlativo).draw();
+      }
     }
   });
 }

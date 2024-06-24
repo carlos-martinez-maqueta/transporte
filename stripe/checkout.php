@@ -36,7 +36,7 @@ try {
     'phone_number_collection' => [
       'enabled' => true,
     ],
-    'return_url' => 'http://localhost:8012/transporte/pago-realizado?destino=' . $destino . '&idviaje=' . $viaje . '&pasajeros=' . $pasajeros . '&session_id={CHECKOUT_SESSION_ID}',
+    'return_url' => 'https://transportesafe.com/pago-realizado?destino=' . $destino . '&idviaje=' . $viaje . '&pasajeros=' . $pasajeros . '&session_id={CHECKOUT_SESSION_ID}',
   ]);
 
   header('Content-Type: application/json');

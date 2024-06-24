@@ -11,10 +11,11 @@ include 'get/info-viaje-dos.php';
 
 $reserva = isset( $_GET['reserva']) ?  $_GET['reserva'] : null;
 
+echo $reserva;
 $objReserva = Booking::getBookingVentasId($reserva);
 $objAsiento = Booking::getSeatsPassengersId($reserva);
 $objPersonas = Booking::getBookingPassengersId($reserva);
-// var_dump($objPersonas);
+ var_dump($objReserva);
 ?>
 <!DOCTYPE html>
 <html lang="en">

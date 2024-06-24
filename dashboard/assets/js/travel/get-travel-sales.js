@@ -156,7 +156,7 @@ $(document).ready(function () {
                 // Identificar el valor devuelto y construir la plantilla correspondiente
                 var plantillaHTML = '';
                 switch (data.plantilla_id) {
-                    case '1':
+                    case 1:
                         plantillaHTML = `<div class="plantilla" id="plantilla1"> <div class="d-flex col-12 justify-content-center py-4">
                         <div class="col-10 d-flex justify-content-center p-3 gap-4 border">
                             <div>
@@ -244,7 +244,7 @@ $(document).ready(function () {
                         </div>
                     </div></div>`;
                         break;
-                    case '2':
+                    case 2:
                         plantillaHTML = `<div class="plantilla" id="plantilla2"> <div class="d-flex col-12 justify-content-center py-4">
                         <div class="col-10 d-flex justify-content-center p-3 gap-4 border">
                             <div>
@@ -344,7 +344,7 @@ $(document).ready(function () {
                         </div>
                     </div></div>`;
                         break;
-                    case '3':
+                    case 3:
                         plantillaHTML = `<div class="plantilla" id="plantilla3">  <div class="d-flex col-12 justify-content-center py-4">
                         <div class="col-10 d-flex justify-content-center p-3 gap-4 border">
                             <div>

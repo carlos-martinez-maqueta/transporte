@@ -109,6 +109,8 @@ function getTable(dataTable) {
           '<div class="d-flex justify-content-center align-items-center gap-1">' +
           '<button type="button" class="btn btn-sm btn-info points" data-bs-toggle="modal" data-bs-target="#pointsModal" data-id="' + result.id + '"><i class="bx bx-map-pin"></i></button>' +
           '<button type="button" class="btn btn-sm btn-warning edit" data-bs-toggle="modal" data-bs-target="#editarModal" data-id="' + result.id + '"><i class="bx bxs-edit" ></i></button>' +
+          '<button type="button" class="btn btn-sm btn-primary filter" target="_blank" onclick="filterBooking(\'' + result.correlativo + '\')"><i class="bx bx-search-alt-2"></i></button>' +
+          '<button type="button" class="btn btn-sm btn-secondary attendance" onclick="viewAttendance(\'' + result.id + '\')"><i class="bx bx-list-ul"></i></button>' +
           '</div>' +
           '</td>' +
           '</tr>';
@@ -116,4 +118,10 @@ function getTable(dataTable) {
       });
     }
   });
+}
+function filterBooking(correlativo) {
+  window.location.href = 'bookings-list?correlativo=' + correlativo;
+}
+function viewAttendance(id) {
+  window.location.href = 'attendance-travel?id=' + id;
 }

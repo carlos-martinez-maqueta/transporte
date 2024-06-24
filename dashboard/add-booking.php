@@ -1,5 +1,4 @@
 <?php include 'app/components/header.php';
-
 ?>
 
 <?php include 'app/components/sidebar.php'; ?>
@@ -60,6 +59,7 @@
         <form id="addBookingSales" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
             <input type="hidden" id="viaje_id" name="viaje_id" value="">
+         
             <div class="row mb-4 p-4 card bg-light">
                 <div class="col-lg-12 mb-4">
                     <h5 class="font_two">Seleccionar Viaje</h5>
@@ -141,6 +141,7 @@
                                         <label for="nombre1">Nombre</label>
                                     </div>
                                 </div>
+                                   <input type="hidden" id="u" name="u" value="<?= $usuario_id ?>">
                                 <div class="col-xl-6 col-md-12">
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="apellidos1" name="apellidos[]" placeholder="Apellidos" required>
@@ -196,7 +197,7 @@
                                 <div class="card-body">
 
                                     <div class="mb-3">
-                                        <label for="imagen" class="form-label">Seleccionar Imgaen</label>
+                                        <label for="imagen" class="form-label">Seleccionar Imagen</label>
                                         <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" aria-label="Select File" required>
                                     </div>
                                     <div class="mb-3 text-center d-flex justify-content-center">

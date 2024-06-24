@@ -1,0 +1,108 @@
+[21-Jun-2024 18:34:39 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[21-Jun-2024 18:34:39 UTC] PHP Warning:  Undefined global variable $_SESSION in /home/umdekfts/transportesafe.com/dashboard/core/Security.php on line 9
+[21-Jun-2024 18:34:39 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/umdekfts/transportesafe.com/dashboard/core/Security.php on line 9
+[21-Jun-2024 18:34:39 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 53
+[21-Jun-2024 19:18:10 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[21-Jun-2024 19:18:10 UTC] PHP Warning:  Undefined global variable $_SESSION in /home/umdekfts/transportesafe.com/dashboard/core/Security.php on line 9
+[21-Jun-2024 19:18:10 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/umdekfts/transportesafe.com/dashboard/core/Security.php on line 9
+[21-Jun-2024 19:18:10 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 53
+[22-Jun-2024 18:14:46 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[22-Jun-2024 18:14:46 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[22-Jun-2024 18:28:32 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:86
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(86): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 86
+[22-Jun-2024 18:28:35 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:86
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(86): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 86
+[22-Jun-2024 18:31:15 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:86
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(86): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 86
+[22-Jun-2024 18:31:38 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:86
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(86): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 86
+[22-Jun-2024 18:31:58 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:86
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(86): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 86
+[22-Jun-2024 18:32:27 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:86
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(86): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 86
+[22-Jun-2024 18:33:21 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:86
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(86): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 86
+[22-Jun-2024 18:59:22 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:88
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(88): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(17): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 88
+[22-Jun-2024 18:59:25 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:88
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(88): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(17): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 88
+[22-Jun-2024 18:59:50 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:88
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(88): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 88
+[22-Jun-2024 18:59:54 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:88
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(88): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 88
+[22-Jun-2024 19:00:04 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/umdekfts/transportesafe.com/dashboard/class/booking.php:88
+Stack trace:
+#0 /home/umdekfts/transportesafe.com/dashboard/class/booking.php(88): PDOStatement->execute()
+#1 /home/umdekfts/transportesafe.com/dashboard/config/booking/get-booking.php(16): Booking::getBookingVentasId(3)
+#2 {main}
+  thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 88
+[22-Jun-2024 19:03:35 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[22-Jun-2024 19:03:35 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[22-Jun-2024 22:37:27 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[22-Jun-2024 22:37:27 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[22-Jun-2024 22:40:11 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[22-Jun-2024 22:40:11 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[22-Jun-2024 22:42:04 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[22-Jun-2024 22:42:04 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[22-Jun-2024 23:19:01 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[22-Jun-2024 23:19:01 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[24-Jun-2024 02:12:27 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[24-Jun-2024 02:12:27 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[24-Jun-2024 02:16:21 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[24-Jun-2024 02:16:21 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[24-Jun-2024 02:22:46 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[24-Jun-2024 02:22:46 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[24-Jun-2024 02:23:46 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[24-Jun-2024 02:23:46 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[24-Jun-2024 02:23:46 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[24-Jun-2024 02:23:46 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[24-Jun-2024 02:23:46 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[24-Jun-2024 02:23:47 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[24-Jun-2024 02:28:03 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[24-Jun-2024 02:28:03 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54
+[24-Jun-2024 02:29:25 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 8
+[24-Jun-2024 02:29:25 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php:1) in /home/umdekfts/transportesafe.com/dashboard/config/booking/add-booking-sales.php on line 54

@@ -5,6 +5,7 @@ require_once '../mailer/lib/PHPMailer/Exception.php';
 require_once '../mailer/lib/PHPMailer/PHPMailer.php';
 require_once '../mailer/lib/PHPMailer/SMTP.php';
 require_once '../mailer/vendor/autoload.php';
+require_once '../mailer/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -39,20 +40,28 @@ if ($data) {
             // Obtener el ID de la última inserción en tbl_reservas
             $ultimo_id_insertado = $conn->lastInsertId();
 
-            
-            // Generar y guardar el código QR
+            // Generar y guardar el código QR en PNG en lugar de SVG
             $qr_folder = 'qr_user/';
-
             $generator = new barcode_generator();
-            header('Content-Type: image/svg+xml');
-            $svg = $generator->render_svg("qr", "https://transportesafe.com/reserva-realizada?destino=$punto-$tipo&reserva=$ultimo_id_insertado", ""); //cambiar donde este la vista para que aparezca los detalles del usuario
+            $qr_svg = $generator->render_svg("qr", "https://transportesafe.com/reserva-realizada?destino=$punto-$tipo&reserva=$ultimo_id_insertado", "");
 
-            $qr_filename = "qr_code_$ultimo_id_insertado.svg";
-            $qr_filepath = $qr_folder . $qr_filename;
+            // Guardar SVG
+            $qr_filename_svg = "qr_code_$ultimo_id_insertado.svg";
+            $qr_filepath_svg = $qr_folder . $qr_filename_svg;
+            file_put_contents($qr_filepath_svg, $qr_svg);
 
-            file_put_contents($qr_filepath, $svg);
+            // Convertir SVG a PNG
+            $qr_filename_png = "qr_code_$ultimo_id_insertado.png";
+            $qr_filepath_png = $qr_folder . $qr_filename_png;
+            
+            $im = new Imagick();
+            $im->readImageBlob(file_get_contents($qr_filepath_svg));
+            $im->setImageFormat("png24");
+            $im->writeImage($qr_filepath_png);
+            $im->clear();
+            $im->destroy();
 
-            $sql_qr = "UPDATE tbl_reservas SET qr = '$qr_filename' WHERE id = '$ultimo_id_insertado'";
+            $sql_qr = "UPDATE tbl_reservas SET qr = '$qr_filename_png' WHERE id = '$ultimo_id_insertado'";
             $sql_user_stm = $conn->prepare($sql_qr);
             $sql_user_stm->execute();
         }
@@ -99,9 +108,14 @@ if ($data) {
             $stmt_acom->execute();
         }
         
+        // Consulta segura
+        $sql_envio = "SELECT * FROM tbl_reservas WHERE id = :ultimo_id_insertado";
+        $stmt_envio = $conn->prepare($sql_envio);
+        $stmt_envio->bindParam(':ultimo_id_insertado', $ultimo_id_insertado, PDO::PARAM_INT);
         
+        if ($stmt_envio->execute()) {
             // Envío de correo electrónico
-            $enviomail = "cmartinez.meneses1@gmail.com"; // Cambia esta dirección de correo
+            $enviomail = $correo; // Cambia esta dirección de correo
             $mail = new PHPMailer();
             $mail->isSMTP();
             $mail->Host = 'mail.valuepay.online';
@@ -111,21 +125,23 @@ if ($data) {
             $mail->Port = 587;
         
             $mail->setFrom('no-reply@valuepay.online', 'Transporte Safe');
-            // $mail->addAddress($correo);
             $mail->addAddress($enviomail);
             $mail->Subject = 'Gracias por tu compra - Transporte Safe';
             $mail->CharSet = 'UTF-8';
             $mail->isHTML(true);
         
+            // Obtén los detalles del usuario desde la consulta
+            $resultado = $stmt_envio->fetch(PDO::FETCH_ASSOC);
+            $qr_filename = $resultado['qr']; // Asegúrate de que esta columna exista en tu tabla
+
+            // Composición del mensaje
             $messages =  '
             <div style="max-width: 450px;">
                 <img src="https://transportesafe.com/assets/img/logo.png" alt="">
                 <h2>Estimado '.$nombre.',</h2>
                 <p>Gracias por reservar en Transporte Safe. <br> 
                     El detalle de su reserva está detallado en el siguiente QR, <br> queremos expresarle nuestra gratitud y confianza. </p> 
-                
-                
-                <img src="https://transportesafe.com/post/qr_user/'.$qr_filename.'" alt="" style="width: 150px;">
+                <img src="https://transportesafe.com/post/qr_user/'.$qr_filename.'" alt="QR Code" style="width: 150px;">
             </div>
             ';
         
@@ -136,8 +152,10 @@ if ($data) {
                 echo 'El correo de confirmación se ha enviado correctamente.';
             } else {
                 echo 'Hubo un error al enviar el correo de confirmación: ' . $mail->ErrorInfo;
-            }
-
+            }    
+        } else {
+            echo 'Hubo un error al ejecutar la consulta.';
+        }
 
         // Confirmar la transacción
         $conn->commit();
