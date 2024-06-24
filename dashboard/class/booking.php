@@ -88,7 +88,7 @@ class Booking
     public static function getBookingPassengersId($id)
     {
         global $conn;
-        $statement = $conn->prepare("SELECT * FROM tbl_reservas_pasajeros WHERE reserva_id=:id");
+        $statement = $conn->prepare("SELECT rp.*, r.estado as estado_reserva FROM tbl_reservas_pasajeros rp INNER JOIN tbl_reservas r ON rp.reserva_id = r.id WHERE rp.reserva_id=:id");
         $statement->bindValue(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_OBJ);

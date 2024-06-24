@@ -34,14 +34,14 @@ class Travel
     public static function getPointsId($id)
     {
         global $conn;
-    
+
         // Obtener el objeto viaje para determinar el tipo de viaje
         $viajeObj = Travel::getMarvelId($id);
         $tipoViaje = $viajeObj->tipo;
-    
+
         // Determinar la tabla correcta en función del tipo de viaje
         $tablaViaje = ($tipoViaje === 'ida') ? 'tbl_idas' : 'tbl_vueltas';
-    
+
         // Preparar y ejecutar la consulta para obtener todos los puntos y columnas de tbl_viaje
         $statement = $conn->prepare("
             SELECT 
@@ -54,10 +54,10 @@ class Travel
             tbl_viajes v ON v.id = vp.viaje_id
             WHERE 
             vp.viaje_id = :id");
-        
+
         $statement->bindValue(":id", $id);
         $statement->execute();
-    
+
         // Obtener los resultados
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
         return $result;
@@ -65,14 +65,14 @@ class Travel
     public static function getPointsFechId($viaje_id, $point_id)
     {
         global $conn;
-    
+
         // Obtener el objeto viaje para determinar el tipo de viaje
         $viajeObj = Travel::getMarvelId($viaje_id);
         $tipoViaje = $viajeObj->tipo;
-    
+
         // Determinar la tabla correcta en función del tipo de viaje
         $tablaViaje = ($tipoViaje === 'ida') ? 'tbl_idas' : 'tbl_vueltas';
-    
+
         // Preparar y ejecutar la consulta para obtener el punto específico de la tabla de viaje
         $statement = $conn->prepare("
             SELECT 
@@ -81,10 +81,10 @@ class Travel
             $tablaViaje t
             WHERE 
             t.id = :point_id");
-        
+
         $statement->bindValue(":point_id", $point_id);
         $statement->execute();
-    
+
         // Obtener los resultados
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result;
@@ -92,14 +92,14 @@ class Travel
     public static function getPointsFechHomeId($viaje_id, $point_id)
     {
         global $conn;
-    
+
         // Obtener el objeto viaje para determinar el tipo de viaje
         $viajeObj = Travel::getMarvelId($viaje_id);
         $tipoViaje = $viajeObj->tipo;
-    
+
         // Determinar la tabla correcta en función del tipo de viaje
         $tablaViaje = ($tipoViaje === 'ida') ? 'tbl_idas' : 'tbl_vueltas';
-    
+
         // Preparar y ejecutar la consulta para obtener el punto específico de la tabla de viaje
         $statement = $conn->prepare("
             SELECT 
@@ -108,16 +108,16 @@ class Travel
             $tablaViaje t
             WHERE 
             t.id = :point_id");
-        
+
         $statement->bindValue(":point_id", $point_id);
         $statement->execute();
-    
+
         // Obtener los resultados
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result;
     }
-    
-    
+
+
     public static function getTravelAll()
     {
         // Es una variable que esta en otro archivos
@@ -231,7 +231,7 @@ class Travel
         return $stmt;
     }
 
-    
+
 
 
 
@@ -288,4 +288,53 @@ class Travel
         return $stmt;
     }
 
+    public static function getAllReservasByTravelId($id)
+    {
+        global $conn;
+        $statement = $conn->prepare("SELECT * FROM tbl_reservas WHERE id = :id");
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $results = $statement->fetch(PDO::FETCH_OBJ);
+        return $results;
+    }
+
+    public static function editStateBookingId($idReserva, $estadoReserva)
+    {
+        global $conn;
+
+        // Obtener la reserva
+        $reservaObj = Travel::getAllReservasByTravelId($idReserva);
+
+        // Obtener el número de asientos reservados
+        $asientosReservados = $reservaObj->asientos_reservados;
+
+        // Actualizar el estado de la reserva
+        $sql = "UPDATE tbl_reservas SET estado=:estado WHERE id=:id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id', $idReserva);
+        $stmt->bindParam(':estado', $estadoReserva);
+        $stmt->execute();
+
+        // Sumar los asientos reservados al contador de asientos en el viaje
+        $viajeId = $reservaObj->viaje_id;
+        $sql = "UPDATE tbl_viajes SET count = count + :asientosReservados WHERE id = :viajeId";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':asientosReservados', $asientosReservados);
+        $stmt->bindParam(':viajeId', $viajeId);
+        $stmt->execute();
+
+        // Liberar los asientos reservados en la tabla de asientos
+        $sql = "UPDATE tbl_asientos SET reserva_id = NULL, estado = 'disponible' WHERE reserva_id = :idReserva";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':idReserva', $idReserva);
+        $stmt->execute();
+
+        // Eliminar los registros de la tabla tbl_reservas_pasajeros
+        $sql = "DELETE FROM tbl_reservas_pasajeros WHERE reserva_id = :idReserva";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':idReserva', $idReserva);
+        $stmt->execute();
+
+        return true; // Indicar que la operación fue exitosa
+    }
 }
