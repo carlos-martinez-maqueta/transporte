@@ -59,7 +59,7 @@
         <form id="addBookingSales" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
             <input type="hidden" id="viaje_id" name="viaje_id" value="">
-         
+            <input type="hidden" id="u" name="u" value="<?= $usuario_id ?>">
             <div class="row mb-4 p-4 card bg-light">
                 <div class="col-lg-12 mb-4">
                     <h5 class="font_two">Seleccionar Viaje</h5>
@@ -121,11 +121,41 @@
                                     ?>
                                 </select>
                             </div>
-
-
                             <div class="col-xl-6">
                                 <label for="precioTotal">Precio Total:</label>
                                 <input type="text" id="precioTotal" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Payment Options -->
+                        <div class="border row p-3 my-4">
+                            <div class="col-xl-6">
+                                <label for="pagoCompleto">
+                                    <input type="radio" id="pagoCompleto" name="tipoPago" value="completo" checked>
+                                    Pago Completo
+                                </label>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <label for="pagoParcial">
+                                    <input type="radio" id="pagoParcial" name="tipoPago" value="parcial">
+                                    Pago Parcial
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Partial Payment Inputs -->
+                        <div id="partialPaymentInputs" class="border row p-3 my-4" style="display: none;">
+                            <div class="row">
+
+                                <div class="col-xl-6">
+                                    <label for="montoParcial">Monto a Pagar:</label>
+                                    <input type="number" id="montoParcial" name="montoParcial" class="form-control">
+                                </div>
+                                <div class="col-xl-6">
+                                    <label for="montoRestante">Monto Restante:</label>
+                                    <input type="text" id="montoRestante" class="form-control" readonly>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -141,7 +171,7 @@
                                         <label for="nombre1">Nombre</label>
                                     </div>
                                 </div>
-                                   <input type="hidden" id="u" name="u" value="<?= $usuario_id ?>">
+
                                 <div class="col-xl-6 col-md-12">
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="apellidos1" name="apellidos[]" placeholder="Apellidos" required>
@@ -197,8 +227,8 @@
                                 <div class="card-body">
 
                                     <div class="mb-3">
-                                        <label for="imagen" class="form-label">Seleccionar Imagen</label>
-                                        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" aria-label="Select File" required>
+                                        <label for="imagen" class="form-label">Seleccionar Archivo</label>
+                                        <input type="file" class="form-control" id="imagen" name="imagen" accept=".pdf,.doc,.docx,image/*" aria-label="Select File" required>
                                     </div>
                                     <div class="mb-3 text-center d-flex justify-content-center">
                                         <img id="imagenPrevia" class="img-fluid" style="max-height: 300px; display: none;">
@@ -225,6 +255,7 @@
     <!-- end content -->
 <?php endif; ?>
 
+<?php include 'app/components/loading.php'; ?>
 <?php include 'app/components/footer.php'; ?>
 
 <script src="assets/js/travel/get-travel-sales.js"></script>
@@ -309,5 +340,37 @@
 
         // Actualizar el contenido de #pasajeros
         pasajerosContainer.innerHTML = pasajerosHtml;
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const pagoCompleto = document.getElementById('pagoCompleto');
+        const pagoParcial = document.getElementById('pagoParcial');
+        const partialPaymentInputs = document.getElementById('partialPaymentInputs');
+        const montoParcial = document.getElementById('montoParcial');
+        const precioTotal = document.getElementById('precioTotal');
+        const montoRestante = document.getElementById('montoRestante');
+
+        function togglePartialPaymentInputs() {
+            if (pagoParcial.checked) {
+                partialPaymentInputs.style.display = 'block';
+            } else {
+                partialPaymentInputs.style.display = 'none';
+            }
+        }
+
+        function updateMontoRestante() {
+            const total = parseFloat(precioTotal.value) || 0;
+            const parcial = parseFloat(montoParcial.value) || 0;
+            const restante = total - parcial;
+            montoRestante.value = restante.toFixed(2);
+        }
+
+        pagoCompleto.addEventListener('change', togglePartialPaymentInputs);
+        pagoParcial.addEventListener('change', togglePartialPaymentInputs);
+        montoParcial.addEventListener('input', updateMontoRestante);
+
+        // Inicializar la vista
+        togglePartialPaymentInputs();
     });
 </script>

@@ -27,6 +27,8 @@
         $point_id = !empty($_POST['point_id']) ? $_POST['point_id'] : null;
 
 
+
+
         $travelObj = Travel::getMarvelId($viaje_id);
         $tipoBooking = $travelObj->tipo;
 
@@ -35,11 +37,29 @@
         $pointObj = Travel::getPointsFechId($viaje_id, $point_id);
         $precioPoint = $pointObj->precio;
 
+        // MODIFICACION
+        $tipoPago = !empty($_POST['tipoPago']) ? $_POST['tipoPago'] : null;
+        $montoParcial = !empty($_POST['montoParcial']) ? $_POST['montoParcial'] : null;
 
+        $montoPendiente = null;
+        if ($tipoPago === 'completo'){
+            $montoPendiente = null;
+       } else{
+           $montoPendiente = floatval($precioPoint) - floatval($montoParcial);
+       }
+        // Verificar si el tipo de pago es parcial y que montoParcial no sea nulo
+        if ($tipoPago === 'parcial' && $montoParcial === null) {
+            $response = array(
+                'status' => 'error',
+                'message' => 'Este pago es parcial, entonces debe indicar un monto parcial para poder continuar.'
+            );
+            echo json_encode($response);
+            exit;
+        }
         // $precioBooking = $travelObj->precio;
 
         // Agregar la reserva
-        $result = Booking::addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioPoint, $point_id, $tipoBooking);
+        $result = Booking::addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioPoint, $point_id, $tipoBooking, $tipoPago, $montoParcial, $montoPendiente);
 
         if ($result->execute()) {
             $lastInsertedId = $conn->lastInsertId();

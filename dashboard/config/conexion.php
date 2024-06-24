@@ -1,8 +1,8 @@
 <?php
 $host ="localhost";
-$database ="umdekfts_transportesafe";
-$user ="umdekfts_user";
-$pass ="umdekfts_Pass";
+$database ="db_transporte_bajio";
+$user ="root";
+$pass ="";
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$database", $user, $pass, array(

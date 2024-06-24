@@ -84,7 +84,7 @@ class Booking
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
         return $result;
     }
-    
+
     public static function getBookingPassengersId($id)
     {
         global $conn;
@@ -104,9 +104,9 @@ class Booking
         return $result;
     }
     public static function getBookingVentasId($id)
-{
-    global $conn;
-    $statement = $conn->prepare("
+    {
+        global $conn;
+        $statement = $conn->prepare("
         SELECT 
             tr.*,
             COALESCE(tpe.nombre, 'N/A') AS nombreStaff,
@@ -132,17 +132,17 @@ class Booking
             tr.staff_id = :id                
         ORDER BY 
             tr.fecha_creacion DESC");
-    $statement->bindValue(":id", $id);
-    $statement->execute();
-    $result = $statement->fetchAll(PDO::FETCH_OBJ);
-    return $result;
-}
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+        return $result;
+    }
 
-    public static function addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking, $point_id, $tipoBooking)
+    public static function addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking, $point_id, $tipoBooking, $tipoPago, $montoParcial, $montoPendiente)
     {
         global $conn;
-        $sql = "INSERT INTO tbl_reservas (staff_id , viaje_id, punto_id, tipo_viaje, referencia, asientos_reservados, precio_pagado, fecha_creacion, estado) 
-        VALUES (:staffId, :viaje_id, :point_id, :tipoBooking, :referencia, :num_asientos, :precioBooking, NOW(), 'confirmada')";
+        $sql = "INSERT INTO tbl_reservas (staff_id , viaje_id, punto_id, tipo_viaje, referencia, asientos_reservados, precio_pagado, fecha_creacion, estado, forma_pago, monto_pagado, monto_pendiente) 
+        VALUES (:staffId, :viaje_id, :point_id, :tipoBooking, :referencia, :num_asientos, :precioBooking, NOW(), 'confirmada', :forma_pago, :monto_pagado, :monto_pendiente)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':staffId', $staffId);
         $stmt->bindParam(':viaje_id', $viaje_id);
@@ -151,6 +151,9 @@ class Booking
         $stmt->bindParam(':precioBooking', $precioBooking);
         $stmt->bindParam(':point_id', $point_id);
         $stmt->bindParam(':tipoBooking', $tipoBooking);
+        $stmt->bindParam(':forma_pago', $tipoPago);
+        $stmt->bindParam(':monto_pagado', $montoParcial);
+        $stmt->bindParam(':monto_pendiente', $montoPendiente);
         return $stmt;
     }
     public static function editBookingImageId($lastInsertedId, $imagen)
@@ -435,7 +438,7 @@ class Booking
     public static function getBookingAllId($id)
     {
         global $conn; // Asumiendo que $conn es tu conexión a la base de datos PDO
-    
+
         $statement = $conn->prepare("
         SELECT 
             tr.*,  
@@ -470,11 +473,11 @@ class Booking
         ORDER BY 
             tr.fecha_creacion DESC
     ");
-    
+
         $statement->bindParam(':id', $id, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
-    
+
         return $result;
     }
 }

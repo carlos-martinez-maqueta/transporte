@@ -85,7 +85,6 @@ $(document).on("click", ".edit", function () {
         },
     });
 });
-
 $(document).on("click", ".image", function () {
     var resultId = $(this).data("id");
 
@@ -99,13 +98,34 @@ $(document).on("click", ".image", function () {
         dataType: "json",
         success: function (data) {
             if (data && data.imagen) {
-                $("#voucherModal .modal-body").html('<img src="files/voucher/' + data.imagen + '" class="img-fluid" />');
+                var extension = data.imagen.split('.').pop().toLowerCase();  // Obtener la extensión del archivo
+                var fileType = "";  // Variable para almacenar el tipo de archivo
+                var fileContent = "";  // Variable para almacenar el contenido del archivo
+
+                if (extension == "pdf") {
+                    fileType = "PDF Document";
+                    fileContent = '<iframe src="files/voucher/' + data.imagen + '" class="img-fluid" style="width: 100%; height: 500px;"></iframe>';
+                } else if (extension == "doc" || extension == "docx") {
+                    fileType = "Word Document";
+                    fileContent = '<embed src="files/voucher/' + data.imagen + '" type="application/msword" style="width: 100%; height: 500px;">';
+                } else {
+                    fileType = "Image";
+                    fileContent = '<img src="files/voucher/' + data.imagen + '" class="img-fluid" />';
+                }
+
+                // Construir el contenido del modal
+                var modalContent = '<p>' + fileType + '</p>';
+                modalContent += fileContent;
+                modalContent += '<a href="files/voucher/' + data.imagen + '" download><button type="button" class="btn btn-sm btn-primary"><i class="bx bx-download"></i> Download</button></a>';
+
+                $("#voucherModal .modal-body").html(modalContent);
             } else {
                 $("#voucherModal .modal-body").html('<p>No image available.</p>');
             }
         }
     });
 });
+
 $(document).on("click", ".qr", function () {
     var resultId = $(this).data("id");
 
