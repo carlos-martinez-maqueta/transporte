@@ -131,8 +131,17 @@ $(document).on("click", ".editar", function () {
 
     });
 });
+// Event listener for discount button
+$(document).on("click", ".discount", function () {
+    var resultId = $(this).data("id");
 
+    // Set the result ID in the hidden input field of the discount modal
+    $("#discountModal #id").val(resultId);
 
+    // Clear the input fields for monto_descuento and motivo
+    $("#discountModal #apellidos1").val('');
+    $("#discountModal #floatingInput").val('');
+});
 
 
 $(document).on("click", ".edit", function () {
@@ -168,6 +177,7 @@ $(document).on("click", ".edit", function () {
         },
     });
 });
+
 $(document).on("click", ".image", function () {
     var resultId = $(this).data("id");
 
@@ -208,7 +218,6 @@ $(document).on("click", ".image", function () {
         }
     });
 });
-
 $(document).on("click", ".qr", function () {
     var resultId = $(this).data("id");
 
@@ -259,4 +268,34 @@ $(document).on("click", ".edit", function () {
         },
     });
 });
+$(document).on("click", ".edit", function () {
+    var resultId = $(this).data("id");
+
+    $.ajax({
+        url: "config/booking/get-booking.php",
+        method: "POST",
+        data: {
+            action: "get_prace_booking_id",
+            resultId: resultId,
+        },
+        dataType: "json",
+        success: function (data) {
+            // Limpiar el contenido anterior de la tabla
+            $("#descuentosTableBody").empty();
+
+            // Iterar sobre los datos y crear filas de la tabla
+            $.each(data, function (index, record) {
+                var newRow = '<tr>' +
+                    '<td>' + record.monto + '</td>' +
+                    '<td>' + record.motivo + '</td>' +
+                    '<td>' + record.fecha + '</td>' +
+                    '<td>' + record.precio_inicial + '</td>' +
+                    '<td>' + record.precio_residuo + '</td>' +
+                    '</tr>';
+                $("#descuentosTableBody").append(newRow);
+            });
+        },
+    });
+});
+
 

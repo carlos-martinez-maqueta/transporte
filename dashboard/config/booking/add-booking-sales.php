@@ -27,8 +27,6 @@
         $point_id = !empty($_POST['point_id']) ? $_POST['point_id'] : null;
 
 
-
-
         $travelObj = Travel::getMarvelId($viaje_id);
         $tipoBooking = $travelObj->tipo;
 
@@ -36,18 +34,24 @@
         // Aquí se debe realizar la consulta con la tabla correcta usando $point_id
         $pointObj = Travel::getPointsFechId($viaje_id, $point_id);
         $precioPoint = $pointObj->precio;
-
+        
+        $precioPointxAsiento = $precioPoint * $num_asientos;
+        
         // MODIFICACION
         $tipoPago = !empty($_POST['tipoPago']) ? $_POST['tipoPago'] : null;
         $montoParcial = !empty($_POST['montoParcial']) ? $_POST['montoParcial'] : null;
-
         $montoPendiente = null;
-        if ($tipoPago === 'completo'){
-            $montoPendiente = null;
-       } else{
-           $montoPendiente = floatval($precioPoint) - floatval($montoParcial);
-       }
-        // Verificar si el tipo de pago es parcial y que montoParcial no sea nulo
+        
+      if ($tipoPago === 'completo') {
+    $montoPendiente = null;
+} elseif ($tipoPago === 'abordar') {
+    $montoPendiente = $precioPointxAsiento;
+} else {
+    $montoPendiente = floatval($precioPointxAsiento) - floatval($montoParcial);
+}
+
+        
+         // Verificar si el tipo de pago es parcial y que montoParcial no sea nulo
         if ($tipoPago === 'parcial' && $montoParcial === null) {
             $response = array(
                 'status' => 'error',
@@ -56,10 +60,12 @@
             echo json_encode($response);
             exit;
         }
+
+
         // $precioBooking = $travelObj->precio;
 
         // Agregar la reserva
-        $result = Booking::addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioPoint, $point_id, $tipoBooking, $tipoPago, $montoParcial, $montoPendiente);
+        $result = Booking::addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioPointxAsiento, $point_id, $tipoBooking, $tipoPago, $montoParcial, $montoPendiente);
 
         if ($result->execute()) {
             $lastInsertedId = $conn->lastInsertId();

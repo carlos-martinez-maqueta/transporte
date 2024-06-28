@@ -21,6 +21,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'get_passengers_by_booking_id
     $result = Booking::getBookingPassengersId($id);
     echo json_encode($result);
 }
+if (isset($_POST['action']) && $_POST['action'] == 'get_prace_booking_id') {
+    $id = $_POST['resultId'];
+    $result = Booking::getDescuentosPagoReservaId($id);
+    echo json_encode($result);
+}
 if (isset($_POST['action']) && $_POST['action'] == 'get_seats_by_booking_id') {
     $id = $_POST['resultId'];
     $result = Booking::getSeatsPassengersId($id);

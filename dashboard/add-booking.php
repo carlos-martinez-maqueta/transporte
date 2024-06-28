@@ -59,7 +59,7 @@
         <form id="addBookingSales" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
             <input type="hidden" id="viaje_id" name="viaje_id" value="">
-            <input type="hidden" id="u" name="u" value="<?= $usuario_id ?>">
+           <input type="hidden" id="u" name="u" value="<?= $usuario_id ?>">
             <div class="row mb-4 p-4 card bg-light">
                 <div class="col-lg-12 mb-4">
                     <h5 class="font_two">Seleccionar Viaje</h5>
@@ -87,7 +87,7 @@
                     <div class="col-lg-12">
                         <h5 class="font_two">Seleccionar Referencia</h5>
                         <div class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example" name="referencia" required>
+                            <select class="form-select" aria-label="Default select example" id="referencia-select" name="referencia" required>
                                 <option value="WHATSAPP">WHATSAPP</option>
                                 <option value="FACEBOOK">FACEBOOK</option>
                                 <option value="APP BLABLA">APP BLABLA</option>
@@ -107,8 +107,8 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-12">
-                        <h5 class="font_two">Pasajeros</h5>
+                   <div class="col-lg-12">
+                        <h5 class="font_two mt-3">Pasajeros</h5>
                         <div class="border row p-3 my-4">
                             <input type="hidden" name="point_id" id="point_id">
                             <div class="col-xl-6">
@@ -129,17 +129,22 @@
 
                         <!-- Payment Options -->
                         <div class="border row p-3 my-4">
-                            <div class="col-xl-6">
+                            <div class="col-xl-4">
                                 <label for="pagoCompleto">
                                     <input type="radio" id="pagoCompleto" name="tipoPago" value="completo" checked>
                                     Pago Completo
                                 </label>
                             </div>
-
-                            <div class="col-xl-6">
+                            <div class="col-xl-4">
                                 <label for="pagoParcial">
                                     <input type="radio" id="pagoParcial" name="tipoPago" value="parcial">
                                     Pago Parcial
+                                </label>
+                            </div>
+                            <div class="col-xl-4">
+                                <label for="pagoParcial">
+                                    <input type="radio" id="pagoParcial" name="tipoPago" value="abordar">
+                                    Pago a Abordar
                                 </label>
                             </div>
                         </div>
@@ -149,12 +154,16 @@
                             <div class="row">
 
                                 <div class="col-xl-6">
-                                    <label for="montoParcial">Monto a Pagar:</label>
-                                    <input type="number" id="montoParcial" name="montoParcial" class="form-control">
+                                    <div class="form-floating mb-3">
+    <input type="number" class="form-control" id="montoParcial" name="montoParcial" placeholder="Monto a Pagar">
+    <label for="montoParcial">Monto Pagado</label>
+</div>
                                 </div>
                                 <div class="col-xl-6">
-                                    <label for="montoRestante">Monto Restante:</label>
-                                    <input type="text" id="montoRestante" class="form-control" readonly>
+                                   <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="montoRestante" name="montoRestante" placeholder="Monto Restante" readonly>
+    <label for="montoRestante">Monto Pendiente</label>
+</div>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +180,7 @@
                                         <label for="nombre1">Nombre</label>
                                     </div>
                                 </div>
-
+                                 
                                 <div class="col-xl-6 col-md-12">
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="apellidos1" name="apellidos[]" placeholder="Apellidos" required>
@@ -197,7 +206,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12 mb-4">
+                    <div class="col-lg-12 mb-4" id="section-asientos-disponibles">
 
                         <h5 class="font_two">Seleccionar Asientos</h5>
                         <div class="mapa_asientos">
@@ -220,16 +229,16 @@
 
                     </div>
 
-                    <div class="col-xl-12">
+                    <div class="col-xl-12" id="section-comprobante">
                         <h5 class="font_two">Ingresar Voucher de comprobante de compra</h5>
                         <div class="col-xl-12 col-md-12 p-4">
                             <div class="card">
                                 <div class="card-body">
-
                                     <div class="mb-3">
                                         <label for="imagen" class="form-label">Seleccionar Archivo</label>
                                         <input type="file" class="form-control" id="imagen" name="imagen" accept=".pdf,.doc,.docx,image/*" aria-label="Select File" required>
                                     </div>
+
                                     <div class="mb-3 text-center d-flex justify-content-center">
                                         <img id="imagenPrevia" class="img-fluid" style="max-height: 300px; display: none;">
                                         <div id="sinImagen" class="alert alert-danger" role="alert" style="display: none;">No image selected</div>
@@ -254,7 +263,6 @@
     </div>
     <!-- end content -->
 <?php endif; ?>
-
 <?php include 'app/components/loading.php'; ?>
 <?php include 'app/components/footer.php'; ?>
 
@@ -372,5 +380,22 @@
 
         // Inicializar la vista
         togglePartialPaymentInputs();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const referenciaSelect = document.getElementById('referencia-select');
+        const sectionAsientosDisponibles = document.getElementById('section-asientos-disponibles');
+        // const sectionComprobante = document.getElementById('section-comprobante');
+
+        referenciaSelect.addEventListener('change', function() {
+            if (this.value === 'APP BLABLA') {
+                sectionAsientosDisponibles.style.display = 'none';
+                // sectionComprobante.style.display = 'none';
+            } else {
+                sectionAsientosDisponibles.style.display = 'block';
+                sectionComprobante.style.display = 'block';
+            }
+        });
     });
 </script>

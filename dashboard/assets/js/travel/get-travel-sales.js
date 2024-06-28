@@ -156,54 +156,26 @@ $(document).ready(function () {
                 // Identificar el valor devuelto y construir la plantilla correspondiente
                 var plantillaHTML = '';
                 switch (data.plantilla_id) {
-                    case '1':
+                    case 1:
                         plantillaHTML = `<div class="plantilla" id="plantilla1"> <div class="d-flex col-12 justify-content-center py-4">
-                        <div class="col-10 d-flex justify-content-center p-3 gap-4 border">
+                        <div class="col-10 d-flex justify-content-center p-3 gap-2 border">
                             <div>
-                                <div data-state="disponible" data-value="A9"  class="asiento" style="position: relative;">
+                                <div data-state="disponible" data-value="A1"  class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A9</span>
+                                        <span style="font-size: 9px;">A1</span>
                                     </div>
                                 </div>
-                                <div data-state="disponible" data-value="A10" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 9px;">
-                                        <span style="font-size: 9px;">A10</span>
-                                    </div>
-                                </div>
-                                <div data-state="disponible" data-value="A11" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 9px;">
-                                        <span style="font-size: 9px;">A11</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div data-state="disponible" data-value="A7" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A7</span>
-                                    </div>
-                                </div>
-                                <div data-state="disponible" data-value="A8" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A8</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
                                 <div data-state="disponible" data-value="A5" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                    <div style="position: absolute; top: 8px;left: 9px;">
                                         <span style="font-size: 9px;">A5</span>
                                     </div>
                                 </div>
-                                <div data-state="disponible" data-value="A6" class="asiento" style="position: relative;">
+                                <div data-state="disponible" data-value="A9" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A6</span>
+                                    <div style="position: absolute; top: 8px;left: 9px;">
+                                        <span style="font-size: 9px;">A9</span>
                                     </div>
                                 </div>
                             </div>
@@ -214,16 +186,44 @@ $(document).ready(function () {
                                         <span style="font-size: 9px;">A2</span>
                                     </div>
                                 </div>
+                                <div data-state="disponible" data-value="A6" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A6</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
                                 <div data-state="disponible" data-value="A3" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 12px;">
                                         <span style="font-size: 9px;">A3</span>
                                     </div>
                                 </div>
+                                <div data-state="disponible" data-value="A7" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A7</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
                                 <div data-state="disponible" data-value="A4" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 12px;">
                                         <span style="font-size: 9px;">A4</span>
+                                    </div>
+                                </div>
+                                <div data-state="disponible" data-value="A8" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A8</span>
+                                    </div>
+                                </div>
+                                <div data-state="disponible" data-value="A10" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A10</span>
                                     </div>
                                 </div>
                             </div>
@@ -234,25 +234,7 @@ $(document).ready(function () {
                                         <span style="font-size: 9px;"></span>
                                     </div>
                                 </div>
-                                <div data-state="disponible" data-value="A1" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A1</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div></div>`;
-                        break;
-                    case '2':
-                        plantillaHTML = `<div class="plantilla" id="plantilla2"> <div class="d-flex col-12 justify-content-center py-4">
-                        <div class="col-10 d-flex justify-content-center p-3 gap-4 border">
-                            <div>
-                                <div data-state="disponible" data-value="A10" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A10</span>
-                                    </div>
+                                <div style="position: relative;height: 45px;">
                                 </div>
                                 <div data-state="disponible" data-value="A11" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
@@ -260,30 +242,24 @@ $(document).ready(function () {
                                         <span style="font-size: 9px;">A11</span>
                                     </div>
                                 </div>
-                                <div data-state="disponible" data-value="A12" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A12</span>
-                                    </div>
-                                </div>
-                                <div data-state="disponible" data-value="A13" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A13</span>
-                                    </div>
-                                </div>
                             </div>
+                        </div>
+                    </div></div>`;
+                        break;
+                    case 2:
+                        plantillaHTML = `<div class="plantilla" id="plantilla2"> <div class="d-flex col-12 justify-content-center py-4">
+                        <div class="col-10 d-flex justify-content-center p-3 gap-4 border">
                             <div>
-                                <div data-state="disponible" data-value="A7" class="asiento" style="position: relative;">
+                                <div data-state="disponible" data-value="A1" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A7</span>
+                                        <span style="font-size: 9px;">A1</span>
                                     </div>
                                 </div>
-                                <div data-state="disponible" data-value="A8" class="asiento" style="position: relative;">
+                                <div data-state="disponible" data-value="A5" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A8</span>
+                                        <span style="font-size: 9px;">A5</span>
                                     </div>
                                 </div>
                                 <div data-state="disponible" data-value="A9" class="asiento" style="position: relative;">
@@ -292,24 +268,10 @@ $(document).ready(function () {
                                         <span style="font-size: 9px;">A9</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div data-state="disponible" data-value="A4" class="asiento" style="position: relative;">
+                                <div data-state="disponible" data-value="A10" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A4</span>
-                                    </div>
-                                </div>
-                                <div data-state="disponible" data-value="A5" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A5</span>
-                                    </div>
-                                </div>
-                                <div data-state="disponible" data-value="A6" class="asiento" style="position: relative;">
-                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
-                                    <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A6</span>
+                                        <span style="font-size: 9px;">A10</span>
                                     </div>
                                 </div>
                             </div>
@@ -320,10 +282,54 @@ $(document).ready(function () {
                                         <span style="font-size: 9px;">A2</span>
                                     </div>
                                 </div>
+                                <div data-state="disponible" data-value="A6" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A6</span>
+                                    </div>
+                                </div>
+                                <div style="position: relative;height: 45px;">
+                                </div>                                
+                                <div data-state="disponible" data-value="A11" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A11</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
                                 <div data-state="disponible" data-value="A3" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 12px;">
                                         <span style="font-size: 9px;">A3</span>
+                                    </div>
+                                </div>
+                                <div data-state="disponible" data-value="A7" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A7</span>
+                                    </div>
+                                </div>
+                                <div style="position: relative;height: 45px;">
+                                </div>                                
+                                <div data-state="disponible" data-value="A12" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A12</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div data-state="disponible" data-value="A4" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A4</span>
+                                    </div>
+                                </div>
+                                <div data-state="disponible" data-value="A8" class="asiento" style="position: relative;">
+                                    <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
+                                    <div style="position: absolute; top: 8px;left: 12px;">
+                                        <span style="font-size: 9px;">A8</span>
                                     </div>
                                 </div>
                             </div>
@@ -334,17 +340,21 @@ $(document).ready(function () {
                                         <span style="font-size: 9px;"></span>
                                     </div>
                                 </div>
-                                <div data-state="disponible" data-value="A1" class="asiento" style="position: relative;">
+                                <div style="position: relative;height: 45px;">
+                                </div>
+                                <div style="position: relative;height: 45px;">
+                                </div>                                
+                                <div data-state="disponible" data-value="A13" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 12px;">
-                                        <span style="font-size: 9px;">A1</span>
+                                        <span style="font-size: 9px;">A13</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div></div>`;
                         break;
-                    case '3':
+                    case 3:
                         plantillaHTML = `<div class="plantilla" id="plantilla3">  <div class="d-flex col-12 justify-content-center py-4">
                         <div class="col-10 d-flex justify-content-center p-3 gap-4 border">
                             <div>
@@ -386,6 +396,7 @@ $(document).ready(function () {
                                         <span style="font-size: 9px;">A11</span>
                                     </div>
                                 </div>
+                                
                                 <div data-state="disponible" data-value="A12" class="asiento" style="position: relative;">
                                     <img src="assets/img/svg/asiento_vacio.svg" alt="" srcset="">
                                     <div style="position: absolute; top: 8px;left: 9px;">

@@ -13,14 +13,14 @@
     writing-mode: vertical-rl;
     text-orientation: upright;
     margin: 0px;
-    font-size: 30px;
+    font-size: 21px;
     color: #ffffff;
     letter-spacing: -10px;
     font-weight: bolder;
 }
 .section_ticket .row_ticket .col_id .id_p_ticket{
     width: fit-content;
-    margin: 10px auto;
+    margin: 12px auto;
 }
 .section_ticket .row_ticket .col_info{
     padding: 0px 20px;

@@ -135,25 +135,25 @@ $usersObj = User::getUserAllActive();
                         <div class="row row-cols-1 row-cols-md-4 g-4" id="asientosContainer">
                             <!-- Los asientos se insertarán aquí -->
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                         <h5 class="mt-5 mb-3">Descuentos Hechos</h5>
 
-
-        <div class="modal fade" id="editarDetailsModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Reserva</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-
+                        <!-- Modal or Container where the table will be displayed -->
+                        <div id="descuentosContainer">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Monto Descuento</th>
+                                        <th>Motivo</th>
+                                        <th>Fecha</th>
+                                        <th>Precio Inicial</th>
+                                        <th>Precio Residuo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="descuentosTableBody">
+                                    <!-- Rows will be appended here -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -246,25 +246,47 @@ $usersObj = User::getUserAllActive();
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="mb-3">Datos de Pasajeros</h5>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Correo</th>
-                                    <th>Celular</th>
-                                </tr>
-                            </thead>
-                            <tbody id="pasajerosTableBody">
-                                <!-- Los pasajeros se insertarán aquí -->
-                            </tbody>
-                        </table>
-                        <h5 class="mt-5 mb-3">Asientos Asignados</h5>
-                        <div class="row row-cols-1 row-cols-md-4 g-4" id="asientosContainer">
-                            <!-- Los asientos se insertarán aquí -->
-                        </div>
-                    </div>
+    <h5 class="mb-3">Datos de Pasajeros</h5>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo</th>
+                    <th>Celular</th>
+                </tr>
+            </thead>
+            <tbody id="pasajerosTableBody">
+                <!-- Los pasajeros se insertarán aquí -->
+            </tbody>
+        </table>
+    </div>
+    
+    <h5 class="mt-5 mb-3">Asientos Asignados</h5>
+    <div class="row row-cols-1 row-cols-md-4 g-4" id="asientosContainer">
+        <!-- Los asientos se insertarán aquí -->
+    </div>
+    
+    <h5 class="mt-5 mb-3">Descuentos Hechos</h5>
+    <div id="descuentosContainer" class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Monto Descuento</th>
+                    <th>Motivo</th>
+                    <th>Fecha</th>
+                    <th>Precio Inicial</th>
+                    <th>Precio Residuo</th>
+                </tr>
+            </thead>
+            <tbody id="descuentosTableBody">
+                <!-- Rows will be appended here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
@@ -289,7 +311,7 @@ $usersObj = User::getUserAllActive();
                                     <!-- Opciones del select se agregarán aquí -->
                                 </select>
                             </div>
-                            <div class="alert alert-danger" role="alert">
+                            <div  class="alert alert-danger" role="alert">
                                 ¡Advertencia! Al cambiar el estado a cancelado se borrarán los pasajeros y se designarán los asientos de la reserva. Esta acción no se puede deshacer.
                             </div>
 
@@ -305,7 +327,40 @@ $usersObj = User::getUserAllActive();
                 </form>
             </div>
         </div>
-
+        <!-- EDITAR RESERVA BLA BLA -->
+        <div class="modal fade" id="editarDetailsModalBla" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <form id="editarReservaFormBla" method="POST" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Reserva (BLA BLA)</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="reservaIdBla" name="reservaIdBla" value="">
+                            <div class="mb-3">
+                                <label for="estadoReservaBla" class="form-label">Estado de la Reserva:</label>
+                                <select id="estadoReservaBla" class="form-select" name="estadoReservaBla" required>
+                                    <option value="pendiente" selected>Pendiente</option>
+                                    <option value="confirmada">Confirmada</option>
+                                    <option value="cancelada">Cancelada</option>
+                                </select>
+                            </div>
+                            <div>
+                                <div>
+                                    <p class="m-0">Elegir Asiento:</p>
+                                </div>
+                                <div id="plantillasBla"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button class="btn btn-warning" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>   
         <!-- Modal -->
         <div class="modal fade" id="voucherModal" tabindex="-1" aria-labelledby="voucherModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -340,7 +395,7 @@ $usersObj = User::getUserAllActive();
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="discountModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+    <div class="modal fade" id="discountModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <form id="addDescuentoCompra" method="POST" enctype="multipart/form-data">
                     <div class="modal-content">
@@ -349,7 +404,8 @@ $usersObj = User::getUserAllActive();
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body d-flex justify-content-center">
-
+                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" id="u" name="u" value="<?= $usuario_id ?>">
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-floating mb-3">
@@ -368,12 +424,12 @@ $usersObj = User::getUserAllActive();
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-warning" type="submit">Editar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
         <div class="row">
             <div class="col-lg-12 ">
                 <div class="table-responsive table-light shadow small-table p-3">
@@ -418,4 +474,6 @@ $usersObj = User::getUserAllActive();
     <script src="assets/js/booking/add-descuento-compra.js"></script>
     <script src="assets/js/booking/edit-booking.js"></script>
     <script src="assets/js/booking/editReservaUlt.js"></script>
+    <script src="assets/js/booking/getReservaBla.js"></script>
+    <script src="assets/js/booking/updateReservaBla.js"></script>
 <?php endif; ?>

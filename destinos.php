@@ -7,77 +7,75 @@ include 'dashboard/class/travel.php';
 include 'dashboard/class/origin.php';
 include 'dashboard/class/mobility.php';
 
-session_start(); // Inicia la sesión al comienzo del archivo
+    session_start(); // Inicia la sesión al comienzo del archivo
 
+    $goingList = Going::getGoingAll();
+    $selectedIds = [1, 2, 3, 4, 5];
+    $selectedIdsVueltas = [1, 4, 5];
+
+    $returnList = Vuelta::getGoingAll();
+    $selectedIdsReturn = [1, 4, 7, 10, 13, 16];
+    
+    $travelList = Travel::getTravelAll();
+    
+    //var_dump($travelList);
+
+    // Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
+    $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
+    $pasajeros = isset( $_GET['pasajeros']) ?  $_GET['pasajeros'] : null;
+    $fecha = isset( $_GET['fecha']) ?  $_GET['fecha'] : null;
+    
+    
+    // Separa el valor de 'destino' en $id y $tipo
+    list($tipo, $origen) = explode('-', $_GET['origen']);
+    list($none, $destino) = explode('-', $_GET['destino']);
+
+    // echo $tipo;
+    // echo $origen;
+    // echo $destino;
+    // echo $fecha;
+
+     $query = "SELECT viaje_id FROM tbl_viajes_puntos WHERE tipo = :tipo";
+     $stmt = $conn->prepare($query);
+     $stmt->bindParam(':tipo', $tipo, PDO::PARAM_STR);
+     $stmt->execute();
  
-$travelList = Travel::getTravelAll();
-$goingList = Going::getGoingAll();
-$returnList = Vuelta::getGoingAll();
-//var_dump($travelList);
+     $fila = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
-$user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
-$pasajeros = isset( $_GET['pasajeros']) ?  $_GET['pasajeros'] : null;
-$fecha = isset( $_GET['fecha']) ?  $_GET['fecha'] : null;
+     $viaje_id =  $fila['viaje_id'];
+     
+     $count_query = "SELECT COUNT(*) AS count FROM tbl_viajes WHERE id = :viaje_id AND fecha_salida = :viaje_fecha";
+     $count_stmt = $conn->prepare($count_query);
+     $count_stmt->bindParam(':viaje_id', $viaje_id, PDO::PARAM_INT);
+     $count_stmt->bindParam(':viaje_fecha', $fecha, PDO::PARAM_STR);
+     $count_stmt->execute();
+     $count_row = $count_stmt->fetch(PDO::FETCH_ASSOC);
+     $count = $count_row['count'];
 
-// Separa el valor de 'destino' en $id y $tipo
-list($id, $tipo) = explode('-', $_GET['destino']);
+         // Determinar la tabla y ejecutar la consulta adecuada
+    if ($tipo == 'vuelta') {
+        $query = "SELECT id FROM tbl_vueltas WHERE origen = :origen AND destino = :destino";
+    } elseif ($tipo == 'ida') {
+        $query = "SELECT id FROM tbl_idas WHERE origen = :origen AND destino = :destino";
+    } else {
+        throw new Exception('Tipo desconocido: ' . $tipo);
+    }
 
-try {
-    // Filtrar tbl_viajes_puntos para obtener viaje_id
-    
-    $query = "SELECT viaje_id FROM tbl_viajes_puntos WHERE puntos_id = :id AND tipo = :tipo";
+    // Preparar y ejecutar la consulta
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->bindParam(':tipo', $tipo, PDO::PARAM_STR);
+    $stmt->bindParam(':origen', $origen, PDO::PARAM_STR);
+    $stmt->bindParam(':destino', $destino, PDO::PARAM_STR);
     $stmt->execute();
-    
-    $selected_viaje_id = null;
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $viaje_id = $row['viaje_id'];
+    // Obtener y mostrar los resultados
+    $resultados = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = $resultados['id'];
 
-        // Consulta para verificar si el viaje tiene un count menor o igual a 0 en otra_tabla
-        $count_query = "SELECT COUNT(*) AS count FROM tbl_viajes WHERE id = :viaje_id AND fecha_salida = :viaje_fecha";
-        $count_stmt = $conn->prepare($count_query);
-        $count_stmt->bindParam(':viaje_id', $viaje_id, PDO::PARAM_INT);
-        $count_stmt->bindParam(':viaje_fecha', $fecha, PDO::PARAM_STR);
-        $count_stmt->execute();
-        $count_row = $count_stmt->fetch(PDO::FETCH_ASSOC);
-        $count = $count_row['count'];
-
-        // Si el count es menor o igual a 0, continúa con el siguiente resultado
-        if ($count <= 0) {
-            continue;
-        }
-
-        $ticketObj = Travel::getPointsFechHomeId($viaje_id, $id);
-        $viajeObj = Travel::getMarvelId($viaje_id);
-        $movilidadObj = Mobility::getMobilityId($viajeObj->movilidad_id);
-
-        // var_dump($movilidadObj);
-
-        $horafecha = new DateTime($horafecha = $ticketObj->fecha);
-
-        $fecha_formateada = strftime('%d de %B de %Y', $horafecha->getTimestamp());
-        
-        // Hacer algo con el viaje_id seleccionado
-        //echo "El viaje con viaje_id $viaje_id tiene un count mayor a 0 en otra_tabla.";
-
-        // Por ejemplo, podrías almacenar el viaje_id en una variable para usarlo más tarde
-        $selected_viaje_id = $viaje_id;
-        break; // Rompe el bucle ya que hemos encontrado un resultado válido
-    }
-
-    if ($selected_viaje_id === null) {
-        // echo "No se encontraron resultados válidos para el punto_id $id y tipo $tipo en tbl_viajes_puntos.";
-    }
-
-} catch (PDOException $e) {
-    die("PDO Error: " . $e->getMessage());
-}
-
-
+    $ticketObj = Travel::getPointsFechHomeId($viaje_id, $id);
+    $viajeObj = Travel::getMarvelId($viaje_id);
+    $movilidadObj = Mobility::getMobilityId($viajeObj->movilidad_id);   
+    $horafecha = new DateTime($horafecha = $viajeObj->fecha_salida);
+    $fecha_formateada = strftime('%d de %B de %Y', $horafecha->getTimestamp());
 ?>
 <!doctype html>
 <html lang="en">
@@ -113,39 +111,43 @@ try {
                     <div class="col-10 row_buscador">
                         <form action="destinos" method="GET">
                             <div class="row align-items-center">
-                                <div class="col-lg-6 col-6  mb-lg-0 mb-3">
-                                    <div class="form-floating">
-                                        <select class="form-select mt-2"  name="destino" style="width: 100%;" aria-label="Floating label select example">
+                            <div class="col-lg col-md col-6 mb-lg-0 mb-1">
+                                    <div class=" form-floating">
+                                        <select class="form-select" id="origen" name="origen" required aria-label="Floating label select example">
                                             <option value="0" selected>Seleccionar</option>
-                                            <?php foreach ($goingList as $going) : ?>
-                                                <option value="<?= $going->id ?>-<?= $going->tipo ?>"><?= $going->origen ?> / <?= $going->destino ?></option>
-                                            <?php endforeach; ?>
-                                            <?php foreach ($returnList as $vuelta) : ?>
-                                                <option value="<?= $vuelta->id ?>-<?= $vuelta->tipo ?>"><?= $vuelta->origen ?> / <?= $vuelta->destino ?></option>
-                                            <?php endforeach; ?>
+                                            <?php foreach ($goingList as $going) : 
+                                                if (in_array($going->id, $selectedIds)) {?> 
+                                                    <option value="<?= $going->tipo ?>-<?= $going->origen ?>"><?= $going->origen ?></option>
+                                            <?php } endforeach; ?>
+                                            <?php foreach ($returnList as $vuelta) : 
+                                                if  (in_array($vuelta->id, $selectedIdsReturn)){ ?>                                                
+                                                <option value="<?= $vuelta->tipo ?>-<?= $vuelta->origen ?>"><?= $vuelta->origen ?></option>
+                                            <?php } endforeach; ?>                                            
                                         </select>
-                                        <label for="">Origen</label>
+                                        <label for="cliente">Seleccionar Origen: </label>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg col-6  mb-lg-0 mb-3 d-none">
+                                 <div class="col-lg col-md col-6 mb-lg-0 mb-1">
                                     <div class="form-floating">
-                                        <select class="form-select" id="" value=" " name="" aria-label="Floating label select example">
- 
-                                                <option value="">Seleccionar</option>
- 
+                                        <select class="form-select" id="destino" name="destino" required aria-label="Floating label select example" required>
+                                            <option value="0" selected>Seleccionar</option>
+                                            <?php foreach ($returnList as $vuelta) : 
+                                                if  (in_array($vuelta->id, $selectedIdsReturn)){ ?>                                                
+                                                <option value="<?= $vuelta->tipo ?>-<?= $vuelta->origen ?>"><?= $vuelta->origen ?></option>
+                                            <?php } endforeach; ?>
+                                            <?php foreach ($goingList as $going) : 
+                                                if (in_array($going->id, $selectedIdsVueltas)) {?> 
+                                                    <option value="<?= $going->tipo ?>-<?= $going->origen ?>"><?= $going->origen ?></option>
+                                            <?php } endforeach; ?>                                            
                                         </select>
                                         <label for="">Destino</label>
-                                    </div>
-                                </div> -->
+                                    </div>                                   
+                                </div>  
                                 <div class="col-lg col-6  mb-lg-0 mb-3">
-
                                     <div class="form-floating">
- 
-                                    <input type="date" class="form-control" id="" value="<?php echo $fecha; ?>" name="fecha" placeholder="">
- 
+                                    <input type="date" class="form-control" id="fecha" name="fecha" placeholder="" min="<?php echo date('Y-m-d'); ?>" required>
                                         <label for="">Fecha</label>
                                     </div>
-
                                 </div>
                                 <div class="col-lg col-6  mb-lg-0 mb-3">
                                     <div class="form-floating">
@@ -285,7 +287,8 @@ try {
     </style>
     <?php include 'app/footer.php' ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <script src="assets/js/viajes.js"></script>
+    
 </body>
 
 </html>

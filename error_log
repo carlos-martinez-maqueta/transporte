@@ -98,3 +98,41 @@ Stack trace:
   thrown in /home/umdekfts/transportesafe.com/dashboard/class/booking.php on line 134
 [24-Jun-2024 15:44:23 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
 [24-Jun-2024 15:44:23 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:49:09 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:49:09 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:49:12 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:49:12 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:49:30 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:49:30 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:51:23 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:51:23 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:51:26 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:51:26 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:51:52 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:51:52 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:51:55 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:51:55 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:51:59 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:51:59 UTC] PHP Warning:  Attempt to read property "precio_pagado" on array in /home/umdekfts/transportesafe.com/reserva-realizada.php on line 110
+[24-Jun-2024 15:52:37 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 15:52:56 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 17:19:12 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 17:19:26 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 17:19:34 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[24-Jun-2024 17:30:33 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[25-Jun-2024 14:00:12 UTC] PHP Warning:  Undefined variable $count in /home/umdekfts/transportesafe.com/destinos.php on line 171
+[26-Jun-2024 16:29:20 UTC] PHP Warning:  Undefined array key "destino" in /home/umdekfts/transportesafe.com/destinos.php on line 24
+[26-Jun-2024 16:29:20 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in /home/umdekfts/transportesafe.com/destinos.php on line 24
+[26-Jun-2024 16:29:20 UTC] PHP Warning:  Undefined array key 1 in /home/umdekfts/transportesafe.com/destinos.php on line 24
+[26-Jun-2024 16:29:20 UTC] PHP Warning:  Undefined variable $count in /home/umdekfts/transportesafe.com/destinos.php on line 171
+[26-Jun-2024 18:59:10 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[26-Jun-2024 19:12:27 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[26-Jun-2024 19:14:20 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[26-Jun-2024 19:15:46 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[26-Jun-2024 19:15:52 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[26-Jun-2024 19:15:56 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[26-Jun-2024 19:19:18 UTC] PHP Deprecated:  Function strftime() is deprecated in /home/umdekfts/transportesafe.com/get/info-viaje-dos.php on line 49
+[26-Jun-2024 22:34:26 UTC] PHP Warning:  Undefined array key "destino" in /home/umdekfts/transportesafe.com/destinos.php on line 24
+[26-Jun-2024 22:34:26 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in /home/umdekfts/transportesafe.com/destinos.php on line 24
+[26-Jun-2024 22:34:26 UTC] PHP Warning:  Undefined array key 1 in /home/umdekfts/transportesafe.com/destinos.php on line 24
+[26-Jun-2024 22:34:26 UTC] PHP Warning:  Undefined variable $count in /home/umdekfts/transportesafe.com/destinos.php on line 171

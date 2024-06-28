@@ -14,7 +14,11 @@ include 'dashboard/class/user.php';
 
 
 $goingList = Going::getGoingAll();
+$selectedIds = [1, 2, 3, 4, 5];
+$selectedIdsVueltas = [1, 4, 5];
+
 $returnList = Vuelta::getGoingAll();
+$selectedIdsReturn = [1, 4, 7, 10, 13, 16];
 
 $homeObj = Home::getHome();
 $trabelObj = Travel::getTravelAll();
@@ -23,7 +27,7 @@ $resultBest = Home::getBestAll();
 $resultComents = Home::getCommentsAll();
 
 
-// var_dump($goingList);
+//var_dump($goingList);
 // echo '<br>';
 // echo '<br>';
 // echo '<br>';
@@ -70,45 +74,50 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
             <div class="buscador_home container">
                 <div class="row justify-content-md-center row_lg_home">
                     <div class="col-lg-10 col-12 row_buscador">
-                        <form action="destinos" method="GET">
+                        <form action="destinos" method="GET" class="m-0">
                             <div class="row align-items-center">
-                                <div class="col-lg-6 col-md col-6 mb-lg-0 mb-3">
-                                    <div class=" form-floatings">
-                                        <label for="cliente">Seleccionar Viaje: </label>
-                                        <select class="form-select mt-2"  name="destino" style="width: 100%;" aria-label="Floating label select example">
+                                <div class="col-12">
+                                    <p class="mb-2">Seleccionar Viaje:</p>
+                                </div>
+                                <div class="col-lg col-md col-6 mb-lg-0 mb-1">
+                                    <div class=" form-floating">
+                                        <select class="form-select" id="origen" name="origen" required aria-label="Floating label select example">
                                             <option value="0" selected>Seleccionar</option>
-                                            <?php foreach ($goingList as $going) : ?>
-                                                <option value="<?= $going->id ?>-<?= $going->tipo ?>"><?= $going->origen ?> / <?= $going->destino ?></option>
-                                            <?php endforeach; ?>
-                                            <?php foreach ($returnList as $vuelta) : ?>
-                                                <option value="<?= $vuelta->id ?>-<?= $vuelta->tipo ?>"><?= $vuelta->origen ?> / <?= $vuelta->destino ?></option>
-                                            <?php endforeach; ?>
+                                            <?php foreach ($goingList as $going) : 
+                                                if (in_array($going->id, $selectedIds)) {?> 
+                                                    <option value="<?= $going->tipo ?>-<?= $going->origen ?>"><?= $going->origen ?></option>
+                                            <?php } endforeach; ?>
+                                            <?php foreach ($returnList as $vuelta) : 
+                                                if  (in_array($vuelta->id, $selectedIdsReturn)){ ?>                                                
+                                                <option value="<?= $vuelta->tipo ?>-<?= $vuelta->origen ?>"><?= $vuelta->origen ?></option>
+                                            <?php } endforeach; ?>                                            
                                         </select>
-
+                                        <label for="cliente">Seleccionar Origen: </label>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg col-md col-6 mb-lg-0 mb-3 d-none">
+                                 <div class="col-lg col-md col-6 mb-lg-0 mb-1">
                                     <div class="form-floating">
-                                        <select class="form-select" id="" name="destino" aria-label="Floating label select example" required>
+                                        <select class="form-select" id="destino" name="destino" required aria-label="Floating label select example" required>
                                             <option value="0" selected>Seleccionar</option>
-                                            <?php
-                                            // foreach ($destinoList as $destino) {
-                                            //     echo '<option value="' . $destino->id . '">' . $destino->nombre . '</option>';
-                                            // }
-                                            ?>
+                                            <?php foreach ($returnList as $vuelta) : 
+                                                if  (in_array($vuelta->id, $selectedIdsReturn)){ ?>                                                
+                                                <option value="<?= $vuelta->tipo ?>-<?= $vuelta->origen ?>"><?= $vuelta->origen ?></option>
+                                            <?php } endforeach; ?>
+                                            <?php foreach ($goingList as $going) : 
+                                                if (in_array($going->id, $selectedIdsVueltas)) {?> 
+                                                    <option value="<?= $going->tipo ?>-<?= $going->origen ?>"><?= $going->origen ?></option>
+                                            <?php } endforeach; ?>                                            
                                         </select>
                                         <label for="">Destino</label>
                                     </div>                                   
-                                </div> -->
-                                <div class="col-lg col-md col-6 mb-lg-0 mb-3">
-
+                                </div>  
+                                <div class="col-lg col-md col-6 mb-lg-0 mb-1">
                                     <div class="form-floating">
-                                        <input type="date" class="form-control" value="" id="fecha" name="fecha" placeholder="" required>
+                                    <input type="date" class="form-control" id="fecha" name="fecha" placeholder="" min="<?php echo date('Y-m-d'); ?>" required>
                                         <label for="">Fecha</label>
                                     </div>
-
                                 </div>
-                                <div class="col-lg col-md col-6 mb-lg-0 mb-3">
+                                <div class="col-lg col-md col-6 mb-lg-0 mb-1">
                                     <div class="form-floating">
                                         <input type="number" class="form-control" id="" name="pasajeros" placeholder="" required>
                                         <label for="">Pasajeros</label>
@@ -240,6 +249,7 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/contenido.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/viajes.js"></script>    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Obtén la fecha actual
@@ -257,13 +267,13 @@ $numerototalDestinos =  $numeroDeOrigin + $numeroDeDestino;
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-    <!-- <script>
-        $(document).ready(function() {
-            // Llama a select2() en el elemento #cliente después de que el DOM haya cargado
-            $('#cliente').select2();
-            console.log('0');
-        });
-    </script> -->
+     <script>
+        // $(document).ready(function() {
+        //     // Llama a select2() en el elemento #cliente después de que el DOM haya cargado
+        //     $('#cliente').select2();
+        //     console.log('0');
+        // });
+    </script>  
 </body>
 
 </html>

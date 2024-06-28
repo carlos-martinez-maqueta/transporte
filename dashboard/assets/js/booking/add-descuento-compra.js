@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    var form = $("#addTravel");
+    var form = $("#addDescuentoCompra");
 
     form.submit(function (e) {
         e.preventDefault();
 
         var formData5 = new FormData(this);
         $.ajax({
-            url: "config/travel/add-travel.php",
+            url: "config/booking/add-descuento-compra.php",
             method: "POST",
             data: formData5,
             processData: false,
@@ -30,7 +30,7 @@ $(document).ready(function () {
                         confirmButtonText: "OK",
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            $("#exampleModal").modal("hide");
+                            $("#discountModal").modal("hide");
                             getTable(dataTable);
                         }
                     });

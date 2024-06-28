@@ -15,12 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correos = $_POST['correo'];
     $celulares = $_POST['celular'];
 
-    // Editar el estado de la reserva
-    $result = Travel::editStateBookingId($idReserva, $estadoReserva);
+    $reservaEditada = false;
 
-    if ($result) {
+    // Editar el estado de la reserva si es "cancelado"
+    if ($estadoReserva === 'cancelada') {
+        $reservaEditada = Travel::editStateBookingId($idReserva, $estadoReserva);
+    }
 
-        // Editar los datos de los pasajeros
+    // Si la reserva se editó correctamente o no era "cancelado", editar los datos de los pasajeros
+    if ($reservaEditada || $estadoReserva !== 'cancelado') {
         for ($i = 0; $i < count($id_pasajeros); $i++) {
             $id_pasajero = $id_pasajeros[$i];
             $nombre = $nombres[$i];
@@ -37,18 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
         }
 
-        // Items registrado correctamente
         $response = array(
             'status' => 'success',
-            'message' => 'La reserva se edito correctamente.'
+            'message' => 'La reserva se editó correctamente.'
         );
     } else {
-        // Error al registrar Items
         $response = array(
             'status' => 'error',
             'message' => 'Error al editar reserva.'
         );
     }
+
     // Devolver la respuesta como JSON
     echo json_encode($response);
 }

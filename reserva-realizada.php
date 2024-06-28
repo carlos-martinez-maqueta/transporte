@@ -6,16 +6,15 @@ include 'dashboard/class/mobility.php';
 include 'dashboard/class/asientos.php';
 include 'dashboard/class/booking.php';
 
-session_start(); // Inicia la sesi√≥n al comienzo del archivo
+session_start(); // Inicia la sesi®Æn al comienzo del archivo
 include 'get/info-viaje-dos.php';
 
 $reserva = isset( $_GET['reserva']) ?  $_GET['reserva'] : null;
-
-echo $reserva;
-$objReserva = Booking::getBookingVentasId($reserva);
+ 
+$objReserva = Booking::getBookingVentasQrId($reserva);
 $objAsiento = Booking::getSeatsPassengersId($reserva);
 $objPersonas = Booking::getBookingPassengersId($reserva);
- var_dump($objReserva);
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,11 +103,23 @@ $objPersonas = Booking::getBookingPassengersId($reserva);
 
                     </div>
                 </div>
-                <div class="codigo_cosas">
-                    <div>CODIGO BOLETO: <?=$viajeObj->correlativo?></div>
-                    <br>
-                    <div>PAGO: <p><?=$objReserva->precio_pagado;?> MXM</p></div>
-                </div>
+               <div class="codigo_cosas">
+    <div>CODIGO BOLETO: <?=$viajeObj->correlativo?></div>
+    <br>
+    <?php
+        if ($objReserva->forma_pago == "completo") { ?>
+            <div>PAGO: <p><?=$objReserva->precio_pagado;?> MXM</p></div>
+        <?php } elseif ($objReserva->forma_pago == "abordar") { ?>
+            <div style="color: red;font-size: 20px;padding: 0px 10px;">PAGO PENDIENTE: <p style="color:red;font-size: 40px;"><?=$objReserva->monto_pendiente;?> MXM</p></div>
+        <?php } else { ?>
+            <div>
+                <div style="color:green; font-size: 12px;padding: 0px 10px;margin: 0px 0px 20px;">MONTO PAGADO: <p style="color:green;font-size: 22px;"><?=$objReserva->monto_pagado;?> MXM</p></div>
+                <div style="color: red;font-size: 20px;padding: 0px 10px;">PAGO PENDIENTE: <p style="color:red;font-size: 40px;"><?=$objReserva->monto_pendiente;?> MXM</p></div>
+            </div>
+        <?php }
+    ?>
+</div>
+
                 <div class="boleto_asientos">
                     <p>ASIENTOS:</p>
                     <ul>
@@ -138,7 +149,7 @@ $objPersonas = Booking::getBookingPassengersId($reserva);
  
                                 
                 if (count($objPersonas) > 1) {
-            echo "<h3>Acompa√±antes</h3>";
+            echo "<h3>Participantes</h3>";
             for ($i = 1; $i < count($objPersonas); $i++) {
                 $acompanante = $objPersonas[$i];?>
                 <div class="d-flex">
