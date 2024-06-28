@@ -22,37 +22,21 @@ include 'dashboard/class/mobility.php';
 
     // Supongamos que el nombre del usuario está almacenado en $_SESSION['user']
     $user = isset($_SESSION['cliente']) ? $_SESSION['cliente'] : null;
-    $pasajeros = isset( $_GET['pasajeros']) ?  $_GET['pasajeros'] : null;
-    $fecha = isset( $_GET['fecha']) ?  $_GET['fecha'] : null;
-    
-    
+    $pasajeros = isset($_GET['pasajeros']) ? $_GET['pasajeros'] : null;
+    $fecha_salida = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
+ 
+
     // Separa el valor de 'destino' en $id y $tipo
     list($tipo, $origen) = explode('-', $_GET['origen']);
     list($none, $destino) = explode('-', $_GET['destino']);
 
+    // echo 'DATOS FORMULARIO';
     // echo $tipo;
     // echo $origen;
     // echo $destino;
-    // echo $fecha;
-
-     $query = "SELECT viaje_id FROM tbl_viajes_puntos WHERE tipo = :tipo";
-     $stmt = $conn->prepare($query);
-     $stmt->bindParam(':tipo', $tipo, PDO::PARAM_STR);
-     $stmt->execute();
- 
-     $fila = $stmt->fetch(PDO::FETCH_ASSOC);
-
-     $viaje_id =  $fila['viaje_id'];
-     
-     $count_query = "SELECT COUNT(*) AS count FROM tbl_viajes WHERE id = :viaje_id AND fecha_salida = :viaje_fecha";
-     $count_stmt = $conn->prepare($count_query);
-     $count_stmt->bindParam(':viaje_id', $viaje_id, PDO::PARAM_INT);
-     $count_stmt->bindParam(':viaje_fecha', $fecha, PDO::PARAM_STR);
-     $count_stmt->execute();
-     $count_row = $count_stmt->fetch(PDO::FETCH_ASSOC);
-     $count = $count_row['count'];
-
-         // Determinar la tabla y ejecutar la consulta adecuada
+    // echo $fecha_salida;
+    // echo '<br>';
+    //      // Determinar la tabla y ejecutar la consulta adecuada
     if ($tipo == 'vuelta') {
         $query = "SELECT id FROM tbl_vueltas WHERE origen = :origen AND destino = :destino";
     } elseif ($tipo == 'ida') {
@@ -70,12 +54,37 @@ include 'dashboard/class/mobility.php';
     // Obtener y mostrar los resultados
     $resultados = $stmt->fetch(PDO::FETCH_ASSOC);
     $id = $resultados['id'];
+    // echo 'ID DE VIAJE EN IDA O VUELTA'.$id;
+ 
+     $count_query = "SELECT * FROM tbl_viajes WHERE fecha_salida = :fecha_salida";
+     $count_stmt = $conn->prepare($count_query);
+     $count_stmt->bindParam(':fecha_salida', $fecha_salida, PDO::PARAM_STR);
+     $count_stmt->execute();
+     $resultadosss = $count_stmt->fetch(PDO::FETCH_ASSOC);
+    //  $count = $resultadosss['count'];
+    // var_dump($resultadosss);
 
-    $ticketObj = Travel::getPointsFechHomeId($viaje_id, $id);
-    $viajeObj = Travel::getMarvelId($viaje_id);
-    $movilidadObj = Mobility::getMobilityId($viajeObj->movilidad_id);   
-    $horafecha = new DateTime($horafecha = $viajeObj->fecha_salida);
-    $fecha_formateada = strftime('%d de %B de %Y', $horafecha->getTimestamp());
+      
+     // echo $viaje_id;
+
+    //  $query = "SELECT viaje_id FROM tbl_viajes_puntos WHERE tipo = :tipo";
+    //  $stmt = $conn->prepare($query);
+    //  $stmt->bindParam(':tipo', $tipo, PDO::PARAM_STR);
+    //  $stmt->execute();
+ 
+    //  $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //  $viaje_id =  $fila['viaje_id'];
+    //  echo $viaje_id;
+    if ($resultadosss) {
+        $viaje_id =  $resultadosss['id'];
+        $ticketObj = Travel::getPointsFechHomeId($viaje_id, $id);
+        $viajeObj = Travel::getMarvelId($viaje_id);
+        $movilidadObj = Mobility::getMobilityId($viajeObj->movilidad_id);   
+        $horafecha = new DateTime($horafecha = $viajeObj->fecha_salida);
+        $fecha_formateada = strftime('%d de %B de %Y', $horafecha->getTimestamp());
+    }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -170,7 +179,7 @@ include 'dashboard/class/mobility.php';
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-lg-12">
-                    <?php if($count) { ?>
+                    <?php if($resultadosss) { ?>
                     <div class="row row_ticket" id="">
                         <div class="col-lg-1 col-md-1 col-2 col_id">
                             <div class="id_p_ticket">
