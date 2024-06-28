@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
     var form = $("#editarReservaFormBla");
 
@@ -31,6 +33,7 @@ $(document).ready(function () {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $("#editarDetailsModalBla").modal("hide");
+                            getTable(dataTable);
                         }
                     });
                 } else {
@@ -51,4 +54,37 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

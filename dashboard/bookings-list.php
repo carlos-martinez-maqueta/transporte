@@ -135,7 +135,7 @@ $usersObj = User::getUserAllActive();
                         <div class="row row-cols-1 row-cols-md-4 g-4" id="asientosContainer">
                             <!-- Los asientos se insertarán aquí -->
                         </div>
-                         <h5 class="mt-5 mb-3">Descuentos Hechos</h5>
+                        <h5 class="mt-5 mb-3">Descuentos Hechos</h5>
 
                         <!-- Modal or Container where the table will be displayed -->
                         <div id="descuentosContainer">
@@ -246,46 +246,46 @@ $usersObj = User::getUserAllActive();
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-    <h5 class="mb-3">Datos de Pasajeros</h5>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Correo</th>
-                    <th>Celular</th>
-                </tr>
-            </thead>
-            <tbody id="pasajerosTableBody">
-                <!-- Los pasajeros se insertarán aquí -->
-            </tbody>
-        </table>
-    </div>
-    
-    <h5 class="mt-5 mb-3">Asientos Asignados</h5>
-    <div class="row row-cols-1 row-cols-md-4 g-4" id="asientosContainer">
-        <!-- Los asientos se insertarán aquí -->
-    </div>
-    
-    <h5 class="mt-5 mb-3">Descuentos Hechos</h5>
-    <div id="descuentosContainer" class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Monto Descuento</th>
-                    <th>Motivo</th>
-                    <th>Fecha</th>
-                    <th>Precio Inicial</th>
-                    <th>Precio Residuo</th>
-                </tr>
-            </thead>
-            <tbody id="descuentosTableBody">
-                <!-- Rows will be appended here -->
-            </tbody>
-        </table>
-    </div>
-</div>
+                        <h5 class="mb-3">Datos de Pasajeros</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Correo</th>
+                                        <th>Celular</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pasajerosTableBody">
+                                    <!-- Los pasajeros se insertarán aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h5 class="mt-5 mb-3">Asientos Asignados</h5>
+                        <div class="row row-cols-1 row-cols-md-4 g-4" id="asientosContainer">
+                            <!-- Los asientos se insertarán aquí -->
+                        </div>
+
+                        <h5 class="mt-5 mb-3">Descuentos Hechos</h5>
+                        <div id="descuentosContainer" class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Monto Descuento</th>
+                                        <th>Motivo</th>
+                                        <th>Fecha</th>
+                                        <th>Precio Inicial</th>
+                                        <th>Precio Residuo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="descuentosTableBody">
+                                    <!-- Rows will be appended here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -311,7 +311,7 @@ $usersObj = User::getUserAllActive();
                                     <!-- Opciones del select se agregarán aquí -->
                                 </select>
                             </div>
-                            <div  class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger" role="alert">
                                 ¡Advertencia! Al cambiar el estado a cancelado se borrarán los pasajeros y se designarán los asientos de la reserva. Esta acción no se puede deshacer.
                             </div>
 
@@ -338,6 +338,9 @@ $usersObj = User::getUserAllActive();
                         </div>
                         <div class="modal-body">
                             <input type="hidden" id="reservaIdBla" name="reservaIdBla" value="">
+                            <input type="hidden" id="viajeId" name="viajeId" value="">
+                            <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
+                           
                             <div class="mb-3">
                                 <label for="estadoReservaBla" class="form-label">Estado de la Reserva:</label>
                                 <select id="estadoReservaBla" class="form-select" name="estadoReservaBla" required>
@@ -347,8 +350,8 @@ $usersObj = User::getUserAllActive();
                                 </select>
                             </div>
                             <div>
-                                <div>
-                                    <p class="m-0">Elegir Asiento:</p>
+                                <div class="d-flex">
+                                    <p class="m-0">Elegir Asiento:</p>  <p class="ms-2" id="asientos"></p>
                                 </div>
                                 <div id="plantillasBla"></div>
                             </div>
@@ -360,7 +363,7 @@ $usersObj = User::getUserAllActive();
                     </div>
                 </form>
             </div>
-        </div>   
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="voucherModal" tabindex="-1" aria-labelledby="voucherModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -395,7 +398,7 @@ $usersObj = User::getUserAllActive();
                 </div>
             </div>
         </div>
-    <div class="modal fade" id="discountModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+        <div class="modal fade" id="discountModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <form id="addDescuentoCompra" method="POST" enctype="multipart/form-data">
                     <div class="modal-content">

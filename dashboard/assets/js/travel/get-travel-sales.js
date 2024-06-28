@@ -517,49 +517,7 @@ $(document).ready(function () {
                         console.error('Error al obtener los estados de los asientos: ' + error);
                     }
                 });
-                // Obtener y mostrar los puntos del viaje seleccionado
-                // Obtener y mostrar los puntos del viaje seleccionado
-                $.ajax({
-                    url: 'config/travel/get-points.php',
-                    method: 'POST',
-                    data: { id: id },
-                    dataType: 'json',
-                    success: function (points) {
-                        var pointsHTML = '<div class="table-responsive">';
-                        pointsHTML += '<table class="table">';
-                        pointsHTML += '<thead><tr><th>ORIGEN</th><th>DESTINO</th><th>HORA</th><th>TIEMPO</th><th>PRECIO</th><th>Seleccionar</th></tr></thead>';
-                        pointsHTML += '<tbody>';
-                        points.forEach(function (point) {
-                            pointsHTML += '<tr>';
-                            pointsHTML += '<td>' + point.origen + '</td>';
-                            pointsHTML += '<td>' + point.destino + '</td>';
-                            pointsHTML += '<td>' + point.hora_salida + '</td>';
-                            pointsHTML += '<td>' + point.tiempo_viaje + '</td>';
-                            pointsHTML += '<td>' + point.precio + '</td>';
-                            pointsHTML += '<td class="align-middle text-center"><input class="form-check-input select-point" type="radio" name="select-point" value="' + point.id + '"></td>';
-                            pointsHTML += '</tr>';
-                        });
-                        pointsHTML += '</tbody>';
-                        pointsHTML += '</table>';
-                        pointsHTML += '</div>';
-                        $('#points').html(pointsHTML);
-
-                        // Al seleccionar un punto, actualizar el input hidden con el ID del punto seleccionado
-                        $('input[name="select-point"]').on('change', function () {
-                            var pointId = $(this).val(); // Obtener el ID del punto seleccionado
-                            $('#point_id').val(pointId); // Actualizar el valor del input hidden
-                            var totalPrice = 0; // Inicializar el precio total a 0
-                            var pointPrice = parseFloat($(this).closest('tr').find('td:eq(4)').text());
-                            selectedPointPrice = pointPrice; // Actualizar el precio del punto seleccionado
-                            updateTotalPrice(); // Actualizar el precio total en función del número de pasajeros
-                        });
-
-                    },
-
-                    error: function (xhr, status, error) {
-                        console.error('Error al obtener los puntos del viaje: ' + error);
-                    }
-                });
+            
 
 
             }

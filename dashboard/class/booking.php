@@ -212,11 +212,11 @@ class Booking
     return $result;
 }
 
-   public static function addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking, $point_id, $tipoBooking, $tipoPago, $montoParcial, $montoPendiente)
+   public static function addBookingSales($staffId, $viaje_id, $referencia, $num_asientos, $precioBooking, $point_id, $tipoBooking, $tipoPago, $montoParcial, $montoPendiente, $estado)
     {
         global $conn;
         $sql = "INSERT INTO tbl_reservas (staff_id , viaje_id, punto_id, tipo_viaje, referencia, asientos_reservados, precio_pagado, fecha_creacion, estado, forma_pago, monto_pagado, monto_pendiente) 
-        VALUES (:staffId, :viaje_id, :point_id, :tipoBooking, :referencia, :num_asientos, :precioBooking, NOW(), 'confirmada', :forma_pago, :monto_pagado, :monto_pendiente)";
+        VALUES (:staffId, :viaje_id, :point_id, :tipoBooking, :referencia, :num_asientos, :precioBooking, NOW(), :estado, :forma_pago, :monto_pagado, :monto_pendiente)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':staffId', $staffId);
         $stmt->bindParam(':viaje_id', $viaje_id);
@@ -228,6 +228,7 @@ class Booking
         $stmt->bindParam(':forma_pago', $tipoPago);
         $stmt->bindParam(':monto_pagado', $montoParcial);
         $stmt->bindParam(':monto_pendiente', $montoPendiente);
+        $stmt->bindParam(':estado', $estado);
         return $stmt;
     }
     public static function editBookingImageId($lastInsertedId, $imagen)
@@ -553,5 +554,20 @@ class Booking
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
     
         return $result;
+    }
+
+
+
+
+
+
+    public static function updateStateBookingId($id, $estado)
+    {
+        global $conn;
+        $sql = "UPDATE tbl_reservas SET estado=:estado WHERE id=:id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':estado', $estado);
+        return $stmt;
     }
 }

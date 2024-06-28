@@ -62,52 +62,52 @@ function getTable(dataTable) {
       $.each(data, function (index, result) {
 
 
-      
-        var fechaCreacion = formatFecha(result.fecha_creacion);
-    
 
-        
+        var fechaCreacion = formatFecha(result.fecha_creacion);
+
+
+
         var estadoBtn = '';
         if (result.estado === 'confirmada') {
           estadoBtn = '<button type="button" style="cursor: auto;" class="btn btn-sm btn-success">Confirmada</button>';
         } else if (result.estado === 'pendiente') {
           estadoBtn = '<button type="button" style="cursor: auto;" class="btn btn-sm btn-warning">Pendiente</button>';
-        }  else if (result.estado === 'cancelada') {
+        } else if (result.estado === 'cancelada') {
           estadoBtn = '<button type="button" style="cursor: auto;" class="btn btn-sm btn-danger">Cancelada</button>';
-        } 
-        
+        }
 
-var newRow = '<tr>' +
-  '<td class="align-middle text-center">' + result.id + '</td>' +
-  '<td class="align-middle text-center">' + result.correlativoViaje + '</td>' +
-  '<td class="align-middle text-center">' + result.tipo_viaje + '</td>' +
-  '<td class="align-middle text-center">' + result.puntoOrigen + '</td>' +
-  '<td class="align-middle text-center">' + result.puntoDestino + '</td>' +
-  '<td class="align-middle text-center">' + result.referencia + '</td>' +
-  '<td class="align-middle text-center">' + result.asientos_reservados + '</td>' +
-  '<td class="align-middle text-center">' + result.precio_pagado + '</td>' +
-  '<td class="align-middle text-center">' + fechaCreacion + '</td>' +
-  '<td class="align-middle text-center">' + estadoBtn + '</td>' +
-  '<td class="align-middle">' +
-  '<div class="d-flex justify-content-center align-items-center gap-1">';
 
-if (result.estado === 'confirmada') {
-  newRow += '<button type="button" class="btn btn-sm btn-warning editar ss" data-bs-toggle="modal" data-bs-target="#editarDetailsModal" data-id="' + result.id + '"><i class="bx bx-edit-alt"></i></button>' +
+        var newRow = '<tr>' +
+          '<td class="align-middle text-center">' + result.id + '</td>' +
+          '<td class="align-middle text-center">' + result.correlativoViaje + '</td>' +
+          '<td class="align-middle text-center">' + result.tipo_viaje + '</td>' +
+          '<td class="align-middle text-center">' + result.puntoOrigen + '</td>' +
+          '<td class="align-middle text-center">' + result.puntoDestino + '</td>' +
+          '<td class="align-middle text-center">' + result.referencia + '</td>' +
+          '<td class="align-middle text-center">' + result.asientos_reservados + '</td>' +
+          '<td class="align-middle text-center">' + result.precio_pagado + '</td>' +
+          '<td class="align-middle text-center">' + fechaCreacion + '</td>' +
+          '<td class="align-middle text-center">' + estadoBtn + '</td>' +
+          '<td class="align-middle">' +
+          '<div class="d-flex justify-content-center align-items-center gap-1">';
+
+        if (result.estado === 'confirmada') {
+          newRow += '<button type="button" class="btn btn-sm btn-warning editar ss" data-bs-toggle="modal" data-bs-target="#editarDetailsModal" data-id="' + result.id + '"><i class="bx bx-edit-alt"></i></button>' +
             '<button type="button" class="btn btn-sm btn-secondary edit" data-bs-toggle="modal" data-bs-target="#editarModal" data-id="' + result.id + '"><i class="bx bx-food-menu"></i></button>' +
             '<button type="button" class="btn btn-sm btn-info image" data-bs-toggle="modal" data-bs-target="#voucherModal" data-id="' + result.id + '"><i class="bx bx-image-alt"></i></button>' +
-            '<button type="button" class="btn btn-sm btn-dark qr" data-bs-toggle="modal" data-bs-target="#qrModal" data-id="' + result.id + '"><i class="bx bx-qr"></i></button>'+
+            '<button type="button" class="btn btn-sm btn-dark qr" data-bs-toggle="modal" data-bs-target="#qrModal" data-id="' + result.id + '"><i class="bx bx-qr"></i></button>' +
             '<button type="button" class="btn btn-sm btn-primary discount" data-bs-toggle="modal" data-bs-target="#discountModal" data-id="' + result.id + '"><i class="bx bx-dollar"></i></button>';
-    
-} else if (result.estado === 'pendiente'){
-  newRow += '<button type="button" class="btn btn-sm btn-warning editar-bla aa" data-bs-toggle="modal" data-bs-target="#editarDetailsModalBla" data-id="' + result.id + '"><i class="bx bx-edit-alt"></i></button>';
 
-} else{
-  newRow += '<button type="button" class="btn btn-sm btn-danger">Descartado</button>';
-}
+        } else if (result.estado === 'pendiente') {
+          newRow += '<button type="button" class="btn btn-sm btn-warning editar-bla aa" data-bs-toggle="modal" data-bs-target="#editarDetailsModalBla" data-id="' + result.id + '"><i class="bx bx-edit-alt"></i></button>';
 
-newRow += '</div>' +
-  '</td>' +
-  '</tr>';
+        } else {
+          newRow += '<button type="button" class="btn btn-sm btn-danger">Descartado</button>';
+        }
+
+        newRow += '</div>' +
+          '</td>' +
+          '</tr>';
 
         dataTable.row.add($(newRow)).draw(false);
       });
